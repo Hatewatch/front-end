@@ -215,7 +215,7 @@ class Home extends StatelessWidget {
                       Text(
                         value.getStringDaily(),
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 15,
                           color: HColors.five
                         ),
                       ),

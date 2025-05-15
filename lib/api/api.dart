@@ -21,7 +21,7 @@ Future<dynamic> getCallApi(String phpPage, String action, List<String> listArgs,
     'Authorization': "Bearer ${User.instance.token}",
   };
   var request = http.Request(
-      'GET', Uri.parse('http://88.173.190.83:52120/$phpPage$action$args'));
+      'GET', Uri.parse('https://riftbets-backend.onrender.com/$phpPage$action$args'));
 
   request.headers.addAll(headers);
 
@@ -69,7 +69,7 @@ Future postCallApi(String phpPage, List<String> listArgs) async {
   // print(listArgs);
 
   var request = http.Request(
-      'POST', Uri.parse('http://88.173.190.83:52120/$phpPage$args'));
+      'POST', Uri.parse('https://riftbets-backend.onrender.com/$phpPage$args'));
 
   request.headers.addAll(headers);
 
@@ -95,7 +95,7 @@ Future postCallApiBody(String phpPage, Map<String, dynamic> listArgs) async {
 
 
   var request =
-      http.Request('POST', Uri.parse('http://88.173.190.83:52120/$phpPage'));
+      http.Request('POST', Uri.parse('https://riftbets-backend.onrender.com/$phpPage'));
 
   request.headers.addAll(headers);
   request.body = jsonBody;

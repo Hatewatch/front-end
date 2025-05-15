@@ -38,7 +38,7 @@ class MakeBet extends StatelessWidget with ChangeNotifier {
       }
     );
 
-    print(rep);
+    // print(rep);
 
     if (rep is Map && rep.containsKey('message') && rep["message"] == "Bet placed successfully") {
       AlertInfo.show(

@@ -17,7 +17,7 @@ class Bet {
       propPlayer: json['prop_player'] as String,
       propOdds: double.parse(json['prop_odds']),
       propTitle: json['prop_title'] as String,
-      result: json['bet_result'] as String,
+      result: json['bet_result'] == null ? "" : json['bet_result'] as String,
       state: json['bet_state'] as String,
       amount : double.parse(json['bet_amount']),
       propId: json['prop_id'],
