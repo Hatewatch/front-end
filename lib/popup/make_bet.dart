@@ -16,19 +16,37 @@ import 'package:hate_watch/utils/title.dart';
 class MakeBet extends StatelessWidget with ChangeNotifier {
   MakeBet({super.key, required this.bet});
 
-  final ValueNotifier<bool> canLoad = ValueNotifier(false);
+  final ValueNotifier<bool> canLoad = ValueNotifier(true);
   final ValueNotifier<bool> valid = ValueNotifier(true);
 
   final TextEditingController add = TextEditingController(text: "10");
 
   final Prop bet;
 
+  final ValueNotifier<bool> canRequest = ValueNotifier(true);
+
   bool validateInputs() {
     return add.text.isNotEmpty;
   }
 
   Future onSubmit(BuildContext context) async {
-    print("Submit");
+    //print("Submit");
+
+    if (User.instance.balance < double.parse(add.text)) {
+      AlertInfo.show(
+        // ignore: use_build_context_synchronously
+        context: context,
+        text: 'make_bet_not_enough'.tr,
+        
+        typeInfo: TypeInfo.error,
+        position: MessagePosition.top,
+        action: null,
+      );
+      return;
+    }
+
+    canRequest.value = false;
+    canRequest.notifyListeners();
 
     var rep = await postCallApiBody(
       'api/bets/bet', 
@@ -52,7 +70,6 @@ class MakeBet extends StatelessWidget with ChangeNotifier {
       );
 
       User.instance.getAllInfosUser();
-      Navigator.pop(context);
     }
 
     if (rep is Map && rep.containsKey('error')){
@@ -66,6 +83,8 @@ class MakeBet extends StatelessWidget with ChangeNotifier {
         action: null,
       );
     }
+
+    Navigator.pop(context);
 
   }
 
@@ -205,15 +224,18 @@ class MakeBet extends StatelessWidget with ChangeNotifier {
               // }),
               
               ValueListenableBuilder(valueListenable: canLoad, builder: (context, value, child) {
-                return WTextButton(
-                  text: "make_bet_short".tr,
-                  fontSize: 28,
-                  horizontal: 100,
-                  vertical: 15,
-                  onTap: value ? () {
-                    onSubmit(context);
-                  } : null
-                );
+                return 
+                ValueListenableBuilder(valueListenable: canRequest, builder: (context, valueReq, child) {
+                  return WTextButton(
+                    text: "make_bet_short".tr,
+                    fontSize: 28,
+                    horizontal: 100,
+                    vertical: 15,
+                    onTap: value ? () {
+                      onSubmit(context);
+                    } : null
+                  );
+                });
               }),
             ],
           ),

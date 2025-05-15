@@ -57,7 +57,7 @@ class User with ChangeNotifier {
     id = 0;
     balance = 0;
     token = "";
-    role = "";
+    role = "none";
     totalBets = 0;
     totalWins = 0;
     lastBetGainOrLoss = null;
@@ -96,7 +96,7 @@ class User with ChangeNotifier {
 
     betsUser.clear();
 
-    // print(rep);
+    print(rep);
 
     if (rep is List) {
       for (int i = 0; i < rep.length; i++) {
@@ -162,7 +162,7 @@ class User with ChangeNotifier {
       totalBets = rep['totalBets'];
       totalWins = int.parse(rep['totalWins']);
       creation = DateTime.parse(rep['creation']);
-      dateDaily = DateTime.parse(rep['daily_time']);
+      dateDaily = rep['daily_time'] == null ? DateTime.now().subtract(Duration(days: 2)) : DateTime.parse(rep['daily_time']);
       if (rep['lastBetGainOrLoss'] != 'No Bet') lastBetGainOrLoss = double.parse(rep['lastBetGainOrLoss']);
     }
 
@@ -229,7 +229,7 @@ class User with ChangeNotifier {
     if (timeNextDaily.value[0] != 0) time += "${timeNextDaily.value[0]}h";
     if (timeNextDaily.value[1] != 0) time += "${timeNextDaily.value[1]}m";
 
-    if (timeNextDaily.value[0] < 0 && timeNextDaily.value[1] < 0) {
+    if (timeNextDaily.value[0] <= 0 && timeNextDaily.value[1] <= 0) {
       time = "NOW";
     }
 
@@ -247,6 +247,10 @@ class User with ChangeNotifier {
 
     int hours = diff.inHours;
     int minutes = diff.inMinutes.remainder(60);
+
+    print(hours <= 0);
+    print(minutes <= 0);
+    print(hours <= 0 && minutes <= 0);
 
     return hours <= 0 && minutes <= 0;
   }

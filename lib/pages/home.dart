@@ -216,7 +216,7 @@ class Home extends StatelessWidget {
                         value.getStringDaily(),
                         style: TextStyle(
                           fontSize: 15,
-                          color: HColors.five
+                          color: User.instance.isNowDaily() ? HColors.sec : HColors.five
                         ),
                       ),
                     ],
@@ -360,7 +360,6 @@ class Home extends StatelessWidget {
                           ),
 
 
-                          // if (value.isConnected())
                           RichText(
                             textHeightBehavior: TextHeightBehavior(
                               applyHeightToFirstAscent: false,
