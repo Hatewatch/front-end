@@ -39,6 +39,7 @@ dependencies:
   animated_text_lerp: ^2.0.0
   typewritertext: ^3.0.9
   animate_do: ^4.2.0
+  zo_animated_border: ^0.0.8
 
 dev_dependencies:
   flutter_test:

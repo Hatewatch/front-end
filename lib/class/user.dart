@@ -96,7 +96,7 @@ class User with ChangeNotifier {
 
     betsUser.clear();
 
-    print(rep);
+    // print(rep);
 
     if (rep is List) {
       for (int i = 0; i < rep.length; i++) {
@@ -248,9 +248,9 @@ class User with ChangeNotifier {
     int hours = diff.inHours;
     int minutes = diff.inMinutes.remainder(60);
 
-    print(hours <= 0);
-    print(minutes <= 0);
-    print(hours <= 0 && minutes <= 0);
+    // print(hours <= 0);
+    // print(minutes <= 0);
+    // print(hours <= 0 && minutes <= 0);
 
     return hours <= 0 && minutes <= 0;
   }

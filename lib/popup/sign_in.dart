@@ -21,6 +21,9 @@ class SignIn extends StatelessWidget with ChangeNotifier {
   final TextEditingController pseudoCont = TextEditingController();
   final TextEditingController mdpCont = TextEditingController();
 
+  final FocusNode focusName = FocusNode();
+  final FocusNode focusMdp = FocusNode();
+
   final ValueNotifier<bool> obscure = ValueNotifier(true);
 
   final ValueNotifier<bool> canLoad = ValueNotifier(false);
@@ -126,6 +129,11 @@ class SignIn extends StatelessWidget with ChangeNotifier {
                 WForm(
                   title: 'username'.tr, 
                   controller: pseudoCont,
+                  focus: focusName,
+                  onSubmit: (value) {
+                    focusName.unfocus();
+                    focusMdp.requestFocus();
+                  },
                   onChanged: (value) {
                     canLoad.value = validateInputs();
                     canLoad.notifyListeners();
@@ -134,7 +142,15 @@ class SignIn extends StatelessWidget with ChangeNotifier {
 
                 WFormMdp(
                   title: 'password'.tr,
+                  focus: focusMdp,
                   controller: mdpCont,
+                  onSubmit: (value) {
+                    canLoad.value = validateInputs();
+                    canLoad.notifyListeners();
+                    if (canLoad.value) {
+                      onSubmit(context);
+                    }
+                  },
                   onChanged: (value) {
                     canLoad.value = validateInputs();
                     canLoad.notifyListeners();

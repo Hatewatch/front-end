@@ -49,7 +49,7 @@ class PariCard extends StatelessWidget {
       }, 
       child: 
       SizedBox(
-        width: 400,
+        width: 500,
         child: 
       ClipRRect(
         borderRadius: HBorder.borderRadius,
@@ -295,7 +295,7 @@ class PariCardNone extends StatelessWidget {
   Widget build(BuildContext context) {
     return 
     SizedBox(
-      width: 400,
+      width: 500,
       child: 
     ClipRRect(
       borderRadius: HBorder.borderRadius,

@@ -9,7 +9,8 @@ Map<String, String> fr = {
   "last_po_win" : "Dernier Po Gagnés",
   "all_bets" : "Paris Disponibles",
   "total" : "Total",
-  "reload_all_bets" : 'Reload des paris disponibles',
+  "reload_all_props" : 'Reload des paris disponibles',
+  "reload_all_bets" : 'Reload des paris faits',
   "guest" : "Invité",
   "lose_first_bet" : "Perd son premier pari !",
 
@@ -64,6 +65,11 @@ Map<String, String> fr = {
   'daily_reward_success' : "Récompense journalière récupérée",
   'daily_reward_success_already' : "Récompense journalière déjà récupérée",
   'daily_reward_error' : "Une erreur est survenue pendant la récupération de la récompense journalière",
+
+  'placed_bet' : "Ouvert",
+  'win_bet' : 'Gagné',
+  'lose_bet' : 'Perdu',
+  'ongoing' : 'En cours'
 
 };
 

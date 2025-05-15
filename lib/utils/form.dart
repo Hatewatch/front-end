@@ -15,7 +15,9 @@ class WForm extends StatelessWidget {
       this.maxLines = 1,
       this.textFontSize = 28,
       this.onlyNumbers = false,
-      this.onChanged
+      this.onChanged,
+      this.onSubmit,
+      this.focus,
     }
   );
 
@@ -27,7 +29,9 @@ class WForm extends StatelessWidget {
   final int? maxLines;
   final double textFontSize;
   final bool onlyNumbers;
+  final FocusNode? focus;
   final void Function(String)? onChanged;
+  final void Function(String)? onSubmit;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +45,8 @@ class WForm extends StatelessWidget {
           width: width,
           child: 
           TextFormField(
+            focusNode: focus,
+            onFieldSubmitted: onSubmit,
             onChanged: onChanged,
             maxLines: maxLines,
             maxLength: maxLength,
@@ -75,7 +81,9 @@ class WFormMdp extends StatelessWidget with ChangeNotifier {
       this.hintText = '1234?',
       this.maxLength = 30,
       this.width = 400,
-      this.onChanged
+      this.onChanged,
+      this.onSubmit,
+      this.focus
     }
   );
 
@@ -84,7 +92,9 @@ class WFormMdp extends StatelessWidget with ChangeNotifier {
   final String hintText;
   final int maxLength;
   final double width;
+  final FocusNode? focus;
   final void Function(String)? onChanged;
+  final void Function(String)? onSubmit;
 
   final ValueNotifier<bool> obscure = ValueNotifier(true);
 
@@ -101,7 +111,9 @@ class WFormMdp extends StatelessWidget with ChangeNotifier {
             width: width,
             child: 
             TextFormField(
+              focusNode: focus,
               onChanged: onChanged,
+              onFieldSubmitted: onSubmit,
               maxLength: maxLength,
               obscureText: obscure.value,
               obscuringCharacter: '*',

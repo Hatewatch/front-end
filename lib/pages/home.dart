@@ -118,10 +118,17 @@ class Home extends StatelessWidget {
       )
     );
 
+    Offset pos = Offset.zero;
+    RenderBox? box = keyPari.currentContext?.findRenderObject() as RenderBox?;
+    if (box != null) {
+      pos = box.localToGlobal(Offset.zero);
+      pos = pos + Offset(200/2,-80);
+    }
+
     targets.add(
       TargetFocus(
         identify: "pari",
-        keyTarget: keyPari,
+        targetPosition: TargetPosition(Size(300,300), pos),
         contents: [
           TargetContent(
             align: ContentAlign.bottom,
@@ -456,7 +463,7 @@ class Home extends StatelessWidget {
                                     AlertInfo.show(
                                       // ignore: use_build_context_synchronously
                                       context: context,
-                                      text: 'reload_all_bets'.tr,
+                                      text: 'reload_all_props'.tr,
                                       
                                       typeInfo: TypeInfo.success,
                                       position: MessagePosition.top,
@@ -477,7 +484,7 @@ class Home extends StatelessWidget {
 
                                 if (!value.loadedBets)
                                 CardLoading(
-                                  width: 400,
+                                  width: 500,
                                   height: 120,
                                   borderRadius: BorderRadius.all(Radius.circular(10)),
                                   margin: EdgeInsets.only(bottom: 10),
@@ -497,7 +504,29 @@ class Home extends StatelessWidget {
                               ],
                             ),
 
-                            HTitle(start: '${'done_bets'.tr.split(" ")[0]} ', end: 'done_bets'.tr.split(" ")[1]),
+                            const SizedBox(height: 20),
+                            Row(
+                              spacing: 10,
+                              children: [
+                                HTitle(start: '${'done_bets'.tr.split(" ")[0]} ', end: 'done_bets'.tr.split(" ")[1]),
+                                IconButton(
+                                  onPressed: () async {
+                                    await value.getBetsUser();
+                                    AlertInfo.show(
+                                      // ignore: use_build_context_synchronously
+                                      context: context,
+                                      text: 'reload_all_bets'.tr,
+                                      
+                                      typeInfo: TypeInfo.success,
+                                      position: MessagePosition.top,
+                                      action: null,
+                                    );
+                                  }, 
+                                  icon: Icon(Pixel.reload, color: HColors.third, size: 30,),
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 10),
                             Wrap(
                               spacing: 10,
                               runSpacing: 10,
@@ -505,7 +534,7 @@ class Home extends StatelessWidget {
 
                                 if (!value.loadedBets)
                                 CardLoading(
-                                  width: 400,
+                                  width: 350,
                                   height: 120,
                                   borderRadius: BorderRadius.all(Radius.circular(10)),
                                   margin: EdgeInsets.only(bottom: 10),
