@@ -78,25 +78,25 @@ class Home extends StatelessWidget {
       )
     );
 
-    targets.add(
-      TargetFocus(
-        identify: "create",
-        keyTarget: keyButton,
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            padding: EdgeInsets.only(top: 100, left: 20, right: 20, bottom: 0),
-            builder: (context, controller) {
-              return 
-              Text(
-                "intro_2".tr,
-                style: TextStyle(color: Colors.white, fontSize: 30),
-              );
-            },
-          ),
-        ]
-      )
-    );
+    // targets.add(
+    //   TargetFocus(
+    //     identify: "create",
+    //     keyTarget: keyButton,
+    //     contents: [
+    //       TargetContent(
+    //         align: ContentAlign.bottom,
+    //         padding: EdgeInsets.only(top: 100, left: 20, right: 20, bottom: 0),
+    //         builder: (context, controller) {
+    //           return 
+    //           Text(
+    //             "intro_2".tr,
+    //             style: TextStyle(color: Colors.white, fontSize: 30),
+    //           );
+    //         },
+    //       ),
+    //     ]
+    //   )
+    // );
 
     targets.add(
       TargetFocus(
