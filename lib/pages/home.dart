@@ -2,7 +2,10 @@ import 'package:alert_info/alert_info.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:hate_watch/class/app.dart';
 import 'package:hate_watch/class/bet.dart';
+import 'package:hate_watch/class/tutorial.dart';
 import 'package:hate_watch/class/user.dart';
 import 'package:hate_watch/popup/create_bet.dart';
 import 'package:hate_watch/popup/disconnect.dart';
@@ -34,149 +37,19 @@ class Home extends StatelessWidget {
   late TutorialCoachMark tutorialCoachMark;
 
   void showTutorial(BuildContext context) {
-
-    targets.clear();
-
-    targets.add(
-      TargetFocus(
-        identify: "intro",
-        targetPosition: TargetPosition(Size(10,10), Offset(MediaQuery.sizeOf(context).width*0.5, MediaQuery.sizeOf(context).height*0.5)),
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            builder: (context, controller) {
-              return Container(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  'intro_start'.tr,
-                  style: TextStyle(color: Colors.white, fontSize: 30),
-                  textAlign: TextAlign.center,
-                ),
-              );
-            },
-          )
-        ],
-      ),
-    );
-
-    targets.add(
-      TargetFocus(
-        identify: "hello",
-        keyTarget: keyHello,
-        // targetPosition: TargetPosition(Size(100,100),Offset(100, 10)),
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            padding: EdgeInsets.only(top: 100, left: 20, right: 20, bottom: 0),
-            builder: (context, controller) {
-              return Text(
-                "intro_1".tr,
-                style: TextStyle(color: Colors.white, fontSize: 30),
-              );
-            },
-          ),
-        ]
-      )
-    );
-
-    // targets.add(
-    //   TargetFocus(
-    //     identify: "create",
-    //     keyTarget: keyButton,
-    //     contents: [
-    //       TargetContent(
-    //         align: ContentAlign.bottom,
-    //         padding: EdgeInsets.only(top: 100, left: 20, right: 20, bottom: 0),
-    //         builder: (context, controller) {
-    //           return 
-    //           Text(
-    //             "intro_2".tr,
-    //             style: TextStyle(color: Colors.white, fontSize: 30),
-    //           );
-    //         },
-    //       ),
-    //     ]
-    //   )
-    // );
-
-    targets.add(
-      TargetFocus(
-        identify: "stats",
-        keyTarget: keyStats,
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            padding: EdgeInsets.only(top: 100, left: 20, right: 20, bottom: 0),
-            builder: (context, controller) {
-              return 
-              Text(
-                "intro_3".tr,
-                style: TextStyle(color: Colors.white, fontSize: 30),
-              );
-            },
-          ),
-        ]
-      )
-    );
-
-    Offset pos = Offset.zero;
-    RenderBox? box = keyPari.currentContext?.findRenderObject() as RenderBox?;
-    if (box != null) {
-      pos = box.localToGlobal(Offset.zero);
-      pos = pos + Offset(200/2,-80);
-    }
-
-    targets.add(
-      TargetFocus(
-        identify: "pari",
-        targetPosition: TargetPosition(Size(300,300), pos),
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            padding: EdgeInsets.only(top: 100, left: 20, right: 20, bottom: 0),
-            builder: (context, controller) {
-              return 
-              Text(
-                'intro_4'.tr,
-                style: TextStyle(color: Colors.white, fontSize: 30),
-              );
-            },
-          ),
-        ]
-      )
-    );
-
-    targets.add(
-      TargetFocus(
-        identify: "end",
-        targetPosition: TargetPosition(Size(10,10), Offset(MediaQuery.sizeOf(context).width*0.5, MediaQuery.sizeOf(context).height*0.5)),
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            builder: (context, controller) {
-              return Container(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  'intro_end'.tr,
-                  style: TextStyle(color: Colors.white, fontSize: 24),
-                  textAlign: TextAlign.center,
-                ),
-              );
-            },
-          )
-        ],
-      ),
-    );
-
-    tutorialCoachMark = TutorialCoachMark(
-      targets: targets,
-      colorShadow: Colors.black,
-      textStyleSkip: TextStyle(fontSize: 45),
-    )..show(context:context);
+    Tutorial.showTutorial(context, keyHello, keyStats, keyPari);
   }
 
   @override
   Widget build(BuildContext context) {
+
+    // Start welcome if he didnt
+    if (!App.instance.hasDoneTutorial()) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Tutorial.showWelcome(context, keyHello, keyStats, keyPari);
+      });
+    }
+
     return Scaffold(
 
       body: Row(

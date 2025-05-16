@@ -52,7 +52,10 @@ flutter:
 
   uses-material-design: true
 
+  assets:
+    - "assets/hw.png"
+
   fonts:
     - family : Jersey
       fonts:
-      - asset: ./asset/font/Jersey15-Regular.ttf
+      - asset: ./assets/font/Jersey15-Regular.ttf

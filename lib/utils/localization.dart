@@ -25,6 +25,11 @@ Map<String, String> fr = {
   'intro_4' : "C'est la carte des paris.\n Tu as la cote, le pseudo de la personne concernée et le total des sommes pariées dessus",
   'intro_end' : "J'espère que tu vas passer un super moment sur le site (paris à mort stp)",
 
+  // DIALOG START APP
+  'dialog_start' : 'Hello helloo, alors comme ça on veut rejoindre la hate watch ?',
+  'dialog_1' : 'T\'es prêt à parier un max non ? Si tu lose tous je suis pas ta daronne je vais pas te réconforter',
+  'dialog_2' : 'Bon ducoup, on va passer au tutoriel, l\'impression que tu t\'ennuie',
+
   // DISCONNECT POPUP
   'disconnect' : "Se déconnecter",
   'disconnect_title' : "Tu es sûr de vouloir te déconnecter de cette plateforme superbe ???????????",

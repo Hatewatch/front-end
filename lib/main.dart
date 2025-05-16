@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hate_watch/class/app.dart';
 import 'package:hate_watch/class/user.dart';
 import 'package:hate_watch/pages/home.dart';
 import 'package:hate_watch/utils/hcolors.dart';
@@ -7,6 +8,7 @@ void main() {
   
   WidgetsFlutterBinding.ensureInitialized();
 
+  App.instance.init();
   User.instance.init();
   runApp(const MyApp());
 }
