@@ -22,8 +22,8 @@ Map<String, String> fr = {
   'intro_1' : "Ici, tu as ton pseudo et ton nombre de Po !",
   'intro_2' : "Ici, tu peux créer un pari sur n'importe quoi !",
   'intro_3' : "Ici, tu as toutes les stats en tant que joueur",
-  'intro_4' : "C'est la carte des paris.\n Tu as la côte, le pseudo de la personne concernée et le total des sommes pariées dessus",
-  'intro_end' : "J'espère que tu vas passer un super moment sur le site (parie à mort stp)",
+  'intro_4' : "C'est la carte des paris.\n Tu as la cote, le pseudo de la personne concernée et le total des sommes pariées dessus",
+  'intro_end' : "J'espère que tu vas passer un super moment sur le site (paris à mort stp)",
 
   // DISCONNECT POPUP
   'disconnect' : "Se déconnecter",
@@ -69,7 +69,13 @@ Map<String, String> fr = {
   'placed_bet' : "Ouvert",
   'win_bet' : 'Gagné',
   'lose_bet' : 'Perdu',
-  'ongoing' : 'En cours'
+  'ongoing' : 'En cours',
+
+  'average_bet_amount' : "Mise Moyenne",
+  'average_bet_odds' : "Cote Moyenne",
+  'average_bet_player' : 'Cible moyenne',
+  'bet_best_winrate_player' : 'Meilleur winrate sur',
+  'bet_best_amount' : 'Meilleur Gain',
 
 };
 

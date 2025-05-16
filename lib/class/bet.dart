@@ -24,6 +24,21 @@ class Bet {
     );
   }
 
+  double getAmountWithResult() {
+    if (result != "WIN" && result != "LOSE") return 0;
+
+
+    return result == 'WIN' ? amount : -amount;
+  }
+
+  bool hasWinOrLose() {
+    return result == "WIN" || result == "LOSE";
+  }
+
+  bool hasWin() {
+    return result == "WIN";
+  }
+
   int id;
   String result;
   String? state;
@@ -33,5 +48,105 @@ class Bet {
   String propTitle;
   String propPlayer;
   double propOdds;
+
+}
+
+class BetHelper {
+
+  static double getAverageBetAmount(List<Bet> bets) {
+    double total = 0;
+
+    int max = bets.length;
+
+    for (Bet bet in bets) {
+      total += bet.amount;
+    }
+
+    if (total == 0) return 0;
+
+    return total/max;
+  }
+
+  static double getAverageBetOdds(List<Bet> bets) {
+    double total = 0;
+
+    int max = bets.length;
+
+    for (Bet bet in bets) {
+      total += bet.propOdds;
+    }
+
+    if (total == 0) return 0;
+
+    return total/max;
+  }
+
+  static double getBestBetWin(List<Bet> bets) {
+    double best = 0;
+
+    for (Bet bet in bets) {
+      if (bet.amount > best && bet.hasWin()) best = bet.amount; 
+    }
+
+    if (best == 0) return 0;
+
+    return best;
+  }
+
+  static String getAverageBetPlayer(List<Bet> bets) {
+
+    Map<String, int> map = {};
+
+    for (Bet bet in bets) {
+      if (map.containsKey(bet.propPlayer)) {
+        map[bet.propPlayer] = map[bet.propPlayer]! + 1;
+      } else {
+        map[bet.propPlayer] = 1;
+      }
+    }
+
+    String total = "";
+    int totalInt = 0;
+    for (var key in map.keys) {
+      if (map[key]! > totalInt) {
+        total = key;
+        totalInt = map[key]!;
+      }
+    }
+
+    if (total == "") return "NONE";
+
+    return total;
+  }
+
+  static String getBestBetPlayerWinrate(List<Bet> bets) {
+
+    Map<String, int> map = {};
+
+    for (Bet bet in bets) {
+      if (map.containsKey(bet.propPlayer)) {
+        if (bet.hasWinOrLose()) {
+          map[bet.propPlayer] = map[bet.propPlayer]! + (bet.hasWin() ? 1 : -1);
+        }
+      } else {
+        if (bet.hasWinOrLose()) {
+          map[bet.propPlayer] = bet.hasWin() ? 1 : -1;
+        }
+      }
+    }
+
+    String total = "";
+    int totalInt = 0;
+    for (var key in map.keys) {
+      if (map[key]! > totalInt) {
+        total = key;
+        totalInt = map[key]!;
+      }
+    }
+
+    if (total == "") return "NONE";
+
+    return total;
+  }
 
 }

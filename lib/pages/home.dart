@@ -2,6 +2,7 @@ import 'package:alert_info/alert_info.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:hate_watch/class/bet.dart';
 import 'package:hate_watch/class/user.dart';
 import 'package:hate_watch/popup/create_bet.dart';
 import 'package:hate_watch/popup/disconnect.dart';
@@ -449,6 +450,11 @@ class Home extends StatelessWidget {
                                 // InfoCard(title: "Po Gagnés", value: "3053"),
                                 // InfoCard(title: "Meilleur Winrate sur", value: "Arthur"),
                                 InfoCard(title: "last_po_win".tr, value: value.lastBetGainOrLoss == null ? "No bets" : value.lastBetGainOrLoss.toString()),
+                                InfoCard(title: "average_bet_amount".tr, value: BetHelper.getAverageBetAmount(value.betsUser).toString()),
+                                InfoCard(title: "average_bet_odds".tr, value: BetHelper.getAverageBetOdds(value.betsUser).toString()),
+                                InfoCard(title: "average_bet_player".tr, value: BetHelper.getAverageBetPlayer(value.betsUser)),
+                                InfoCard(title: "bet_best_winrate_player".tr, value: BetHelper.getBestBetPlayerWinrate(value.betsUser)),
+                                InfoCard(title: "bet_best_amount".tr, value: BetHelper.getBestBetWin(value.betsUser).toString()),
                                 // InfoCard(title: "Paris Crée", value: "10"),
                               ],
                             ),
