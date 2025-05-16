@@ -20,8 +20,6 @@ class Tutorial {
   ) 
   {
     if (doing) return;
-    print(doing);
-    print("DO");
 
     doing = true;
 

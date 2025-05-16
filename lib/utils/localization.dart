@@ -27,7 +27,7 @@ Map<String, String> fr = {
 
   // DIALOG START APP
   'dialog_start' : 'Hello helloo, alors comme ça on veut rejoindre la hate watch ?',
-  'dialog_1' : 'T\'es prêt à parier un max non ? Si tu lose tous je suis pas ta daronne je vais pas te réconforter',
+  'dialog_1' : 'T\'es prêt à parier un max non ? Si tu lose tout je suis pas ta daronne je vais pas te réconforter',
   'dialog_2' : 'Bon ducoup, on va passer au tutoriel, l\'impression que tu t\'ennuie',
 
   // DISCONNECT POPUP
