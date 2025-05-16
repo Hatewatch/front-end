@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hate_watch/class/prop.dart';
 import 'package:hate_watch/class/user.dart';
 import 'package:hate_watch/popup/make_bet.dart';
+import 'package:hate_watch/popup/prop_edit.dart';
 import 'package:hate_watch/popup/sign_in.dart';
 import 'package:hate_watch/utils/hcolors.dart';
 import 'package:hate_watch/utils/hradius.dart';
@@ -100,6 +101,7 @@ class PariCard extends StatelessWidget {
                           
                           if (PropHelper.getAllBetsForId(prop.id) != 0)
                           Row(
+                            spacing: 5,
                             mainAxisSize: MainAxisSize.min,
                             children: [ 
                               Container(
@@ -131,6 +133,51 @@ class PariCard extends StatelessWidget {
                                       ),
                                     ),
                                 ],)
+                              ),
+
+                              if (User.instance.role == "ADMIN")
+                              GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => Dialog(
+                                      backgroundColor: HColors.back,
+                                      child:
+                                        EditProp(prop: prop,).bounceInUp(),
+                                    ),
+                                  );
+                                },
+                                child: 
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                                  decoration: BoxDecoration(
+                                    borderRadius: HBorder.borderRadius,
+                                    border: Border.all(
+                                      color: HColors.seven,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  child: 
+                                  Row(
+                                    spacing: 5,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Pixel.edit,
+                                        color: HColors.seven,
+                                      ),
+                                      Text(
+                                        "ADMIN",
+                                        style: TextStyle(
+                                          fontSize: 17
+                                        ),
+                                        textHeightBehavior: TextHeightBehavior(
+                                          applyHeightToFirstAscent: false,
+                                          applyHeightToLastDescent: false,
+                                        ),
+                                      ),
+                                  ],)
+                                ),
                               )
                             ]
                           ,),

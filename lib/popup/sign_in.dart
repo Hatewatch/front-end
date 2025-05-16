@@ -65,7 +65,7 @@ class SignIn extends StatelessWidget with ChangeNotifier {
           action: null,
         );
         // ignore: use_build_context_synchronously
-        Navigator.pop(context);
+        Navigator.maybePop(context);
 
 
       } else if (rep is Map && rep.containsKey("message")) {

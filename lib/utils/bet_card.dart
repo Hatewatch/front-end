@@ -15,6 +15,8 @@ class BetCard extends StatelessWidget {
     switch(bet.state) {
       case 'PLACED':
         return HColors.third;
+      case 'ONGOING':
+        return HColors.seven;
       case 'FINISHED':
         return bet.result == "WIN" ? HColors.sec : HColors.five;
       default:
@@ -23,9 +25,12 @@ class BetCard extends StatelessWidget {
   }
 
   String getStringForStatus(Bet bet) {
+    print(bet.state);
     switch(bet.state) {
       case 'PLACED':
         return 'placed_bet'.tr;
+      case 'ONGOING':
+        return 'ongoing'.tr;
       case 'FINISHED':
         return bet.result == "WIN" ? 'win_bet'.tr : 'lose_bet'.tr;
       default:
@@ -65,7 +70,7 @@ class BetCard extends StatelessWidget {
                       Text(
                         getStringForStatus(bet),
                         style: TextStyle(
-                          color: HColors.third,
+                          color: getColorForStatus(bet),
                           fontSize: 20,
                         ),
                         textHeightBehavior: TextHeightBehavior(

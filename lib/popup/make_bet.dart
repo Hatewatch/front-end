@@ -84,7 +84,7 @@ class MakeBet extends StatelessWidget with ChangeNotifier {
       );
     }
 
-    Navigator.pop(context);
+    Navigator.maybePop(context);
 
   }
 

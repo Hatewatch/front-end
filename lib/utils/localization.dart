@@ -82,6 +82,13 @@ Map<String, String> fr = {
   'bet_best_winrate_player' : 'Meilleur winrate sur',
   'bet_best_amount' : 'Meilleur Gain',
 
+  'edit_prop' : "Changer le pari",
+  'edit_prop_hint' : "Alors alors, on a envie de changer le pari ? De le close (on peut que close pour l'instant désolé)",
+  'edit_prop_close' : "Fermer le pari",
+  'edit_prop_end' : "Finir le pari",
+  'edit_prop_end_success' : "Pari finit avec succès",
+  'edit_prop_end_error' : "Il y a eu une erreur pendant la fermeture du pari"
+
 };
 
 Map<String, String> en = {

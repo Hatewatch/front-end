@@ -45,7 +45,7 @@ class Disconnect extends StatelessWidget {
                     action: null,
                   );
                   // ignore: use_build_context_synchronously
-                  Navigator.pop(context);
+                  Navigator.maybePop(context);
                 },
               )
             ],
