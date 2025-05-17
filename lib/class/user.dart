@@ -63,6 +63,7 @@ class User with ChangeNotifier {
     lastBetGainOrLoss = null;
     timeNextDaily.value = [0,0];
     dateDaily = null;
+    betsUser.clear();
 
     setToken("");
 

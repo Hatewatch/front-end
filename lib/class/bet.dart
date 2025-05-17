@@ -85,10 +85,8 @@ class BetHelper {
     double best = 0;
 
     for (Bet bet in bets) {
-      if (bet.amount > best && bet.hasWin()) best = bet.amount; 
+      if (bet.amount * bet.propOdds > best && bet.hasWin()) best = bet.amount * bet.propOdds; 
     }
-
-    if (best == 0) return 0;
 
     return best;
   }

@@ -25,7 +25,7 @@ class BetCard extends StatelessWidget {
   }
 
   String getStringForStatus(Bet bet) {
-    print(bet.state);
+    // print(bet.state);
     switch(bet.state) {
       case 'PLACED':
         return 'placed_bet'.tr;
@@ -36,6 +36,15 @@ class BetCard extends StatelessWidget {
       default:
         return 'placed_bet'.tr;
     }
+  }
+
+  int getMulti(Bet bet) {
+    switch(bet.state) {
+      case 'FINISHED':
+        return bet.result == "WIN" ? 1 : -1;
+    }
+
+    return 1;
   }
 
   @override
@@ -78,6 +87,94 @@ class BetCard extends StatelessWidget {
                           applyHeightToLastDescent: false,
                         ),
                       ),
+                      
+                  //     Row(
+                  //       mainAxisSize: MainAxisSize.min,
+                  //       crossAxisAlignment: CrossAxisAlignment.end,
+                  //       spacing: 1,
+                  //       children: [
+                          
+                  //         Text(
+                  //           bet.amount.toString(),
+                  //           style: TextStyle(
+                  //             color: HColors.prim,
+                  //             fontSize: 45
+                  //           ),
+                  //           textHeightBehavior: TextHeightBehavior(
+                  //             applyHeightToFirstAscent: false,
+                  //             applyHeightToLastDescent: false,
+                  //           ),
+                  //         ).bounceIn(delay: Duration(milliseconds: 200)),
+                          
+                  //         Text(
+                  //           "Po",
+                  //           style: TextStyle(
+                  //             color: HColors.third,
+                  //             fontSize: 25,
+                  //           ),
+                  //           textHeightBehavior: TextHeightBehavior(
+                  //             applyHeightToFirstAscent: false,
+                  //             applyHeightToLastDescent: true,
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ).bounceIn(),
+
+                  //     SizedBox(height: 2,),
+
+                  //     RichText(
+                  //     text: 
+                  //       TextSpan(
+                  //         children: [
+                  //           TextSpan(
+                  //             text: "x",
+                  //             style: TextStyle(
+                  //               color: HColors.third,
+                  //               fontFamily: 'Jersey',
+                  //               fontSize: 25
+                  //             ),
+                  //           ),
+
+                  //           TextSpan(
+                  //             text: bet.propOdds.toString(),
+                  //             style: TextStyle(
+                  //               color: HColors.getColorFromX(bet.propOdds),
+                  //               fontFamily: 'Jersey',
+                  //               fontSize: 25
+                  //             ),
+                  //           ),
+
+                  //           TextSpan(
+                  //             text: ' = ',
+                  //             style: TextStyle(
+                  //               color: HColors.third,
+                  //               fontFamily: 'Jersey',
+                  //               fontSize: 25
+                  //             ),
+                  //           ),
+
+                  //           TextSpan(
+                  //             text: (bet.amount * bet.propOdds).toString(),
+                  //             style: TextStyle(
+                  //               color: HColors.prim,
+                  //               fontFamily: 'Jersey',
+                  //               fontSize: 25
+                  //             ),
+                  //           ),
+                  //           // TextSpan(
+                  //           //   text: ' Po',
+                  //           //   style: TextStyle(
+                  //           //     color: HColors.third,
+                  //           //     fontFamily: 'Jersey',
+                  //           //     fontSize: 19
+                  //           //   ),
+                  //           // ),
+                  //         ]
+                  //       )
+                  //     ),
+                  //   ],
+                  // ),
+
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -85,7 +182,7 @@ class BetCard extends StatelessWidget {
                         children: [
                           
                           Text(
-                            bet.amount.toString(),
+                            bet.result != "LOSE" ? (bet.amount * bet.propOdds * getMulti(bet)).toString() : (-bet.amount).toString(),
                             style: TextStyle(
                               color: HColors.prim,
                               fontSize: 45
@@ -112,12 +209,31 @@ class BetCard extends StatelessWidget {
 
                       SizedBox(height: 2,),
 
+                      if (bet.result != "LOSE")
                       RichText(
                       text: 
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: "x",
+                              text: "= ",
+                              style: TextStyle(
+                                color: HColors.third,
+                                fontFamily: 'Jersey',
+                                fontSize: 25
+                              ),
+                            ),
+
+                            TextSpan(
+                              text: bet.amount.toString(),
+                              style: TextStyle(
+                                color: HColors.prim,
+                                fontFamily: 'Jersey',
+                                fontSize: 25
+                              ),
+                            ),
+
+                            TextSpan(
+                              text: 'x',
                               style: TextStyle(
                                 color: HColors.third,
                                 fontFamily: 'Jersey',
@@ -133,37 +249,12 @@ class BetCard extends StatelessWidget {
                                 fontSize: 25
                               ),
                             ),
-
-                            TextSpan(
-                              text: ' = ',
-                              style: TextStyle(
-                                color: HColors.third,
-                                fontFamily: 'Jersey',
-                                fontSize: 25
-                              ),
-                            ),
-
-                            TextSpan(
-                              text: (bet.amount * bet.propOdds).toString(),
-                              style: TextStyle(
-                                color: HColors.prim,
-                                fontFamily: 'Jersey',
-                                fontSize: 25
-                              ),
-                            ),
-                            // TextSpan(
-                            //   text: ' Po',
-                            //   style: TextStyle(
-                            //     color: HColors.third,
-                            //     fontFamily: 'Jersey',
-                            //     fontSize: 19
-                            //   ),
-                            // ),
                           ]
                         )
                       ),
                     ],
                   ),
+
 
                   Flexible(
                     child: 

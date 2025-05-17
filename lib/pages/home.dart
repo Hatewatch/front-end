@@ -2,7 +2,6 @@ import 'package:alert_info/alert_info.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:hate_watch/class/app.dart';
 import 'package:hate_watch/class/bet.dart';
 import 'package:hate_watch/class/tutorial.dart';

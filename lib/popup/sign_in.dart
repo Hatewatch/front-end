@@ -195,7 +195,13 @@ class SignIn extends StatelessWidget with ChangeNotifier {
                     ),
                   );
                 },
-                child: Text('no_account_go_create'.tr),
+                child: 
+                  Text(
+                    'no_account_go_create'.tr,
+                    style: TextStyle(
+                      color : HColors.four,
+                    ),
+                  ),
               )
             ],
           ),

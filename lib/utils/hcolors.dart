@@ -7,7 +7,10 @@ class HColors {
   static const Color four = Color.fromARGB(255, 255, 255, 255);
   static const Color five = Color.fromARGB(255, 255, 39, 44);
   static const Color six = Color.fromARGB(255, 176, 41, 44);
+  
   static const Color seven = Color.fromARGB(255, 255, 150, 39);
+  static const Color eight = Color.fromARGB(255, 39, 107, 255);
+  static const Color nine = Color.fromARGB(255, 39, 255, 230);
 
   static const Color desac = Color.fromARGB(80, 255, 255, 255);
   

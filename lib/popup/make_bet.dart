@@ -1,5 +1,4 @@
 import 'package:alert_info/alert_info.dart';
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:hate_watch/api/api.dart';
 import 'package:hate_watch/class/prop.dart';
@@ -7,7 +6,6 @@ import 'package:hate_watch/class/user.dart';
 import 'package:hate_watch/utils/buttons.dart';
 import 'package:hate_watch/utils/form.dart';
 import 'package:hate_watch/utils/hcolors.dart';
-import 'package:hate_watch/utils/hradius.dart';
 import 'package:hate_watch/utils/localization.dart';
 import 'package:hate_watch/utils/text.dart';
 import 'package:hate_watch/utils/title.dart';
@@ -37,7 +35,6 @@ class MakeBet extends StatelessWidget with ChangeNotifier {
         // ignore: use_build_context_synchronously
         context: context,
         text: 'make_bet_not_enough'.tr,
-        
         typeInfo: TypeInfo.error,
         position: MessagePosition.top,
         action: null,
@@ -63,7 +60,6 @@ class MakeBet extends StatelessWidget with ChangeNotifier {
         // ignore: use_build_context_synchronously
         context: context,
         text: 'make_bet_success'.tr,
-        
         typeInfo: TypeInfo.success,
         position: MessagePosition.top,
         action: null,
@@ -77,7 +73,6 @@ class MakeBet extends StatelessWidget with ChangeNotifier {
         // ignore: use_build_context_synchronously
         context: context,
         text: 'make_bet_error'.tr,
-        
         typeInfo: TypeInfo.error,
         position: MessagePosition.top,
         action: null,
