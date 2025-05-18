@@ -34,6 +34,7 @@ class User with ChangeNotifier {
   List<Bet> betsAllWeb = [];
 
   Timer? timer;
+  Timer? timerReloadAll;
 
   bool loadedBets = false;
 
@@ -49,6 +50,14 @@ class User with ChangeNotifier {
       Duration(seconds: 1), 
       (timer) {
         getTimeBeforeNextDaily();
+      }
+    );
+
+    timerReloadAll = Timer.periodic(
+      Duration(minutes: 1),
+      (timer) {
+        // print("HEY");
+        getAllInfosUser();
       }
     );
   }
@@ -84,6 +93,8 @@ class User with ChangeNotifier {
       }
     }
 
+    props = props.reversed.toList();
+
     loadedBets = true;
     notify();
 
@@ -94,7 +105,18 @@ class User with ChangeNotifier {
   Future getAllBetsWeb() async {
     var rep = await getCallHw("api/bets/last");
     
-    print(rep);
+    // print(rep);
+
+    betsAllWeb.clear();
+
+
+    if (rep is List) {
+      for (int i = 0; i < rep.length; i++) {
+        betsAllWeb.add(
+          Bet.fromJson(rep[i])
+        );
+      }
+    }
   }
 
   Future getBetsUser() async {
@@ -155,10 +177,13 @@ class User with ChangeNotifier {
   Future getAllInfosUser() async {
     await getInfosUser();
     await getBetsUser();
+    await getAllBetsWeb();
     await getAllProps();
   }
 
   Future getInfosUser() async {
+    if (token.isEmpty) return;
+    
     var rep = await getCallHw("api/users/profile");
 
     // print(rep);

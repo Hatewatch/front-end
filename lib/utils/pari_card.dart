@@ -12,10 +12,13 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hate_watch/utils/localization.dart';
 import 'package:pixelarticons/pixel.dart';
 
-class PariCard extends StatelessWidget {
-  const PariCard({super.key, required this.prop});
+// ignore: must_be_immutable
+class PariCard extends StatelessWidget with ChangeNotifier {
+  PariCard({super.key, required this.prop});
 
   final Prop prop;
+
+  final ValueNotifier<bool> inWidget = ValueNotifier(false);
 
   void onTap(BuildContext context) {
 
@@ -41,335 +44,358 @@ class PariCard extends StatelessWidget {
       );
   }
 
+  Color getColorForStatus(Prop prop) {
+    switch(prop.state) {
+      case 'CLOSED':
+        return HColors.seven;
+      default:
+        return HColors.third;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return 
     MouseRegion(
-      cursor: SystemMouseCursors.click,
+      cursor: prop.state == "CLOSED" ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
+      onEnter: (event) {
+        inWidget.value = true;
+        inWidget.notifyListeners();
+      },
+      onExit: (event) {
+        inWidget.value = false;
+        inWidget.notifyListeners();
+      },
       child: 
-      GestureDetector(
-        
-        // TODO : HOVER POINTER
-        onTap: () {
-          onTap(context);
-        }, 
-        child: 
-        SizedBox(
-          width: 500,
+      ValueListenableBuilder(valueListenable: inWidget, builder: (context, value, child) {
+      
+        return GestureDetector(
+          
+          // TODO : HOVER POINTER
+          onTap: () {
+            onTap(context);
+          }, 
           child: 
-        ClipRRect(
-          borderRadius: HBorder.borderRadius,
-          child: 
-            ColoredBox(
-              color: HColors.up,
-              child: 
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  child: 
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      spacing: 25,
-                      
-                      children: [
-                        RichText(
-                        text: 
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "x",
-                                style: TextStyle(
-                                  color: HColors.third,
-                                  fontFamily: 'Jersey',
-                                  fontSize: 35
-                                ),
-                              ),
-
-                              TextSpan(
-                                text: prop.odds.toString(),
-                                style: TextStyle(
-                                  color: HColors.getColorFromX(prop.odds),
-                                  fontFamily: 'Jersey',
-                                  fontSize: 35
-                                ),
-                              ),
-                            ]
-                          )
-                        ),
-
-                        Flexible(
+          SizedBox(
+            width: 500,
+            child: 
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  color: HColors.up,
+                  border: value ? Border.all(
+                    width: 4,
+                    color: getColorForStatus(prop),
+                  ) : null,
+                  borderRadius: HBorder.borderRadius,
+                ),
+                child: 
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                         child: 
-                          Column(
-                            spacing: 5,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            spacing: 25,
                             
-                            //if (PropHelper.getAllBetsForId(prop.id) != 0)
-                            Wrap(
-                              runSpacing: 5,
-                              spacing: 5,
-                              //mainAxisSize: MainAxisSize.min,
-                              children: [ 
-                                if (PropHelper.getAllBetsForId(prop.id) != 0)
-                                Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                                  decoration: BoxDecoration(
-                                    borderRadius: HBorder.borderRadius,
-                                    border: Border.all(
-                                      color: HColors.sec,
-                                      width: 2,
+                            children: [
+                              RichText(
+                              text: 
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: "x",
+                                      style: TextStyle(
+                                        color: HColors.third,
+                                        fontFamily: 'Jersey',
+                                        fontSize: 35
+                                      ),
                                     ),
-                                  ),
-                                  child: 
-                                  Row(
-                                    spacing: 5,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(
-                                        Pixel.checkdouble,
-                                        color: HColors.sec,
-                                      ),
-                                      Text(
-                                        "BETTED : ${PropHelper.getAllBetsForId(prop.id)}",
-                                        style: TextStyle(
-                                          fontSize: 17
-                                        ),
-                                        textHeightBehavior: TextHeightBehavior(
-                                          applyHeightToFirstAscent: false,
-                                          applyHeightToLastDescent: false,
-                                        ),
-                                      ),
-                                  ],)
-                                ),
 
-                                if (prop.state == "CLOSED")
-                                Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                                  decoration: BoxDecoration(
-                                    borderRadius: HBorder.borderRadius,
-                                    border: Border.all(
-                                      color: HColors.seven,
-                                      width: 2,
-                                    ),
-                                  ),
-                                  child: 
-                                  Row(
-                                    spacing: 5,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(
-                                        Pixel.hourglass,
-                                        color: HColors.seven,
-                                      ),
-                                      Text(
-                                        'onGoing'.tr,
-                                        style: TextStyle(
-                                          fontSize: 17
-                                        ),
-                                        textHeightBehavior: TextHeightBehavior(
-                                          applyHeightToFirstAscent: false,
-                                          applyHeightToLastDescent: false,
-                                        ),
-                                      ),
-                                  ],)
-                                ),
-
-                                if (User.instance.role == "ADMIN")
-                                GestureDetector(
-                                  onTap: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => Dialog(
-                                        backgroundColor: HColors.back,
-                                        child:
-                                          EditProp(prop: prop,).bounceInUp(),
-                                      ),
-                                    );
-                                  },
-                                  child: 
-                                  Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                                    decoration: BoxDecoration(
-                                      borderRadius: HBorder.borderRadius,
-                                      border: Border.all(
-                                        color: HColors.eight,
-                                        width: 2,
+                                    TextSpan(
+                                      text: prop.odds.toString(),
+                                      style: TextStyle(
+                                        color: HColors.getColorFromX(prop.odds),
+                                        fontFamily: 'Jersey',
+                                        fontSize: 35
                                       ),
                                     ),
-                                    child: 
-                                    Row(
-                                      spacing: 5,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Icon(
-                                          Pixel.edit,
-                                          color: HColors.eight,
-                                        ),
-                                        Text(
-                                          "ADMIN",
-                                          style: TextStyle(
-                                            fontSize: 17
-                                          ),
-                                          textHeightBehavior: TextHeightBehavior(
-                                            applyHeightToFirstAscent: false,
-                                            applyHeightToLastDescent: false,
-                                          ),
-                                        ),
-                                    ],)
-                                  ),
+                                  ]
                                 )
-                              ]
-                            ,),
+                              ),
 
-                            AutoSizeText.rich(
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 25),
-                              minFontSize: 20, 
-                              TextSpan(
+                              Flexible(
+                              child: 
+                                Column(
+                                  spacing: 5,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  TextSpan(
-                                    text: prop.player,
+                                  
+                                  //if (PropHelper.getAllBetsForId(prop.id) != 0)
+                                  Wrap(
+                                    runSpacing: 5,
+                                    spacing: 5,
+                                    //mainAxisSize: MainAxisSize.min,
+                                    children: [ 
+                                      if (PropHelper.getAllBetsForId(prop.id) != 0)
+                                      Container(
+                                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                                        decoration: BoxDecoration(
+                                          borderRadius: HBorder.borderRadius,
+                                          border: Border.all(
+                                            color: HColors.sec,
+                                            width: 2,
+                                          ),
+                                        ),
+                                        child: 
+                                        Row(
+                                          spacing: 5,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Icon(
+                                              Pixel.checkdouble,
+                                              color: HColors.sec,
+                                            ),
+                                            Text(
+                                              "BETTED : ${PropHelper.getAllBetsForId(prop.id)}",
+                                              style: TextStyle(
+                                                fontSize: 17
+                                              ),
+                                              textHeightBehavior: TextHeightBehavior(
+                                                applyHeightToFirstAscent: false,
+                                                applyHeightToLastDescent: false,
+                                              ),
+                                            ),
+                                        ],)
+                                      ),
+
+                                      if (prop.state == "CLOSED")
+                                      Container(
+                                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                                        decoration: BoxDecoration(
+                                          borderRadius: HBorder.borderRadius,
+                                          border: Border.all(
+                                            color: HColors.seven,
+                                            width: 2,
+                                          ),
+                                        ),
+                                        child: 
+                                        Row(
+                                          spacing: 5,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Icon(
+                                              Pixel.hourglass,
+                                              color: HColors.seven,
+                                            ),
+                                            Text(
+                                              'onGoing'.tr,
+                                              style: TextStyle(
+                                                fontSize: 17
+                                              ),
+                                              textHeightBehavior: TextHeightBehavior(
+                                                applyHeightToFirstAscent: false,
+                                                applyHeightToLastDescent: false,
+                                              ),
+                                            ),
+                                        ],)
+                                      ),
+
+                                      if (User.instance.role == "ADMIN")
+                                      GestureDetector(
+                                        onTap: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => Dialog(
+                                              backgroundColor: HColors.back,
+                                              child:
+                                                EditProp(prop: prop,).bounceInUp(),
+                                            ),
+                                          );
+                                        },
+                                        child: 
+                                        Container(
+                                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                                          decoration: BoxDecoration(
+                                            borderRadius: HBorder.borderRadius,
+                                            border: Border.all(
+                                              color: HColors.eight,
+                                              width: 2,
+                                            ),
+                                          ),
+                                          child: 
+                                          Row(
+                                            spacing: 5,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Icon(
+                                                Pixel.edit,
+                                                color: HColors.eight,
+                                              ),
+                                              Text(
+                                                "ADMIN",
+                                                style: TextStyle(
+                                                  fontSize: 17
+                                                ),
+                                                textHeightBehavior: TextHeightBehavior(
+                                                  applyHeightToFirstAscent: false,
+                                                  applyHeightToLastDescent: false,
+                                                ),
+                                              ),
+                                          ],)
+                                        ),
+                                      )
+                                    ]
+                                  ,),
+
+                                  AutoSizeText.rich(
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(fontSize: 25),
+                                    minFontSize: 20, 
+                                    TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: prop.player,
+                                          style: TextStyle(
+                                            color: HColors.sec,
+                                            fontFamily: 'Jersey',
+                                            fontSize: 25,
+                                            height: 1.1,
+                                          ),
+                                        ),
+
+                                        TextSpan(
+                                          text: " ${prop.title}",
+                                          style: TextStyle(
+                                            color: HColors.four,
+                                            fontFamily: 'Jersey',
+                                            fontSize: 25,
+                                            height: 1.1,
+                                          ),
+                                        ),
+                                      ]
+                                    )
+                                  ),
+                                ],),
+
+                            ),
+
+                              // Flexible(
+                              //   child: 
+                              //   AutoSizeText.rich(
+                              //     maxLines: 3,
+                              //     overflow: TextOverflow.ellipsis,
+                              //     style: TextStyle(fontSize: 25),
+                              //     minFontSize: 20, 
+                              //     TextSpan(
+                              //       children: [
+                              //         TextSpan(
+                              //           text: prop.player,
+                              //           style: TextStyle(
+                              //             color: HColors.sec,
+                              //             fontFamily: 'Jersey',
+                              //             fontSize: 25,
+                              //             height: 1.1,
+                              //           ),
+                              //         ),
+
+                              //         TextSpan(
+                              //           text: " ${prop.title}",
+                              //           style: TextStyle(
+                              //             color: HColors.four,
+                              //             fontFamily: 'Jersey',
+                              //             fontSize: 25,
+                              //             height: 1.1,
+                              //           ),
+                              //         ),
+                              //       ]
+                              //     )
+                              //   ),
+                              // ),
+
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                spacing: 0,
+                                children: [
+                                  Text(
+                                    "Total Bets | Users",
                                     style: TextStyle(
-                                      color: HColors.sec,
-                                      fontFamily: 'Jersey',
-                                      fontSize: 25,
-                                      height: 1.1,
+                                      color: HColors.third,
+                                      fontSize: 20,
+                                    ),
+                                    textHeightBehavior: TextHeightBehavior(
+                                      applyHeightToFirstAscent: false,
+                                      applyHeightToLastDescent: false,
                                     ),
                                   ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    spacing: 10,
+                                    children: [
+                                      
+                                      Text(
+                                        prop.total.toString(),
+                                        style: TextStyle(
+                                          color: HColors.prim,
+                                          fontSize: 45
+                                        ),
+                                        textHeightBehavior: TextHeightBehavior(
+                                          applyHeightToFirstAscent: false,
+                                          applyHeightToLastDescent: false,
+                                        ),
+                                      ).bounceIn(delay: Duration(milliseconds: 200)),
+                                      
+                                      Text(
+                                        "Po",
+                                        style: TextStyle(
+                                          color: HColors.third,
+                                          fontSize: 25,
+                                        ),
+                                        textHeightBehavior: TextHeightBehavior(
+                                          applyHeightToFirstAscent: false,
+                                          applyHeightToLastDescent: true,
+                                        ),
+                                      ),
 
-                                  TextSpan(
-                                    text: " ${prop.title}",
-                                    style: TextStyle(
-                                      color: HColors.four,
-                                      fontFamily: 'Jersey',
-                                      fontSize: 25,
-                                      height: 1.1,
+                                      Text(
+                                      "|",
+                                      style: TextStyle(
+                                        color: HColors.third,
+                                        fontSize: 25,
+                                      ),
+                                      textHeightBehavior: TextHeightBehavior(
+                                        applyHeightToFirstAscent: false,
+                                        applyHeightToLastDescent: true,
+                                      ),
                                     ),
-                                  ),
-                                ]
-                              )
-                            ),
-                          ],),
 
-                      ),
-
-                        // Flexible(
-                        //   child: 
-                        //   AutoSizeText.rich(
-                        //     maxLines: 3,
-                        //     overflow: TextOverflow.ellipsis,
-                        //     style: TextStyle(fontSize: 25),
-                        //     minFontSize: 20, 
-                        //     TextSpan(
-                        //       children: [
-                        //         TextSpan(
-                        //           text: prop.player,
-                        //           style: TextStyle(
-                        //             color: HColors.sec,
-                        //             fontFamily: 'Jersey',
-                        //             fontSize: 25,
-                        //             height: 1.1,
-                        //           ),
-                        //         ),
-
-                        //         TextSpan(
-                        //           text: " ${prop.title}",
-                        //           style: TextStyle(
-                        //             color: HColors.four,
-                        //             fontFamily: 'Jersey',
-                        //             fontSize: 25,
-                        //             height: 1.1,
-                        //           ),
-                        //         ),
-                        //       ]
-                        //     )
-                        //   ),
-                        // ),
-
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          spacing: 0,
-                          children: [
-                            Text(
-                              "Total Bets | Users",
-                              style: TextStyle(
-                                color: HColors.third,
-                                fontSize: 20,
+                                    Text(
+                                      prop.totalUsers.toString(),
+                                      style: TextStyle(
+                                        color: HColors.prim,
+                                        fontSize: 25,
+                                      ),
+                                      textHeightBehavior: TextHeightBehavior(
+                                        applyHeightToFirstAscent: false,
+                                        applyHeightToLastDescent: true,
+                                      ),
+                                    ),
+                                    ],
+                                  )
+                                ],
                               ),
-                              textHeightBehavior: TextHeightBehavior(
-                                applyHeightToFirstAscent: false,
-                                applyHeightToLastDescent: false,
-                              ),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              spacing: 10,
-                              children: [
-                                
-                                Text(
-                                  prop.total.toString(),
-                                  style: TextStyle(
-                                    color: HColors.prim,
-                                    fontSize: 45
-                                  ),
-                                  textHeightBehavior: TextHeightBehavior(
-                                    applyHeightToFirstAscent: false,
-                                    applyHeightToLastDescent: false,
-                                  ),
-                                ).bounceIn(delay: Duration(milliseconds: 200)),
-                                
-                                Text(
-                                  "Po",
-                                  style: TextStyle(
-                                    color: HColors.third,
-                                    fontSize: 25,
-                                  ),
-                                  textHeightBehavior: TextHeightBehavior(
-                                    applyHeightToFirstAscent: false,
-                                    applyHeightToLastDescent: true,
-                                  ),
-                                ),
-
-                                Text(
-                                "|",
-                                style: TextStyle(
-                                  color: HColors.third,
-                                  fontSize: 25,
-                                ),
-                                textHeightBehavior: TextHeightBehavior(
-                                  applyHeightToFirstAscent: false,
-                                  applyHeightToLastDescent: true,
-                                ),
-                              ),
-
-                              Text(
-                                prop.totalUsers.toString(),
-                                style: TextStyle(
-                                  color: HColors.prim,
-                                  fontSize: 25,
-                                ),
-                                textHeightBehavior: TextHeightBehavior(
-                                  applyHeightToFirstAscent: false,
-                                  applyHeightToLastDescent: true,
-                                ),
-                              ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                )
-            ),
-          )
-        ).fadeIn(
-          duration: Duration(milliseconds: 300)
-        ),
-      ),
+                            ],
+                          ),
+                      )
+                  ),
+            )
+          ).fadeIn(
+            duration: Duration(milliseconds: 300)
+        );
+      })
     );
   }
   

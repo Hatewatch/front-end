@@ -81,6 +81,7 @@ class BetCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     spacing: 0,
                     children: [
+                      if (bet.state != null)
                       Text(
                         getStringForStatus(bet),
                         style: TextStyle(
@@ -263,35 +264,104 @@ class BetCard extends StatelessWidget {
 
                   Flexible(
                     child: 
-                    AutoSizeText.rich(
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 25),
-                      minFontSize: 20, 
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: bet.propPlayer,
-                            style: TextStyle(
-                              color: HColors.sec,
-                              fontFamily: 'Jersey',
-                              fontSize: 25,
-                              height: 1.1,
-                            ),
-                          ),
+                    Column(
+                      spacing: 5,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
 
+                        if (bet.betPlayer != null)
+                        AutoSizeText.rich(
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: 25),
+                          minFontSize: 18, 
                           TextSpan(
-                            text: " ${bet.propTitle}",
-                            style: TextStyle(
-                              color: HColors.four,
-                              fontFamily: 'Jersey',
-                              fontSize: 25,
-                              height: 1.1,
-                            ),
-                          ),
-                        ]
-                      )
-                    ),
+                            children: [
+                              TextSpan(
+                                text: bet.betPlayer,
+                                style: TextStyle(
+                                  color: HColors.sec,
+                                  fontFamily: 'Jersey',
+                                  fontSize: 25,
+                                  height: 1.1,
+                                ),
+                              ),
+
+                              TextSpan(
+                                text: " ${'bet_betted_on'.tr}",
+                                style: TextStyle(
+                                  color: HColors.four,
+                                  fontFamily: 'Jersey',
+                                  fontSize: 25,
+                                  height: 1.1,
+                                ),
+                              ),
+                            ]
+                          )
+                        ),
+
+                        if (bet.betPlayer != null)
+                        AutoSizeText.rich(
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: 25),
+                          minFontSize: 20, 
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: bet.propPlayer,
+                                style: TextStyle(
+                                  color: HColors.sec.withAlpha(150),
+                                  fontFamily: 'Jersey',
+                                  fontSize: 21,
+                                  height: 1.1,
+                                ),
+                              ),
+
+                              TextSpan(
+                                text: " ${bet.propTitle}",
+                                style: TextStyle(
+                                  color: HColors.four.withAlpha(150),
+                                  fontFamily: 'Jersey',
+                                  fontSize: 21,
+                                  height: 1.1,
+                                ),
+                              ),
+                            ]
+                          )
+                        ),
+
+                        if (bet.betPlayer == null)
+                        AutoSizeText.rich(
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: 25),
+                          minFontSize: 20, 
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: bet.propPlayer,
+                                style: TextStyle(
+                                  color: HColors.sec,
+                                  fontFamily: 'Jersey',
+                                  fontSize: 25,
+                                  height: 1.1,
+                                ),
+                              ),
+
+                              TextSpan(
+                                text: " ${bet.propTitle}",
+                                style: TextStyle(
+                                  color: HColors.four,
+                                  fontFamily: 'Jersey',
+                                  fontSize: 25,
+                                  height: 1.1,
+                                ),
+                              ),
+                            ]
+                          )
+                        ),
+                    ],)
                   ),
                 ],
               ),

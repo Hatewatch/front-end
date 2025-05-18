@@ -9,18 +9,20 @@ class Bet {
     required this.propTitle,
     required this.amount,
     required this.propId,
+    required this.betPlayer,
   });
 
   factory Bet.fromJson(Map<String, dynamic> json) {
     return Bet(
-      id: json['bet_id'] as int,
+      id: json['bet_id'] != null ? json['bet_id'] as int : null,
       propPlayer: json['prop_player'] as String,
       propOdds: double.parse(json['prop_odds']),
       propTitle: json['prop_title'] as String,
       result: json['bet_result'] == null ? "" : json['bet_result'] as String,
-      state: json['bet_state'] as String,
+      state: json.containsKey('bet_state') ? json['bet_state'] as String : null,
       amount : double.parse(json['bet_amount']),
       propId: json['prop_id'],
+      betPlayer: json.containsKey('user_name') ? json['user_name'] : null,
     );
   }
 
@@ -39,10 +41,11 @@ class Bet {
     return result == "WIN";
   }
 
-  int id;
+  int? id;
   String result;
   String? state;
   double amount;
+  String? betPlayer;
 
   int propId;
   String propTitle;

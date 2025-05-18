@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:hate_watch/class/bet.dart';
+
 class HColors {
   static const Color prim = Color.fromARGB(255, 113, 73, 239);
   static const Color sec = Color.fromARGB(255, 158, 255, 39);

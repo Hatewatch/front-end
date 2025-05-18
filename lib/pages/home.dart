@@ -331,6 +331,53 @@ class Home extends StatelessWidget {
                                 // InfoCard(title: "Paris Crée", value: "10"),
                               ],
                             ),
+                            
+                            const SizedBox(height: 20),
+                            Row(
+                              spacing: 10,
+                              children: [
+                                HTitle(start: '${'last_bets'.tr.split(" ")[0]} ', end: 'last_bets'.tr.split(" ")[1]),
+                                IconButton(
+                                  onPressed: () async {
+                                    await value.getAllBetsWeb();
+                                    AlertInfo.show(
+                                      // ignore: use_build_context_synchronously
+                                      context: context,
+                                      text: 'reload_last_bets'.tr,
+                                      
+                                      typeInfo: TypeInfo.success,
+                                      position: MessagePosition.top,
+                                      action: null,
+                                    );
+                                  }, 
+                                  icon: Icon(Pixel.reload, color: HColors.third, size: 30,),
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Wrap(
+                              spacing: 10,
+                              runSpacing: 10,
+                              children: [
+                                if (!value.loadedBets)
+                                CardLoading(
+                                  width: 350,
+                                  height: 120,
+                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                                  margin: EdgeInsets.only(bottom: 10),
+                                  cardLoadingTheme: CardLoadingTheme(colorOne: HColors.back, colorTwo: HColors.up),
+                                ),
+
+                                ...List.generate(value.betsAllWeb.length, (i) {
+                                  return BetCard(bet: value.betsAllWeb[i],).fadeIn();
+                                })
+
+                                // for (Bet bet in value.bets)
+                                // PariCard(odd: bet.odds, person: bet.player, desc: bet.title, total: 400).fadeIn(),
+                              ],
+                            ),
+
+                            
                             const SizedBox(height: 20),
                             Row(
                               spacing: 10,

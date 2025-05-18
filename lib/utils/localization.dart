@@ -10,7 +10,9 @@ Map<String, String> fr = {
   "all_bets" : "Paris Disponibles",
   "total" : "Total",
   "reload_all_props" : 'Reload des paris disponibles',
+  'last_bets' : 'Derniers paris',
   "reload_all_bets" : 'Reload des paris faits',
+  'reload_last_bets' : "Reload des derniers paris",
   "guest" : "Invité",
   "lose_first_bet" : "Perd son premier pari !",
 
@@ -94,7 +96,7 @@ Map<String, String> fr = {
   'edit_prop_close_success' : "Pari fermé avec succès",
   'edit_prop_close_error' : "Erreur pendant la fermeture du pari",
   
-
+  'bet_betted_on' : 'a misé sur :',
 
 };
 
