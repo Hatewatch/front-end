@@ -19,7 +19,7 @@ class PariCard extends StatelessWidget {
 
   void onTap(BuildContext context) {
 
-    prop.available == 1 ?
+    prop.state == "OPEN" ?
     showDialog(
       context: context,
       builder: (context) => Dialog(
@@ -99,11 +99,13 @@ class PariCard extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           
-                          if (PropHelper.getAllBetsForId(prop.id) != 0)
-                          Row(
+                          //if (PropHelper.getAllBetsForId(prop.id) != 0)
+                          Wrap(
+                            runSpacing: 5,
                             spacing: 5,
-                            mainAxisSize: MainAxisSize.min,
+                            //mainAxisSize: MainAxisSize.min,
                             children: [ 
+                              if (PropHelper.getAllBetsForId(prop.id) != 0)
                               Container(
                                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                                 decoration: BoxDecoration(
@@ -135,6 +137,38 @@ class PariCard extends StatelessWidget {
                                 ],)
                               ),
 
+                              if (prop.state == "CLOSED")
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                                decoration: BoxDecoration(
+                                  borderRadius: HBorder.borderRadius,
+                                  border: Border.all(
+                                    color: HColors.seven,
+                                    width: 2,
+                                  ),
+                                ),
+                                child: 
+                                Row(
+                                  spacing: 5,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Pixel.hourglass,
+                                      color: HColors.seven,
+                                    ),
+                                    Text(
+                                      'onGoing'.tr,
+                                      style: TextStyle(
+                                        fontSize: 17
+                                      ),
+                                      textHeightBehavior: TextHeightBehavior(
+                                        applyHeightToFirstAscent: false,
+                                        applyHeightToLastDescent: false,
+                                      ),
+                                    ),
+                                ],)
+                              ),
+
                               if (User.instance.role == "ADMIN")
                               GestureDetector(
                                 onTap: () {
@@ -153,7 +187,7 @@ class PariCard extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     borderRadius: HBorder.borderRadius,
                                     border: Border.all(
-                                      color: HColors.seven,
+                                      color: HColors.eight,
                                       width: 2,
                                     ),
                                   ),
@@ -164,7 +198,7 @@ class PariCard extends StatelessWidget {
                                     children: [
                                       Icon(
                                         Pixel.edit,
-                                        color: HColors.seven,
+                                        color: HColors.eight,
                                       ),
                                       Text(
                                         "ADMIN",

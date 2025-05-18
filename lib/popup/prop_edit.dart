@@ -22,13 +22,48 @@ class EditProp extends StatelessWidget with ChangeNotifier {
 
   Future onSubmitClose(BuildContext context) async {
 
-    // TODO : call fermer pari
+    var rep = await postCallApiBody('api/proposals/close', 
+      {
+        'proposalId' : prop.id,
+      }
+    );
 
+    print(rep);
+
+    if (rep is Map && rep.containsKey("message")){
+      switch (rep['message']) {
+        case 'Proposal set to unavailable and bets set to ongoing':
+          AlertInfo.show(
+            // ignore: use_build_context_synchronously
+            context: context,
+            text: 'edit_prop_close_success'.tr,
+            
+            typeInfo: TypeInfo.success,
+            position: MessagePosition.top,
+            action: null,
+          );
+          break;
+        default:
+          AlertInfo.show(
+            // ignore: use_build_context_synchronously
+            context: context,
+            text: 'edit_prop_close_error'.tr,
+            
+            typeInfo: TypeInfo.error,
+            position: MessagePosition.top,
+            action: null,
+          );
+          break;
+          
+      }
+    }
+    
+    User.instance.getAllProps();
+    User.instance.getBetsUser();
+    Navigator.maybePop(context);
   }
 
   Future onSubmitEnd(BuildContext context) async {
-
-    // TODO : call end pari
 
     var rep = await postCallApiBody('api/proposals/finish', 
       {
@@ -66,6 +101,7 @@ class EditProp extends StatelessWidget with ChangeNotifier {
     }
 
     // print(rep);
+    User.instance.getInfosUser();
     User.instance.getAllProps();
     User.instance.getBetsUser();
     Navigator.maybePop(context);
@@ -86,7 +122,7 @@ class EditProp extends StatelessWidget with ChangeNotifier {
         child:
           Column(
             mainAxisSize: MainAxisSize.min,
-            spacing: 20,
+            spacing: 30,
             children: 
             [
               HTitle(end: 'edit_prop'.tr,),
@@ -95,6 +131,7 @@ class EditProp extends StatelessWidget with ChangeNotifier {
 
               SizedBox(height: 20,),
 
+              if (prop.state == "OPEN")
               WTextButton(
                 text: 'edit_prop_close'.tr,
                 fontSize: 28,
@@ -105,50 +142,54 @@ class EditProp extends StatelessWidget with ChangeNotifier {
                 }
               ),
 
-              ValueListenableBuilder(valueListenable: win, builder: (context, value, child) {
-                return Row(
-                  spacing: 20,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    WTextButton(
-                      key: UniqueKey(),
-                      text: "Oui",
-                      fontSize: 28,
-                      horizontal: 30,
-                      vertical: 15,
-                      colorBox: HColors.sec,
-                      filled: value,
-                      colorText: value ? HColors.back : HColors.four,
-                      onTap: () {
-                        setWin(true);
-                      }
-                    ).applyIf(value, (child) => child.roulette(spins: 1)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                ValueListenableBuilder(valueListenable: win, builder: (context, value, child) {
+                  return Row(
+                    spacing: 20,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      WTextButton(
+                        key: UniqueKey(),
+                        text: "Oui",
+                        fontSize: 28,
+                        horizontal: 30,
+                        vertical: 15,
+                        colorBox: HColors.sec,
+                        filled: value,
+                        colorText: value ? HColors.back : HColors.four,
+                        onTap: () {
+                          setWin(true);
+                        }
+                      ).applyIf(value, (child) => child.roulette(spins: 1)),
 
-                    WTextButton(
-                      key: UniqueKey(),
-                      text: "Non",
-                      fontSize: 28,
-                      horizontal: 30,
-                      vertical: 15,
-                      colorBox: HColors.five,
-                      filled: !value,
-                      onTap: () {
-                        setWin(false);
-                      }
-                    ).applyIf(!value, (child) => child.roulette(spins: 1)),
-                  ],
-                );
-              }),
+                      WTextButton(
+                        key: UniqueKey(),
+                        text: "Non",
+                        fontSize: 28,
+                        horizontal: 30,
+                        vertical: 15,
+                        colorBox: HColors.five,
+                        filled: !value,
+                        onTap: () {
+                          setWin(false);
+                        }
+                      ).applyIf(!value, (child) => child.roulette(spins: 1)),
+                    ],
+                  );
+                }),
 
-              WTextButton(
-                text: 'edit_prop_end'.tr,
-                fontSize: 28,
-                horizontal: 60,
-                vertical: 15,
-                onTap: () {
-                  onSubmitEnd(context);
-                }
-              ),
+                WTextButton(
+                  text: 'edit_prop_end'.tr,
+                  fontSize: 28,
+                  horizontal: 60,
+                  vertical: 15,
+                  onTap: () {
+                    onSubmitEnd(context);
+                  }
+                ),
+              ],)
             ],
           ),
       ),

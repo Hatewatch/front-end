@@ -52,7 +52,9 @@ class WForm extends StatelessWidget {
             maxLength: maxLength,
             style: TextStyle(color: HColors.four, fontSize: textFontSize),
             controller: controller,
-            inputFormatters: onlyNumbers ? [FilteringTextInputFormatter.digitsOnly] : null,
+            inputFormatters: onlyNumbers ? [FilteringTextInputFormatter.allow(
+              RegExp(r'^\d+([.,]\d{0,1})?$'),
+            )] : null,
             decoration: InputDecoration(
               helperStyle: TextStyle(color: HColors.third, fontSize: 20),
               filled: true,

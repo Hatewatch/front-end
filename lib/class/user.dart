@@ -31,6 +31,7 @@ class User with ChangeNotifier {
   dynamic dataBets;
   List<Prop> props = [];
   List<Bet> betsUser = [];
+  List<Bet> betsAllWeb = [];
 
   Timer? timer;
 
@@ -41,7 +42,7 @@ class User with ChangeNotifier {
     notif.notifyListeners();
     
     getAllProps();
-
+    getAllBetsWeb();
     initUser();
 
     timer = Timer.periodic(
@@ -86,8 +87,14 @@ class User with ChangeNotifier {
     loadedBets = true;
     notify();
 
-    //print(rep);
+    // print(rep);
     // print(bets);
+  }
+
+  Future getAllBetsWeb() async {
+    var rep = await getCallHw("api/bets/last");
+    
+    print(rep);
   }
 
   Future getBetsUser() async {
@@ -107,6 +114,7 @@ class User with ChangeNotifier {
       }
     }
 
+    betsUser = betsUser.reversed.toList();
     loadedBets = true;
     notify();
 

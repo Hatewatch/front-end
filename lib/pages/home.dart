@@ -6,12 +6,13 @@ import 'package:hate_watch/class/app.dart';
 import 'package:hate_watch/class/bet.dart';
 import 'package:hate_watch/class/tutorial.dart';
 import 'package:hate_watch/class/user.dart';
-import 'package:hate_watch/popup/create_bet.dart';
+import 'package:hate_watch/popup/create_prop.dart';
 import 'package:hate_watch/popup/disconnect.dart';
 import 'package:hate_watch/popup/sign_in.dart';
 import 'package:hate_watch/utils/bet_card.dart';
 import 'package:hate_watch/utils/buttons.dart';
 import 'package:hate_watch/utils/card.dart';
+import 'package:hate_watch/utils/double_helper.dart';
 import 'package:hate_watch/utils/hcolors.dart';
 import 'package:hate_watch/utils/localization.dart';
 import 'package:hate_watch/utils/pari_card.dart';
@@ -294,7 +295,7 @@ class Home extends StatelessWidget {
                               builder: (context) => Dialog(
                                 backgroundColor: HColors.back,
                                 child: User.instance.isConnected()
-                                    ? CreateBet().bounceInUp()
+                                    ? CreateProp().bounceInUp()
                                     : SignIn().bounceInUp(),
                               ),
                             );
@@ -321,12 +322,12 @@ class Home extends StatelessWidget {
                                 InfoCard(key: keyStats,title: "bet_win".tr, value: "${value.totalWins} / ${value.totalBets}", subValue: value.totalBets == 0 ? "--%" : "${NumberFormat("0.#").format(value.totalWins/value.totalBets*100)}%"),
                                 // InfoCard(title: "Po Gagnés", value: "3053"),
                                 // InfoCard(title: "Meilleur Winrate sur", value: "Arthur"),
-                                InfoCard(title: "last_po_win".tr, value: value.lastBetGainOrLoss == null ? "No bets" : value.lastBetGainOrLoss.toString()),
-                                InfoCard(title: "average_bet_amount".tr, value: BetHelper.getAverageBetAmount(value.betsUser).toString()),
-                                InfoCard(title: "average_bet_odds".tr, value: BetHelper.getAverageBetOdds(value.betsUser).toString()),
+                                InfoCard(title: "last_po_win".tr, value: value.lastBetGainOrLoss == null ? "No bets" : formatSmartClean(value.lastBetGainOrLoss!)),
+                                InfoCard(title: "average_bet_amount".tr, value: formatSmartClean(BetHelper.getAverageBetAmount(value.betsUser))),
+                                InfoCard(title: "average_bet_odds".tr, value: formatSmartClean(BetHelper.getAverageBetOdds(value.betsUser))),
                                 InfoCard(title: "average_bet_player".tr, value: BetHelper.getAverageBetPlayer(value.betsUser)),
                                 InfoCard(title: "bet_best_winrate_player".tr, value: BetHelper.getBestBetPlayerWinrate(value.betsUser)),
-                                InfoCard(title: "bet_best_amount".tr, value: BetHelper.getBestBetWin(value.betsUser).toString()),
+                                InfoCard(title: "bet_best_amount".tr, value: formatSmartClean(BetHelper.getBestBetWin(value.betsUser))),
                                 // InfoCard(title: "Paris Crée", value: "10"),
                               ],
                             ),
@@ -424,6 +425,7 @@ class Home extends StatelessWidget {
                                 // if (i == 0){
                                 //   return PariCard(key: keyPari, bet: value.props[i],).fadeIn();
                                 // }
+                                  // print(i);
 
                                   return BetCard(bet: value.betsUser[i],).fadeIn();
                                 })

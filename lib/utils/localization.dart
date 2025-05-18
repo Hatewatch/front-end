@@ -55,6 +55,9 @@ Map<String, String> fr = {
   'bet_username_target' : "Pseudo cible",
   "condition" : 'Condition',
   'new_bet_hint' : 'Perd sa lane à 5 minutes',
+  'create_bet_odd' : "Odd",
+  'create_bet_success' : "Création d'un pari fait avec succès",
+  'create_bet_error' : "Erreur lors de la création d'un pari",
 
   // MAKE A BET
   'make_bet' : "Miser sur un Pari",
@@ -62,7 +65,7 @@ Map<String, String> fr = {
   'make_bet_title' : "Tu veux miser sur un pari ? Tu penses gagner ? Gamble tout et met tout c’est plus simple",
   'make_bet_short' : "Miser",
   'make_bet_success' : "Ta mise sur le pari a été éxécuté !",
-  'make_bet_closed' : "Ce pari est fermée (malheuresement)",
+  'make_bet_closed' : "Ce pari est fermé (malheuresement)",
   'make_bet_not_enough' : "T'as pas assez de po chef (essaye pas de douiller le système)",
 
   'done_bets' : "Paris faits",
@@ -87,7 +90,11 @@ Map<String, String> fr = {
   'edit_prop_close' : "Fermer le pari",
   'edit_prop_end' : "Finir le pari",
   'edit_prop_end_success' : "Pari finit avec succès",
-  'edit_prop_end_error' : "Il y a eu une erreur pendant la fermeture du pari"
+  'edit_prop_end_error' : "Il y a eu une erreur pendant la fermeture du pari",
+  'edit_prop_close_success' : "Pari fermé avec succès",
+  'edit_prop_close_error' : "Erreur pendant la fermeture du pari",
+  
+
 
 };
 

@@ -161,7 +161,7 @@ class MakeBet extends StatelessWidget with ChangeNotifier {
                             )
                           ),
                           TextSpan(
-                            text: add.text == "" ? "0" : (bet.odds * double.parse(add.text)).toString(),
+                            text: add.text == "" ? "0" : (bet.odds * double.parse(add.text)).toStringAsFixed(2),
                             style: TextStyle(
                               color: HColors.prim,
                               fontFamily: 'Jersey',

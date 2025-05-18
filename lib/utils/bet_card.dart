@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:hate_watch/class/bet.dart';
+import 'package:hate_watch/utils/double_helper.dart';
 import 'package:hate_watch/utils/hcolors.dart';
 import 'package:hate_watch/utils/hradius.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -15,6 +16,8 @@ class BetCard extends StatelessWidget {
     switch(bet.state) {
       case 'PLACED':
         return HColors.third;
+      case 'CLOSED':
+        return HColors.seven;
       case 'ONGOING':
         return HColors.seven;
       case 'FINISHED':
@@ -29,6 +32,8 @@ class BetCard extends StatelessWidget {
     switch(bet.state) {
       case 'PLACED':
         return 'placed_bet'.tr;
+      case 'CLOSED':
+        return 'ongoing'.tr;
       case 'ONGOING':
         return 'ongoing'.tr;
       case 'FINISHED':
@@ -182,7 +187,7 @@ class BetCard extends StatelessWidget {
                         children: [
                           
                           Text(
-                            bet.result != "LOSE" ? (bet.amount * bet.propOdds * getMulti(bet)).toString() : (-bet.amount).toString(),
+                            bet.result != "LOSE" ? formatSmartClean((bet.amount * bet.propOdds * getMulti(bet))) : formatSmartClean(-bet.amount),
                             style: TextStyle(
                               color: HColors.prim,
                               fontSize: 45
@@ -224,7 +229,7 @@ class BetCard extends StatelessWidget {
                             ),
 
                             TextSpan(
-                              text: bet.amount.toString(),
+                              text: formatSmartClean(bet.amount),
                               style: TextStyle(
                                 color: HColors.prim,
                                 fontFamily: 'Jersey',

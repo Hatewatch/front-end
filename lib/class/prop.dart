@@ -10,7 +10,7 @@ class Prop {
     required this.player,
     required this.title,
     required this.timeCreation,
-    required this.available,
+    required this.state,
     required this.total,
     required this.totalUsers,
   });
@@ -23,13 +23,13 @@ class Prop {
       title: json['prop_title'] as String,
       timeCreation: DateTime.parse(json['prop_creation']),
       total: double.parse(json['prop_total_amount']),
-      available: json['prop_available'],
+      state: json['prop_state'],
       totalUsers: json['prop_nbPeople'],
     );
   }
 
   int id;
-  int available;
+  String state;
   String player;
   String title;
   double totalUsers;
