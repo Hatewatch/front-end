@@ -4,6 +4,7 @@ import 'package:hate_watch/api/api.dart';
 import 'package:hate_watch/class/prop.dart';
 import 'package:hate_watch/class/user.dart';
 import 'package:hate_watch/utils/buttons.dart';
+import 'package:hate_watch/utils/double_helper.dart';
 import 'package:hate_watch/utils/form.dart';
 import 'package:hate_watch/utils/hcolors.dart';
 import 'package:hate_watch/utils/localization.dart';
@@ -161,7 +162,7 @@ class MakeBet extends StatelessWidget with ChangeNotifier {
                             )
                           ),
                           TextSpan(
-                            text: add.text == "" ? "0" : (bet.odds * double.parse(add.text)).toStringAsFixed(2),
+                            text: add.text == "" ? "0" : formatSmartClean(bet.odds * double.parse(add.text)),
                             style: TextStyle(
                               color: HColors.prim,
                               fontFamily: 'Jersey',

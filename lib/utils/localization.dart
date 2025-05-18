@@ -65,7 +65,7 @@ Map<String, String> fr = {
   'make_bet_title' : "Tu veux miser sur un pari ? Tu penses gagner ? Gamble tout et met tout c’est plus simple",
   'make_bet_short' : "Miser",
   'make_bet_success' : "Ta mise sur le pari a été éxécuté !",
-  'make_bet_closed' : "Ce pari est fermé (malheuresement)",
+  'make_bet_closed' : "Ce pari est fermé (malheureusement)",
   'make_bet_not_enough' : "T'as pas assez de po chef (essaye pas de douiller le système)",
 
   'done_bets' : "Paris faits",

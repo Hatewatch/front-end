@@ -44,150 +44,79 @@ class PariCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return 
-    GestureDetector(
-      onTap: () {
-        onTap(context);
-      }, 
+    MouseRegion(
+      cursor: SystemMouseCursors.click,
       child: 
-      SizedBox(
-        width: 500,
+      GestureDetector(
+        
+        // TODO : HOVER POINTER
+        onTap: () {
+          onTap(context);
+        }, 
         child: 
-      ClipRRect(
-        borderRadius: HBorder.borderRadius,
-        child: 
-          ColoredBox(
-            color: HColors.up,
-            child: 
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                child: 
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    spacing: 25,
-                    
-                    children: [
-                      RichText(
-                      text: 
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "x",
-                              style: TextStyle(
-                                color: HColors.third,
-                                fontFamily: 'Jersey',
-                                fontSize: 35
+        SizedBox(
+          width: 500,
+          child: 
+        ClipRRect(
+          borderRadius: HBorder.borderRadius,
+          child: 
+            ColoredBox(
+              color: HColors.up,
+              child: 
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  child: 
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      spacing: 25,
+                      
+                      children: [
+                        RichText(
+                        text: 
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "x",
+                                style: TextStyle(
+                                  color: HColors.third,
+                                  fontFamily: 'Jersey',
+                                  fontSize: 35
+                                ),
                               ),
-                            ),
 
-                            TextSpan(
-                              text: prop.odds.toString(),
-                              style: TextStyle(
-                                color: HColors.getColorFromX(prop.odds),
-                                fontFamily: 'Jersey',
-                                fontSize: 35
+                              TextSpan(
+                                text: prop.odds.toString(),
+                                style: TextStyle(
+                                  color: HColors.getColorFromX(prop.odds),
+                                  fontFamily: 'Jersey',
+                                  fontSize: 35
+                                ),
                               ),
-                            ),
-                          ]
-                        )
-                      ),
+                            ]
+                          )
+                        ),
 
-                      Flexible(
-                      child: 
-                        Column(
-                          spacing: 5,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          
-                          //if (PropHelper.getAllBetsForId(prop.id) != 0)
-                          Wrap(
-                            runSpacing: 5,
+                        Flexible(
+                        child: 
+                          Column(
                             spacing: 5,
-                            //mainAxisSize: MainAxisSize.min,
-                            children: [ 
-                              if (PropHelper.getAllBetsForId(prop.id) != 0)
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                                decoration: BoxDecoration(
-                                  borderRadius: HBorder.borderRadius,
-                                  border: Border.all(
-                                    color: HColors.sec,
-                                    width: 2,
-                                  ),
-                                ),
-                                child: 
-                                Row(
-                                  spacing: 5,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(
-                                      Pixel.checkdouble,
-                                      color: HColors.sec,
-                                    ),
-                                    Text(
-                                      "BETTED : ${PropHelper.getAllBetsForId(prop.id)}",
-                                      style: TextStyle(
-                                        fontSize: 17
-                                      ),
-                                      textHeightBehavior: TextHeightBehavior(
-                                        applyHeightToFirstAscent: false,
-                                        applyHeightToLastDescent: false,
-                                      ),
-                                    ),
-                                ],)
-                              ),
-
-                              if (prop.state == "CLOSED")
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                                decoration: BoxDecoration(
-                                  borderRadius: HBorder.borderRadius,
-                                  border: Border.all(
-                                    color: HColors.seven,
-                                    width: 2,
-                                  ),
-                                ),
-                                child: 
-                                Row(
-                                  spacing: 5,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(
-                                      Pixel.hourglass,
-                                      color: HColors.seven,
-                                    ),
-                                    Text(
-                                      'onGoing'.tr,
-                                      style: TextStyle(
-                                        fontSize: 17
-                                      ),
-                                      textHeightBehavior: TextHeightBehavior(
-                                        applyHeightToFirstAscent: false,
-                                        applyHeightToLastDescent: false,
-                                      ),
-                                    ),
-                                ],)
-                              ),
-
-                              if (User.instance.role == "ADMIN")
-                              GestureDetector(
-                                onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => Dialog(
-                                      backgroundColor: HColors.back,
-                                      child:
-                                        EditProp(prop: prop,).bounceInUp(),
-                                    ),
-                                  );
-                                },
-                                child: 
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            
+                            //if (PropHelper.getAllBetsForId(prop.id) != 0)
+                            Wrap(
+                              runSpacing: 5,
+                              spacing: 5,
+                              //mainAxisSize: MainAxisSize.min,
+                              children: [ 
+                                if (PropHelper.getAllBetsForId(prop.id) != 0)
                                 Container(
                                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                                   decoration: BoxDecoration(
                                     borderRadius: HBorder.borderRadius,
                                     border: Border.all(
-                                      color: HColors.eight,
+                                      color: HColors.sec,
                                       width: 2,
                                     ),
                                   ),
@@ -197,11 +126,11 @@ class PariCard extends StatelessWidget {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Icon(
-                                        Pixel.edit,
-                                        color: HColors.eight,
+                                        Pixel.checkdouble,
+                                        color: HColors.sec,
                                       ),
                                       Text(
-                                        "ADMIN",
+                                        "BETTED : ${PropHelper.getAllBetsForId(prop.id)}",
                                         style: TextStyle(
                                           fontSize: 17
                                         ),
@@ -212,113 +141,201 @@ class PariCard extends StatelessWidget {
                                       ),
                                   ],)
                                 ),
-                              )
-                            ]
-                          ,),
 
-                          AutoSizeText.rich(
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 25),
-                            minFontSize: 20, 
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: prop.player,
-                                  style: TextStyle(
-                                    color: HColors.sec,
-                                    fontFamily: 'Jersey',
-                                    fontSize: 25,
-                                    height: 1.1,
+                                if (prop.state == "CLOSED")
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                                  decoration: BoxDecoration(
+                                    borderRadius: HBorder.borderRadius,
+                                    border: Border.all(
+                                      color: HColors.seven,
+                                      width: 2,
+                                    ),
                                   ),
+                                  child: 
+                                  Row(
+                                    spacing: 5,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Pixel.hourglass,
+                                        color: HColors.seven,
+                                      ),
+                                      Text(
+                                        'onGoing'.tr,
+                                        style: TextStyle(
+                                          fontSize: 17
+                                        ),
+                                        textHeightBehavior: TextHeightBehavior(
+                                          applyHeightToFirstAscent: false,
+                                          applyHeightToLastDescent: false,
+                                        ),
+                                      ),
+                                  ],)
                                 ),
 
-                                TextSpan(
-                                  text: " ${prop.title}",
-                                  style: TextStyle(
-                                    color: HColors.four,
-                                    fontFamily: 'Jersey',
-                                    fontSize: 25,
-                                    height: 1.1,
+                                if (User.instance.role == "ADMIN")
+                                GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => Dialog(
+                                        backgroundColor: HColors.back,
+                                        child:
+                                          EditProp(prop: prop,).bounceInUp(),
+                                      ),
+                                    );
+                                  },
+                                  child: 
+                                  Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                                    decoration: BoxDecoration(
+                                      borderRadius: HBorder.borderRadius,
+                                      border: Border.all(
+                                        color: HColors.eight,
+                                        width: 2,
+                                      ),
+                                    ),
+                                    child: 
+                                    Row(
+                                      spacing: 5,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          Pixel.edit,
+                                          color: HColors.eight,
+                                        ),
+                                        Text(
+                                          "ADMIN",
+                                          style: TextStyle(
+                                            fontSize: 17
+                                          ),
+                                          textHeightBehavior: TextHeightBehavior(
+                                            applyHeightToFirstAscent: false,
+                                            applyHeightToLastDescent: false,
+                                          ),
+                                        ),
+                                    ],)
                                   ),
-                                ),
+                                )
                               ]
-                            )
-                          ),
-                        ],),
+                            ,),
 
-                    ),
+                            AutoSizeText.rich(
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontSize: 25),
+                              minFontSize: 20, 
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: prop.player,
+                                    style: TextStyle(
+                                      color: HColors.sec,
+                                      fontFamily: 'Jersey',
+                                      fontSize: 25,
+                                      height: 1.1,
+                                    ),
+                                  ),
 
-                      // Flexible(
-                      //   child: 
-                      //   AutoSizeText.rich(
-                      //     maxLines: 3,
-                      //     overflow: TextOverflow.ellipsis,
-                      //     style: TextStyle(fontSize: 25),
-                      //     minFontSize: 20, 
-                      //     TextSpan(
-                      //       children: [
-                      //         TextSpan(
-                      //           text: prop.player,
-                      //           style: TextStyle(
-                      //             color: HColors.sec,
-                      //             fontFamily: 'Jersey',
-                      //             fontSize: 25,
-                      //             height: 1.1,
-                      //           ),
-                      //         ),
-
-                      //         TextSpan(
-                      //           text: " ${prop.title}",
-                      //           style: TextStyle(
-                      //             color: HColors.four,
-                      //             fontFamily: 'Jersey',
-                      //             fontSize: 25,
-                      //             height: 1.1,
-                      //           ),
-                      //         ),
-                      //       ]
-                      //     )
-                      //   ),
-                      // ),
-
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        spacing: 0,
-                        children: [
-                          Text(
-                            "Total Bets | Users",
-                            style: TextStyle(
-                              color: HColors.third,
-                              fontSize: 20,
+                                  TextSpan(
+                                    text: " ${prop.title}",
+                                    style: TextStyle(
+                                      color: HColors.four,
+                                      fontFamily: 'Jersey',
+                                      fontSize: 25,
+                                      height: 1.1,
+                                    ),
+                                  ),
+                                ]
+                              )
                             ),
-                            textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false,
-                              applyHeightToLastDescent: false,
+                          ],),
+
+                      ),
+
+                        // Flexible(
+                        //   child: 
+                        //   AutoSizeText.rich(
+                        //     maxLines: 3,
+                        //     overflow: TextOverflow.ellipsis,
+                        //     style: TextStyle(fontSize: 25),
+                        //     minFontSize: 20, 
+                        //     TextSpan(
+                        //       children: [
+                        //         TextSpan(
+                        //           text: prop.player,
+                        //           style: TextStyle(
+                        //             color: HColors.sec,
+                        //             fontFamily: 'Jersey',
+                        //             fontSize: 25,
+                        //             height: 1.1,
+                        //           ),
+                        //         ),
+
+                        //         TextSpan(
+                        //           text: " ${prop.title}",
+                        //           style: TextStyle(
+                        //             color: HColors.four,
+                        //             fontFamily: 'Jersey',
+                        //             fontSize: 25,
+                        //             height: 1.1,
+                        //           ),
+                        //         ),
+                        //       ]
+                        //     )
+                        //   ),
+                        // ),
+
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          spacing: 0,
+                          children: [
+                            Text(
+                              "Total Bets | Users",
+                              style: TextStyle(
+                                color: HColors.third,
+                                fontSize: 20,
+                              ),
+                              textHeightBehavior: TextHeightBehavior(
+                                applyHeightToFirstAscent: false,
+                                applyHeightToLastDescent: false,
+                              ),
                             ),
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            spacing: 10,
-                            children: [
-                              
-                              Text(
-                                prop.total.toString(),
-                                style: TextStyle(
-                                  color: HColors.prim,
-                                  fontSize: 45
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              spacing: 10,
+                              children: [
+                                
+                                Text(
+                                  prop.total.toString(),
+                                  style: TextStyle(
+                                    color: HColors.prim,
+                                    fontSize: 45
+                                  ),
+                                  textHeightBehavior: TextHeightBehavior(
+                                    applyHeightToFirstAscent: false,
+                                    applyHeightToLastDescent: false,
+                                  ),
+                                ).bounceIn(delay: Duration(milliseconds: 200)),
+                                
+                                Text(
+                                  "Po",
+                                  style: TextStyle(
+                                    color: HColors.third,
+                                    fontSize: 25,
+                                  ),
+                                  textHeightBehavior: TextHeightBehavior(
+                                    applyHeightToFirstAscent: false,
+                                    applyHeightToLastDescent: true,
+                                  ),
                                 ),
-                                textHeightBehavior: TextHeightBehavior(
-                                  applyHeightToFirstAscent: false,
-                                  applyHeightToLastDescent: false,
-                                ),
-                              ).bounceIn(delay: Duration(milliseconds: 200)),
-                              
-                              Text(
-                                "Po",
+
+                                Text(
+                                "|",
                                 style: TextStyle(
                                   color: HColors.third,
                                   fontSize: 25,
@@ -330,39 +347,28 @@ class PariCard extends StatelessWidget {
                               ),
 
                               Text(
-                              "|",
-                              style: TextStyle(
-                                color: HColors.third,
-                                fontSize: 25,
+                                prop.totalUsers.toString(),
+                                style: TextStyle(
+                                  color: HColors.prim,
+                                  fontSize: 25,
+                                ),
+                                textHeightBehavior: TextHeightBehavior(
+                                  applyHeightToFirstAscent: false,
+                                  applyHeightToLastDescent: true,
+                                ),
                               ),
-                              textHeightBehavior: TextHeightBehavior(
-                                applyHeightToFirstAscent: false,
-                                applyHeightToLastDescent: true,
-                              ),
-                            ),
-
-                            Text(
-                              prop.totalUsers.toString(),
-                              style: TextStyle(
-                                color: HColors.prim,
-                                fontSize: 25,
-                              ),
-                              textHeightBehavior: TextHeightBehavior(
-                                applyHeightToFirstAscent: false,
-                                applyHeightToLastDescent: true,
-                              ),
-                            ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-              )
-          ),
-        )
-      ).fadeIn(
-        duration: Duration(milliseconds: 300)
+                              ],
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                )
+            ),
+          )
+        ).fadeIn(
+          duration: Duration(milliseconds: 300)
+        ),
       ),
     );
   }

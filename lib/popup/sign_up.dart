@@ -162,7 +162,8 @@ class SignUp extends StatelessWidget with ChangeNotifier {
                   vertical: 15,
                   onTap: value ? () {
                     onSubmit(context);
-                  } : null
+                  } : null,
+                  activated: value,
                 );
               }),
             ],

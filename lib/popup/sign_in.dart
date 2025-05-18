@@ -174,7 +174,8 @@ class SignIn extends StatelessWidget with ChangeNotifier {
                   vertical: 15,
                   onTap: value ? () {
                     onSubmit(context);
-                  } : null
+                  } : null,
+                  activated: value,
                 );
               }),
 
@@ -190,26 +191,29 @@ class SignIn extends StatelessWidget with ChangeNotifier {
               //     pathBackgroundColor: HColors.back
               //   ),
               // ),
-
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                  showDialog(
-                    context: context,
-                    builder: (context) => Dialog(
-                      backgroundColor: HColors.back,
-                      child: 
-                        SignUp().bounceInUp(),
-                    ),
-                  );
-                },
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
                 child: 
-                  Text(
-                    'no_account_go_create'.tr,
-                    style: TextStyle(
-                      color : HColors.four,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (context) => Dialog(
+                        backgroundColor: HColors.back,
+                        child: 
+                          SignUp().bounceInUp(),
+                      ),
+                    );
+                  },
+                  child: 
+                    Text(
+                      'no_account_go_create'.tr,
+                      style: TextStyle(
+                        color : HColors.four,
+                      ),
                     ),
-                  ),
+                ),
               )
             ],
           ),
