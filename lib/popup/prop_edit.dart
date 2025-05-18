@@ -107,6 +107,49 @@ class EditProp extends StatelessWidget with ChangeNotifier {
     Navigator.maybePop(context);
   }
 
+  Future onSubmitCancel(BuildContext context) async {
+
+    var rep = await postCallApiBody('api/proposals/cancel', 
+      {
+        'proposalId' : prop.id,
+      }
+    );
+
+    if (rep is Map && rep.containsKey("message")){
+      switch (rep['message']) {
+        case 'Proposal cancelled, bets refunded and deleted':
+          AlertInfo.show(
+            // ignore: use_build_context_synchronously
+            context: context,
+            text: 'edit_prop_cancel_success'.tr,
+            
+            typeInfo: TypeInfo.success,
+            position: MessagePosition.top,
+            action: null,
+          );
+          break;
+        default:
+          AlertInfo.show(
+            // ignore: use_build_context_synchronously
+            context: context,
+            text: 'edit_prop_cancel_error'.tr,
+            
+            typeInfo: TypeInfo.error,
+            position: MessagePosition.top,
+            action: null,
+          );
+          break;
+          
+      }
+    }
+
+    print(rep);
+    User.instance.getInfosUser();
+    User.instance.getAllProps();
+    User.instance.getBetsUser();
+    Navigator.maybePop(context);
+  }
+
   void setWin(bool value) {
     win.value = value;
     win.notifyListeners();
@@ -139,6 +182,16 @@ class EditProp extends StatelessWidget with ChangeNotifier {
                 vertical: 15,
                 onTap: () {
                   onSubmitClose(context);
+                }
+              ),
+
+              WTextButton(
+                text: 'edit_prop_cancel'.tr,
+                fontSize: 28,
+                horizontal: 60,
+                vertical: 15,
+                onTap: () {
+                  onSubmitCancel(context);
                 }
               ),
 

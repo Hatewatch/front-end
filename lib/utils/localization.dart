@@ -99,6 +99,9 @@ Map<String, String> fr = {
   'edit_prop_end_error' : "Il y a eu une erreur pendant la fermeture du pari",
   'edit_prop_close_success' : "Pari fermé avec succès",
   'edit_prop_close_error' : "Erreur pendant la fermeture du pari",
+  'edit_prop_cancel' : "Annuler le pari",
+  'edit_prop_cancel_success' : "Pari annulé avec succès",
+  'edit_prop_cancel_error' : "Il y a eu une erreur pendant l'annulation du pari",
   
   'bet_betted_on' : 'a misé sur :',
 
