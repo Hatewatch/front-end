@@ -28,6 +28,8 @@ class SignUp extends StatelessWidget with ChangeNotifier {
     return pseudoCont.text.isNotEmpty && mdpCont.text.isNotEmpty;
   }
 
+  bool firstFrame = true;
+
   Future onSubmit(BuildContext context) async {
 
     try {
@@ -101,6 +103,12 @@ class SignUp extends StatelessWidget with ChangeNotifier {
 
   @override
   Widget build(BuildContext context) {
+
+    if (firstFrame) {
+      focusName.requestFocus();
+      firstFrame = false;
+    }
+
     return 
     SizedBox(
       width: MediaQuery.sizeOf(context).width * 0.7,

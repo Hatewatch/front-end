@@ -6,7 +6,7 @@ Map<String, String> fr = {
   "create_bet" : "Créer un pari",
   "stats" : "Stats",
   "bet_win" : "Paris Gagnés",
-  "last_po_win" : "Dernier Po Gagnés",
+  "last_po_win" : "Dernier Po pari",
   "all_bets" : "Paris Disponibles",
   "total" : "Total",
   "reload_all_props" : 'Reload des paris disponibles',

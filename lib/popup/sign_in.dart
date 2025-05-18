@@ -28,6 +28,8 @@ class SignIn extends StatelessWidget with ChangeNotifier {
 
   final ValueNotifier<bool> canLoad = ValueNotifier(false);
 
+  bool firstFrame = true;
+
   bool validateInputs() {
     return pseudoCont.text.isNotEmpty && mdpCont.text.isNotEmpty;
   }
@@ -106,6 +108,12 @@ class SignIn extends StatelessWidget with ChangeNotifier {
 
   @override
   Widget build(BuildContext context) {
+
+    if (firstFrame) {
+      focusName.requestFocus();
+      firstFrame = false;
+    }
+
     return 
     SizedBox(
       width: MediaQuery.sizeOf(context).width * 0.7,
