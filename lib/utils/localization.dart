@@ -103,6 +103,13 @@ Map<String, String> fr = {
   'edit_prop_cancel_success' : "Pari annulé avec succès",
   'edit_prop_cancel_error' : "Il y a eu une erreur pendant l'annulation du pari",
   
+  // CLAIM CODE
+  'claim_code' : "Réclamer un code",
+  'claim_code_hint' : "Hey, envie d'utiliser un petit code pour avoir des récompenses ? C'est vraiment ici t'en fais pas",
+  'claim_code_code' : "Code",
+  'claim_code_already_or_false' : "T'as déjà réclamé ce code ou ce code est faux (stp fait pas toutes les lettres du monde)",
+  'claim_code_success' : "Vous avez reçu",
+
   'bet_betted_on' : 'a misé sur :',
 
 };

@@ -6,6 +6,7 @@ import 'package:hate_watch/class/app.dart';
 import 'package:hate_watch/class/bet.dart';
 import 'package:hate_watch/class/tutorial.dart';
 import 'package:hate_watch/class/user.dart';
+import 'package:hate_watch/popup/code_claim.dart';
 import 'package:hate_watch/popup/create_prop.dart';
 import 'package:hate_watch/popup/disconnect.dart';
 import 'package:hate_watch/popup/sign_in.dart';
@@ -77,10 +78,7 @@ class Home extends StatelessWidget {
             //   icon: Pixel.avatar, label: 'ChangePseudo',
             //   // TODO : Changer Pseudo
             // ),
-            // SidebarXItem(
-            //   icon: Pixel.lock, label: 'Search',
-            //   // TODO : Changer password
-            // ),
+            
             SidebarXItem(
               iconBuilder: (a,b) {
                 return 
@@ -160,7 +158,21 @@ class Home extends StatelessWidget {
                 }
                 
               }
-            )
+            ),
+            if (User.instance.isConnected())
+            SidebarXItem(
+              icon: Pixel.gift, label: 'Search',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => Dialog(
+                    backgroundColor: HColors.back,
+                    child: 
+                      CodeClaim().bounceInUp(),
+                  ),
+                );
+              }
+            ),
           ],
           footerBuilder: (context, extended) {
             return 
