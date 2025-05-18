@@ -16,6 +16,9 @@ Map<String, String> fr = {
   "guest" : "Invité",
   "lose_first_bet" : "Perd son premier pari !",
 
+  'leaderboard_server' : "Leaderboard serveur",
+  'reload_leaderboard' : "Reload du leaderboard du serveur",
+
   'username' : "Pseudo",
   'password' : "Mot de passe",
 
@@ -60,6 +63,7 @@ Map<String, String> fr = {
   'create_bet_odd' : "Odd",
   'create_bet_success' : "Création d'un pari fait avec succès",
   'create_bet_error' : "Erreur lors de la création d'un pari",
+  'create_bet_champ' : "Champion du joueur",
 
   // MAKE A BET
   'make_bet' : "Miser sur un Pari",

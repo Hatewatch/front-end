@@ -13,6 +13,7 @@ class Prop {
     required this.state,
     required this.total,
     required this.totalUsers,
+    required this.champ,
   });
 
   factory Prop.fromJson(Map<String, dynamic> json) {
@@ -25,6 +26,7 @@ class Prop {
       total: double.parse(json['prop_total_amount']),
       state: json['prop_state'],
       totalUsers: json['prop_nbPeople'],
+      champ: json['prop_champion'],
     );
   }
 
@@ -36,6 +38,7 @@ class Prop {
   double odds;
   double total;
   DateTime timeCreation;
+  String? champ;
 
 }
 

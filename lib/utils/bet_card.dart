@@ -59,10 +59,10 @@ class BetCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: HBorder.borderRadius,
           color: HColors.up,
-          border: Border.all(
+          border: bet.state != null ? Border.all(
             color: getColorForStatus(bet),
             width: 4
-          )
+          ) : null,
         ),
         width: 350,
         child: 

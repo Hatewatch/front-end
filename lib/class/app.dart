@@ -6,6 +6,8 @@ class App with ChangeNotifier {
   static App instance = App();
   ValueNotifier<App?> notif = ValueNotifier(null);
 
+  
+
   bool doneTutorial = false;
 
   void init() {

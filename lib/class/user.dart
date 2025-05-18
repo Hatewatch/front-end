@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:hate_watch/api/api.dart';
 import 'package:hate_watch/api/data.dart';
+import 'package:hate_watch/api/leaderboard.dart';
 import 'package:hate_watch/class/bet.dart';
 import 'package:hate_watch/class/prop.dart';
 import 'package:hate_watch/utils/localization.dart';
@@ -32,6 +33,7 @@ class User with ChangeNotifier {
   List<Prop> props = [];
   List<Bet> betsUser = [];
   List<Bet> betsAllWeb = [];
+  List<Leaderboard> leaderboard = [];
 
   Timer? timer;
   Timer? timerReloadAll;
@@ -44,6 +46,7 @@ class User with ChangeNotifier {
     
     getAllProps();
     getAllBetsWeb();
+    getLeaderboard();
     initUser();
 
     timer = Timer.periodic(
@@ -78,6 +81,23 @@ class User with ChangeNotifier {
     setToken("");
 
     notify();
+  }
+
+  Future getLeaderboard() async {
+    var rep = await getCallHw("api/users/leaderboard");
+
+    leaderboard.clear();
+
+    // print(rep);
+
+    if (rep is List) {
+      for (int i = 0; i < rep.length; i++) {
+        leaderboard.add(
+          Leaderboard.fromJson(rep[i])
+        );
+      }
+    }
+
   }
 
   Future getAllProps() async {
@@ -177,6 +197,7 @@ class User with ChangeNotifier {
   Future getAllInfosUser() async {
     await getInfosUser();
     await getBetsUser();
+    await getLeaderboard();
     await getAllBetsWeb();
     await getAllProps();
   }

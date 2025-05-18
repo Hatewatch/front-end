@@ -1,5 +1,6 @@
 import 'package:alert_info/alert_info.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hate_watch/class/prop.dart';
 import 'package:hate_watch/class/user.dart';
@@ -77,7 +78,7 @@ class PariCard extends StatelessWidget with ChangeNotifier {
           }, 
           child: 
           SizedBox(
-            width: 500,
+            width: 520,
             child: 
               DecoratedBox(
                 decoration: BoxDecoration(
@@ -97,29 +98,47 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                             spacing: 25,
                             
                             children: [
-                              RichText(
-                              text: 
-                                TextSpan(
-                                  children: [
+                              
+                              Column(
+                                children: [
+                                  
+                                  
+                                  
+                                  RichText(
+                                  text: 
                                     TextSpan(
-                                      text: "x",
-                                      style: TextStyle(
-                                        color: HColors.third,
-                                        fontFamily: 'Jersey',
-                                        fontSize: 35
-                                      ),
-                                    ),
+                                      children: [
+                                        TextSpan(
+                                          text: "x",
+                                          style: TextStyle(
+                                            color: HColors.third,
+                                            fontFamily: 'Jersey',
+                                            fontSize: 35
+                                          ),
+                                        ),
 
-                                    TextSpan(
-                                      text: prop.odds.toString(),
-                                      style: TextStyle(
-                                        color: HColors.getColorFromX(prop.odds),
-                                        fontFamily: 'Jersey',
-                                        fontSize: 35
-                                      ),
-                                    ),
-                                  ]
-                                )
+                                        TextSpan(
+                                          text: prop.odds.toString(),
+                                          style: TextStyle(
+                                            color: HColors.getColorFromX(prop.odds),
+                                            fontFamily: 'Jersey',
+                                            fontSize: 35
+                                          ),
+                                        ),
+                                      ]
+                                    )
+                                  ),
+                                ],
+                              ),
+                              
+                              if (prop.champ != null)
+                              CachedNetworkImage(
+                                width: 75,
+                                height: 75,
+                                imageUrl: 'https://ddragon.leagueoflegends.com/cdn/15.10.1/img/champion/${prop.champ!}.png',
+                                errorWidget: (context, url, error) {
+                                  return SizedBox();
+                                },
                               ),
 
                               Flexible(

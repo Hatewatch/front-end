@@ -4,19 +4,25 @@ import 'package:hate_watch/api/api.dart';
 import 'package:hate_watch/class/user.dart';
 import 'package:hate_watch/utils/buttons.dart';
 import 'package:hate_watch/utils/form.dart';
+import 'package:hate_watch/utils/hcolors.dart';
+import 'package:hate_watch/utils/hradius.dart';
 import 'package:hate_watch/utils/localization.dart';
 import 'package:hate_watch/utils/text.dart';
 import 'package:hate_watch/utils/title.dart';
+import 'package:flutter_popup/flutter_popup.dart';
+// import 'package:pixelarticons/pixel.dart';
 
 // ignore: must_be_immutable
 class CreateProp extends StatelessWidget with ChangeNotifier {
   CreateProp({super.key});
 
   final TextEditingController person = TextEditingController();
+  final TextEditingController champ = TextEditingController();
   final TextEditingController desc = TextEditingController();
   final TextEditingController odd = TextEditingController();
 
   final FocusNode personFocus = FocusNode();
+  final FocusNode champFocus = FocusNode();
   final FocusNode descFocus = FocusNode();
   final FocusNode oddFocus = FocusNode();
 
@@ -25,7 +31,7 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
   final ValueNotifier<bool> canCreate = ValueNotifier(false);
 
   bool validateInputs() {
-    return person.text.isNotEmpty && desc.text.isNotEmpty && odd.text.isNotEmpty;
+    return person.text.isNotEmpty && desc.text.isNotEmpty && odd.text.isNotEmpty && champ.text.isNotEmpty;
   }
 
   Future onSubmit(BuildContext context) async {
@@ -36,6 +42,7 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
         'prop_player' : person.text.toUpperCase(),
         'prop_title' : desc.text,
         'prop_odds' : double.parse(odd.text),
+        'prop_champion' : champ.text,
       }
     );
 
@@ -97,6 +104,15 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
               
               HintText(text: 'new_bet_title'.tr),
 
+              
+
+              // WTextButton(
+              //   text: 'Presets',
+              //   onTap: () {
+                  
+              //   },
+              // ),
+
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -109,11 +125,70 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
                     canCreate.notifyListeners();
                   },
                   onSubmit: (value) {
-                    descFocus.requestFocus();
+                    champFocus.requestFocus();
                   },
                 ),
 
                 WForm(
+                  focus: champFocus,
+                  title: 'create_bet_champ'.tr, 
+                  controller: champ,
+                  onChanged: (value) {
+                    canCreate.value = validateInputs();
+                    canCreate.notifyListeners();
+                  },
+                  onSubmit: (value) {
+                    descFocus.requestFocus();
+                  },
+                ),
+
+                CustomPopup(
+                backgroundColor: HColors.up,
+                content: 
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: 
+                    [
+                      GestureDetector(
+                        onTap: () {
+                          desc.text = "Gagne sa game";
+                          odd.text = "1.5";
+                          canCreate.value = validateInputs();
+                          canCreate.notifyListeners();
+                        },
+                        child: Text("Gagne sa game"),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          desc.text = "Perd sa game";
+                          odd.text = "1.5";
+                          canCreate.value = validateInputs();
+                          canCreate.notifyListeners();
+                        },
+                        child: Text("Perd sa game"),
+                      ),
+                    ],
+                ),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 4,
+                      color: HColors.third
+                    ),
+                    borderRadius: HBorder.borderRadius,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10, 
+                      vertical: 5
+                    ),
+                    child: 
+                      Text("Presets", style: TextStyle(fontSize: 25),),
+                  ),
+                ),
+              ),
+
+              WForm(
                   focus: descFocus,
                   title: "condition".tr,
                   controller: desc,
@@ -154,7 +229,8 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
                   vertical: 15,
                   onTap: value ? () {
                     onSubmit(context);
-                  } : null
+                  } : null,
+                  activated: value,
                 );
               })
               
