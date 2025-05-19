@@ -57,7 +57,7 @@ class WTextButton extends StatelessWidget {
   final Function? onTap;
   final String text;
   final double fontSize; 
-  double horizontal;
+  final double horizontal;
   final double vertical;
   final Color colorBox;
   final Color colorText;
@@ -67,10 +67,14 @@ class WTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    double sizeFont = fontSize;
+    double horiz = horizontal;
+    double vert = vertical;
+
     if (MediaQuery.sizeOf(context).width < 600) {
-      horizontal = 10;
-    } else {
-      horizontal = 40;
+      horiz = 10;
+      sizeFont -= 10;
+      vert = 0;
     }
 
     return 
@@ -80,7 +84,7 @@ class WTextButton extends StatelessWidget {
           colorBox
         ) : null,
         padding: WidgetStateProperty.all(
-          EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical)
+          EdgeInsets.symmetric(horizontal: horiz, vertical: vert)
         ),
         shape: WidgetStateProperty.all(
           RoundedRectangleBorder(
@@ -96,7 +100,7 @@ class WTextButton extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          fontSize: fontSize,
+          fontSize: sizeFont,
           color: activated ? colorText : HColors.desac
         ),
       )

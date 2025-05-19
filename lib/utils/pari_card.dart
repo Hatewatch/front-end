@@ -450,11 +450,11 @@ class PariCardNone extends StatelessWidget {
           color: HColors.up,
           child: 
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: sizeText-15),
               child: 
                 Row(
                   mainAxisSize: MainAxisSize.min,
-                  spacing: 25,
+                  spacing: sizeText == 30 ? 10 : 25,
                   
                   children: [
                     RichText(
@@ -495,7 +495,7 @@ class PariCardNone extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [ 
                               Container(
-                                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                                padding: EdgeInsets.symmetric(horizontal: sizeText == 30 ? 5 : 10, vertical: 0),
                                 decoration: BoxDecoration(
                                   borderRadius: HBorder.borderRadius,
                                   border: Border.all(
@@ -511,11 +511,12 @@ class PariCardNone extends StatelessWidget {
                                     Icon(
                                       Pixel.checkdouble,
                                       color: HColors.sec,
+                                      size: sizeText - 15,
                                     ),
                                     Text(
                                       "BETTED : 400",
                                       style: TextStyle(
-                                        fontSize: sizeText-13
+                                        fontSize: sizeText-15
                                       ),
                                       textHeightBehavior: TextHeightBehavior(
                                         applyHeightToFirstAscent: false,

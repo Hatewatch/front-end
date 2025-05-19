@@ -18,6 +18,7 @@ class WForm extends StatelessWidget {
       this.onChanged,
       this.onSubmit,
       this.focus,
+      this.fontSizeTitle = 26,
     }
   );
 
@@ -32,6 +33,7 @@ class WForm extends StatelessWidget {
   final FocusNode? focus;
   final void Function(String)? onChanged;
   final void Function(String)? onSubmit;
+  final double fontSizeTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class WForm extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 5,
       children: [
-        if (title != '') Text(title, style: TextStyle(fontSize: 26),),
+        if (title != '') Text(title, style: TextStyle(fontSize: fontSizeTitle),),
         SizedBox(
           width: width,
           child: 
@@ -85,7 +87,9 @@ class WFormMdp extends StatelessWidget with ChangeNotifier {
       this.width = 400,
       this.onChanged,
       this.onSubmit,
-      this.focus
+      this.focus,
+      this.fontSizeTitle = 26,
+      this.fontSizeHint = 28,
     }
   );
 
@@ -97,6 +101,8 @@ class WFormMdp extends StatelessWidget with ChangeNotifier {
   final FocusNode? focus;
   final void Function(String)? onChanged;
   final void Function(String)? onSubmit;
+  final double fontSizeTitle;
+  final double fontSizeHint;
 
   final ValueNotifier<bool> obscure = ValueNotifier(true);
 
@@ -107,7 +113,7 @@ class WFormMdp extends StatelessWidget with ChangeNotifier {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 5,
       children: [
-        Text(title, style: TextStyle(fontSize: 26),),
+        Text(title, style: TextStyle(fontSize: fontSizeTitle),),
         ValueListenableBuilder(valueListenable: obscure, builder: (context, value, child) {
           return SizedBox(
             width: width,
@@ -119,7 +125,7 @@ class WFormMdp extends StatelessWidget with ChangeNotifier {
               maxLength: maxLength,
               obscureText: obscure.value,
               obscuringCharacter: '*',
-              style: TextStyle(color: HColors.four, fontSize: 28),
+              style: TextStyle(color: HColors.four, fontSize: fontSizeHint),
               controller: controller,
               decoration: InputDecoration(
                 suffix: 
@@ -138,7 +144,7 @@ class WFormMdp extends StatelessWidget with ChangeNotifier {
                 filled: true,
                 fillColor: HColors.up,
                 hintText: hintText,
-                hintStyle: TextStyle(color: HColors.third, fontSize: 28),
+                hintStyle: TextStyle(color: HColors.third, fontSize: fontSizeHint),
                 focusColor: HColors.third,
                 border: OutlineInputBorder(
                   borderSide: BorderSide.none

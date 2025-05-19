@@ -88,6 +88,13 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
       firstFrame = false;
     }
 
+    double fontSize = 26;
+
+    if (MediaQuery.sizeOf(context).width < 600) {
+      fontSize = 20;
+    }
+
+
     return SizedBox(
       width: MediaQuery.sizeOf(context).width * 0.7,
       child: 
@@ -97,12 +104,15 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
           Column(
             // crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
-            spacing: 20,
+            spacing: fontSize - 6,
             children: 
             [
               HTitle(end: 'create_bet'.tr,),
               
-              HintText(text: 'new_bet_title'.tr),
+              HintText(
+                text: 'new_bet_title'.tr,
+                fontSize: fontSize-6,
+              ),
 
               
 
@@ -117,6 +127,8 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                 WForm(
+                  fontSizeTitle: fontSize,
+                  textFontSize: fontSize+2,
                   focus: personFocus,
                   title: 'bet_username_target'.tr, 
                   controller: person,
@@ -130,6 +142,8 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
                 ),
 
                 WForm(
+                  fontSizeTitle: fontSize,
+                  textFontSize: fontSize+2,
                   focus: champFocus,
                   title: 'create_bet_champ'.tr, 
                   controller: champ,
@@ -189,6 +203,8 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
               ),
 
               WForm(
+                  fontSizeTitle: fontSize,
+                  textFontSize: fontSize+2,
                   focus: descFocus,
                   title: "condition".tr,
                   controller: desc,
@@ -206,10 +222,12 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
               ],),
 
               WForm(
+                fontSizeTitle: fontSize,
+                textFontSize: fontSize+15,
                 focus: oddFocus,
                 title: 'create_bet_odd'.tr,
                 width: 200,
-                textFontSize: 50,
+                //textFontSize: 50,
                 maxLength: 4,
                 hintText: '1.0',
                 controller: odd,

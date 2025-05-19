@@ -27,6 +27,13 @@ class LeaderboardCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double fontSize = 24;
+
+    if (MediaQuery.sizeOf(context).width < 600) {
+      fontSize = 18;
+    }
+
     return SizedBox(
       width: 400,
       child: DecoratedBox(
@@ -42,7 +49,7 @@ class LeaderboardCard extends StatelessWidget {
           ),
           child: 
             Row(
-              spacing: 15,
+              spacing: fontSize == 18 ? 5 : 15,
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: 
@@ -50,7 +57,7 @@ class LeaderboardCard extends StatelessWidget {
                 Text(
                   pos.toString(),
                   style: TextStyle(
-                    fontSize: 32,
+                    fontSize: fontSize+8,
                     color: colorForPlace(pos),
                   ),
                 ),
@@ -59,7 +66,7 @@ class LeaderboardCard extends StatelessWidget {
                   lead.name,
                   style: TextStyle(
                     color: HColors.prim,
-                    fontSize: 24
+                    fontSize: fontSize
                   ),
                 ),
 
@@ -72,7 +79,7 @@ class LeaderboardCard extends StatelessWidget {
                           style: TextStyle(
                             color: HColors.prim,
                             fontFamily: 'Jersey',
-                            fontSize: 25
+                            fontSize: fontSize
                           ),
                         ),
 
@@ -81,7 +88,7 @@ class LeaderboardCard extends StatelessWidget {
                           style: TextStyle(
                             color: HColors.third,
                             fontFamily: 'Jersey',
-                            fontSize: 20
+                            fontSize: fontSize-5
                           ),
                         ),
                       ]
@@ -97,7 +104,7 @@ class LeaderboardCard extends StatelessWidget {
                           style: TextStyle(
                             color: HColors.prim,
                             fontFamily: 'Jersey',
-                            fontSize: 25
+                            fontSize: fontSize
                           ),
                         ),
 
@@ -106,7 +113,7 @@ class LeaderboardCard extends StatelessWidget {
                           style: TextStyle(
                             color: HColors.third,
                             fontFamily: 'Jersey',
-                            fontSize: 20
+                            fontSize: fontSize-5
                           ),
                         ),
                       ]
@@ -122,7 +129,7 @@ class LeaderboardCard extends StatelessWidget {
                           style: TextStyle(
                             color: HColors.prim,
                             fontFamily: 'Jersey',
-                            fontSize: 25
+                            fontSize: fontSize
                           ),
                         ),
 
@@ -131,7 +138,7 @@ class LeaderboardCard extends StatelessWidget {
                           style: TextStyle(
                             color: HColors.third,
                             fontFamily: 'Jersey',
-                            fontSize: 20
+                            fontSize: fontSize-5
                           ),
                         ),
                       ]

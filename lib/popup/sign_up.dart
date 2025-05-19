@@ -109,6 +109,12 @@ class SignUp extends StatelessWidget with ChangeNotifier {
       firstFrame = false;
     }
 
+    double fontSize = 26;
+
+    if (MediaQuery.sizeOf(context).width < 600) {
+      fontSize = 20;
+    }
+
     return 
     SizedBox(
       width: MediaQuery.sizeOf(context).width * 0.7,
@@ -130,6 +136,8 @@ class SignUp extends StatelessWidget with ChangeNotifier {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   WForm(
+                    textFontSize: fontSize+2,
+                    fontSizeTitle: fontSize,
                     title: "username".tr, 
                     controller: pseudoCont,
                     focus: focusName,
@@ -144,6 +152,8 @@ class SignUp extends StatelessWidget with ChangeNotifier {
                   ),
 
                   WFormMdp(
+                    fontSizeTitle: fontSize,
+                    fontSizeHint: fontSize+2,
                     title: 'password'.tr, 
                     focus: focusMdp,
                     controller: mdpCont,

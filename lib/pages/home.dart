@@ -224,7 +224,7 @@ class Home extends StatelessWidget {
             valueListenable: User.instance.notif,
             builder: (context, value, child) {
               return Padding(
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(sizeTitle == 30 ? 10 : 20),
                 child: Column(
                   children: [
                     // Header Row
