@@ -109,6 +109,16 @@ Map<String, String> fr = {
   'claim_code_code' : "Code",
   'claim_code_already_or_false' : "T'as déjà réclamé ce code ou ce code est faux (stp fait pas toutes les lettres du monde)",
   'claim_code_success' : "Vous avez reçu",
+  'claim_code_create' : "Hey, t'es admin toi nan ? Envie de créer un code ? Clique ici",
+
+  // CREATE CODE
+  'create_code' : "Créer un code",
+  'create_code_hint' : 'Alors envie de créer un petit code pour faire profiter tout le monde ?',
+  'create_code_code' : "Nouveau code",
+  'create_code_amount' : "Montant du gain",
+  'create_code_success' : "Code créé avec succès",
+  'create_code_error' : "Une erreur s'est produite pendant la création d'un code",
+  'create_code_already' : "T'as déjà créé un code comme ça chef",
 
   'bet_betted_on' : 'a misé sur :',
 
