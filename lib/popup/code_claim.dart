@@ -1,17 +1,16 @@
 import 'package:alert_info/alert_info.dart';
-import 'package:animate_do/animate_do.dart';
-import 'package:bcrypt/bcrypt.dart';
 import 'package:flutter/material.dart';
 import 'package:hate_watch/api/api.dart';
 import 'package:hate_watch/class/user.dart';
-import 'package:hate_watch/general/key.dart';
-import 'package:hate_watch/popup/sign_up.dart';
 import 'package:hate_watch/utils/buttons.dart';
 import 'package:hate_watch/utils/form.dart';
 import 'package:hate_watch/utils/hcolors.dart';
+import 'package:hate_watch/utils/hradius.dart';
+import 'package:hate_watch/utils/loading.dart';
 import 'package:hate_watch/utils/localization.dart';
 import 'package:hate_watch/utils/text.dart';
 import 'package:hate_watch/utils/title.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 // import 'package:loading_indicator/loading_indicator.dart';
 
 // ignore: must_be_immutable
@@ -24,6 +23,8 @@ class CodeClaim extends StatelessWidget with ChangeNotifier {
 
 
   final ValueNotifier<bool> canLoad = ValueNotifier(false);
+  final ValueNotifier<bool> isLoading = ValueNotifier(false);
+  final GlobalKey keyButton = GlobalKey();
 
   bool firstFrame = true;
 
@@ -35,56 +36,58 @@ class CodeClaim extends StatelessWidget with ChangeNotifier {
 
     try {
     
-      var rep = await postCallApiBody(
-        "api/codes/use",
-        {
-          'code': codeCont.text,
-        }
-      );
+      isLoading.value = true;
+      isLoading.notifyListeners();
 
-      print(rep);
+      await Future.delayed(Duration(seconds: 5));
 
-      if (rep is Map && rep.containsKey("message")) {
+      // var rep = await postCallApiBody(
+      //   "api/codes/use",
+      //   {
+      //     'code': codeCont.text,
+      //   }
+      // );
+
+      // print(rep);
+
+      // if (rep is Map && rep.containsKey("message")) {
         
-        switch(rep["message"]) {
-          case 'Code not found or already used.':
-            AlertInfo.show(
-              // ignore: use_build_context_synchronously
-              context: context,
-              text: 'claim_code_already_or_false'.tr,
+      //   switch(rep["message"]) {
+      //     case 'Code not found or already used.':
+      //       AlertInfo.show(
+      //         // ignore: use_build_context_synchronously
+      //         context: context,
+      //         text: 'claim_code_already_or_false'.tr,
               
-              typeInfo: TypeInfo.error,
-              position: MessagePosition.top,
-              action: null,
-            );
-            // ignore: use_build_context_synchronously
-            Navigator.maybePop(context);
-            break;
-          case 'Code used successfully.':
-            AlertInfo.show(
-              // ignore: use_build_context_synchronously
-              context: context,
-              text: '${'claim_code_success'.tr} ${rep["reward"]}Po',
+      //         typeInfo: TypeInfo.error,
+      //         position: MessagePosition.top,
+      //         action: null,
+      //       );
+      //       break;
+      //     case 'Code used successfully.':
+      //       AlertInfo.show(
+      //         // ignore: use_build_context_synchronously
+      //         context: context,
+      //         text: '${'claim_code_success'.tr} ${rep["reward"]}Po',
               
-              typeInfo: TypeInfo.success,
-              position: MessagePosition.top,
-              action: null,
-            );
-            User.instance.getInfosUser();
-            // ignore: use_build_context_synchronously
-            Navigator.maybePop(context);
-            break;
+      //         typeInfo: TypeInfo.success,
+      //         position: MessagePosition.top,
+      //         action: null,
+      //       );
+      //       User.instance.getInfosUser();
+      //       // ignore: use_build_context_synchronously
+      //       Navigator.maybePop(context);
+      //       break;
           
-        }
-        
-        
-
-
-      } 
+      //   }
+      // } 
     }
     // ignore: empty_catches
     catch (e) {
     }
+
+    isLoading.value = false;
+    isLoading.notifyListeners();
 
   }
 
@@ -132,16 +135,28 @@ class CodeClaim extends StatelessWidget with ChangeNotifier {
               ],),
 
               ValueListenableBuilder(valueListenable: canLoad, builder: (context, value, child) {
-                return WTextButton(
-                  text: 'claim_code'.tr,
-                  fontSize: 28,
-                  horizontal: 60,
-                  vertical: 15,
-                  onTap: value ? () {
-                    onSubmit(context);
-                  } : null,
-                  activated: value,
-                );
+                return
+                  ValueListenableBuilder(valueListenable: isLoading, builder: (context, loading, child) {
+                    Size size = Size.zero;
+                    RenderBox? box = keyButton.currentContext?.findRenderObject() as RenderBox?;
+                    if (box != null) {
+                      size = box.size;
+                    }
+                    
+                    return loading ?
+                    Loading(size: size)
+                    : WTextButton(
+                      key: keyButton,
+                      text: 'claim_code'.tr,
+                      fontSize: 28,
+                      horizontal: 60,
+                      vertical: 15,
+                      onTap: value ? () {
+                        onSubmit(context);
+                      } : null,
+                      activated: value,
+                    );
+                });
               }),
             ],
           ),
