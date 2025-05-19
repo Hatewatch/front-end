@@ -278,36 +278,40 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                                     ]
                                   ,),
 
-                                  AutoSizeText.rich(
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(fontSize: 25),
-                                    minFontSize: 20, 
-                                    TextSpan(
-                                      children: [
+                                  SizedBox(
+                                    width: 150,
+                                    child: 
+                                      AutoSizeText.rich(
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(fontSize: 25),
+                                        minFontSize: 20, 
                                         TextSpan(
-                                          text: prop.player,
-                                          style: TextStyle(
-                                            color: HColors.sec,
-                                            fontFamily: 'Jersey',
-                                            fontSize: sizeText-10,
-                                            height: 1.1,
-                                          ),
-                                        ),
+                                          children: [
+                                            TextSpan(
+                                              text: prop.player,
+                                              style: TextStyle(
+                                                color: HColors.sec,
+                                                fontFamily: 'Jersey',
+                                                fontSize: sizeText-10,
+                                                height: 1.1,
+                                              ),
+                                            ),
 
-                                        TextSpan(
-                                          text: " ${prop.title}",
-                                          style: TextStyle(
-                                            color: HColors.four,
-                                            fontFamily: 'Jersey',
-                                            fontSize: sizeText-10,
-                                            height: 1.1,
-                                          ),
-                                        ),
-                                      ]
-                                    )
-                                  ),
-                                ],),
+                                            TextSpan(
+                                              text: " ${prop.title}",
+                                              style: TextStyle(
+                                                color: HColors.four,
+                                                fontFamily: 'Jersey',
+                                                fontSize: sizeText-10,
+                                                height: 1.1,
+                                              ),
+                                            ),
+                                          ]
+                                        )
+                                      ),
+                                      )
+                                  ],),
 
 
                               // Flexible(
