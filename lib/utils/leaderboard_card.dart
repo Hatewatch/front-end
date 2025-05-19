@@ -29,9 +29,11 @@ class LeaderboardCard extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double fontSize = 24;
+    bool resized = false;
 
     if (MediaQuery.sizeOf(context).width < 600) {
       fontSize = 18;
+      resized = true;
     }
 
     return SizedBox(
@@ -44,7 +46,7 @@ class LeaderboardCard extends StatelessWidget {
         child: 
         Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: 20, 
+            horizontal: resized ? 5 : 20, 
             vertical: 5
           ),
           child: 

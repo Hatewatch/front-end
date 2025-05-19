@@ -54,6 +54,15 @@ class BetCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    bool resized = false;
+    double fontSize = 20;
+
+    if (MediaQuery.sizeOf(context).width < 600) {
+      fontSize = 15;
+    }
+    
+
     return  
       Container(
         decoration: BoxDecoration(
@@ -86,7 +95,7 @@ class BetCard extends StatelessWidget {
                         getStringForStatus(bet),
                         style: TextStyle(
                           color: getColorForStatus(bet),
-                          fontSize: 20,
+                          fontSize: fontSize,
                         ),
                         textHeightBehavior: TextHeightBehavior(
                           applyHeightToFirstAscent: false,
@@ -191,7 +200,7 @@ class BetCard extends StatelessWidget {
                             bet.result != "LOSE" ? formatSmartClean((bet.amount * bet.propOdds * getMulti(bet))) : formatSmartClean(-bet.amount),
                             style: TextStyle(
                               color: HColors.prim,
-                              fontSize: 45
+                              fontSize: fontSize+25
                             ),
                             textHeightBehavior: TextHeightBehavior(
                               applyHeightToFirstAscent: false,
@@ -203,7 +212,7 @@ class BetCard extends StatelessWidget {
                             "Po",
                             style: TextStyle(
                               color: HColors.third,
-                              fontSize: 25,
+                              fontSize: fontSize+5,
                             ),
                             textHeightBehavior: TextHeightBehavior(
                               applyHeightToFirstAscent: false,
@@ -225,7 +234,7 @@ class BetCard extends StatelessWidget {
                               style: TextStyle(
                                 color: HColors.third,
                                 fontFamily: 'Jersey',
-                                fontSize: 25
+                                fontSize: fontSize+5
                               ),
                             ),
 
@@ -234,7 +243,7 @@ class BetCard extends StatelessWidget {
                               style: TextStyle(
                                 color: HColors.prim,
                                 fontFamily: 'Jersey',
-                                fontSize: 25
+                                fontSize: fontSize+5
                               ),
                             ),
 
@@ -243,7 +252,7 @@ class BetCard extends StatelessWidget {
                               style: TextStyle(
                                 color: HColors.third,
                                 fontFamily: 'Jersey',
-                                fontSize: 25
+                                fontSize: fontSize+5
                               ),
                             ),
 
@@ -252,7 +261,7 @@ class BetCard extends StatelessWidget {
                               style: TextStyle(
                                 color: HColors.getColorFromX(bet.propOdds),
                                 fontFamily: 'Jersey',
-                                fontSize: 25
+                                fontSize: fontSize+5
                               ),
                             ),
                           ]
@@ -282,7 +291,7 @@ class BetCard extends StatelessWidget {
                                 style: TextStyle(
                                   color: HColors.sec,
                                   fontFamily: 'Jersey',
-                                  fontSize: 25,
+                                  fontSize: fontSize+5,
                                   height: 1.1,
                                 ),
                               ),
@@ -292,7 +301,7 @@ class BetCard extends StatelessWidget {
                                 style: TextStyle(
                                   color: HColors.four,
                                   fontFamily: 'Jersey',
-                                  fontSize: 25,
+                                  fontSize: fontSize+5,
                                   height: 1.1,
                                 ),
                               ),
@@ -304,7 +313,7 @@ class BetCard extends StatelessWidget {
                         AutoSizeText.rich(
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontSize: 25),
+                          style: TextStyle(fontSize: fontSize+5),
                           minFontSize: 20, 
                           TextSpan(
                             children: [
@@ -313,7 +322,7 @@ class BetCard extends StatelessWidget {
                                 style: TextStyle(
                                   color: HColors.sec.withAlpha(150),
                                   fontFamily: 'Jersey',
-                                  fontSize: 21,
+                                  fontSize: fontSize+1,
                                   height: 1.1,
                                 ),
                               ),
@@ -323,7 +332,7 @@ class BetCard extends StatelessWidget {
                                 style: TextStyle(
                                   color: HColors.four.withAlpha(150),
                                   fontFamily: 'Jersey',
-                                  fontSize: 21,
+                                  fontSize: fontSize+1,
                                   height: 1.1,
                                 ),
                               ),
@@ -335,7 +344,7 @@ class BetCard extends StatelessWidget {
                         AutoSizeText.rich(
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontSize: 25),
+                          style: TextStyle(fontSize: fontSize+5),
                           minFontSize: 20, 
                           TextSpan(
                             children: [
@@ -344,7 +353,7 @@ class BetCard extends StatelessWidget {
                                 style: TextStyle(
                                   color: HColors.sec,
                                   fontFamily: 'Jersey',
-                                  fontSize: 25,
+                                  fontSize: fontSize+5,
                                   height: 1.1,
                                 ),
                               ),
@@ -354,7 +363,7 @@ class BetCard extends StatelessWidget {
                                 style: TextStyle(
                                   color: HColors.four,
                                   fontFamily: 'Jersey',
-                                  fontSize: 25,
+                                  fontSize: fontSize+5,
                                   height: 1.1,
                                 ),
                               ),

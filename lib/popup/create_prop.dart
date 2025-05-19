@@ -54,7 +54,7 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
           AlertInfo.show(
             // ignore: use_build_context_synchronously
             context: context,
-            text: 'edit_prop_close_success'.tr,
+            text: 'create_bet_success'.tr,
             
             typeInfo: TypeInfo.success,
             position: MessagePosition.top,
@@ -65,7 +65,7 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
           AlertInfo.show(
             // ignore: use_build_context_synchronously
             context: context,
-            text: 'edit_prop_close_error'.tr,
+            text: 'create_bet_error'.tr,
             
             typeInfo: TypeInfo.error,
             position: MessagePosition.top,
@@ -89,9 +89,11 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
     }
 
     double fontSize = 26;
+    bool resized = false;
 
     if (MediaQuery.sizeOf(context).width < 600) {
-      fontSize = 20;
+      fontSize = 18;
+      resized = true;
     }
 
 
@@ -101,161 +103,167 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
       Padding(
         padding: EdgeInsets.all(20),
         child:
-          Column(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            spacing: fontSize - 6,
-            children: 
-            [
-              HTitle(end: 'create_bet'.tr,),
-              
-              HintText(
-                text: 'new_bet_title'.tr,
-                fontSize: fontSize-6,
-              ),
-
-              
-
-              // WTextButton(
-              //   text: 'Presets',
-              //   onTap: () {
-                  
-              //   },
-              // ),
-
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                WForm(
-                  fontSizeTitle: fontSize,
-                  textFontSize: fontSize+2,
-                  focus: personFocus,
-                  title: 'bet_username_target'.tr, 
-                  controller: person,
-                  onChanged: (value) {
-                    canCreate.value = validateInputs();
-                    canCreate.notifyListeners();
-                  },
-                  onSubmit: (value) {
-                    champFocus.requestFocus();
-                  },
+          SingleChildScrollView(
+            child: 
+            Column(
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              spacing: fontSize - 6,
+              children: 
+              [
+                HTitle(end: 'create_bet'.tr,),
+                
+                HintText(
+                  text: 'new_bet_title'.tr,
+                  fontSize: fontSize-6,
                 ),
 
-                WForm(
-                  fontSizeTitle: fontSize,
-                  textFontSize: fontSize+2,
-                  focus: champFocus,
-                  title: 'create_bet_champ'.tr, 
-                  controller: champ,
-                  onChanged: (value) {
-                    canCreate.value = validateInputs();
-                    canCreate.notifyListeners();
-                  },
-                  onSubmit: (value) {
-                    descFocus.requestFocus();
-                  },
-                ),
+                
 
-                CustomPopup(
-                backgroundColor: HColors.up,
-                content: 
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: 
-                    [
-                      GestureDetector(
-                        onTap: () {
-                          desc.text = "Gagne sa game";
-                          odd.text = "1.5";
-                          canCreate.value = validateInputs();
-                          canCreate.notifyListeners();
-                        },
-                        child: Text("Gagne sa game"),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          desc.text = "Perd sa game";
-                          odd.text = "1.5";
-                          canCreate.value = validateInputs();
-                          canCreate.notifyListeners();
-                        },
-                        child: Text("Perd sa game"),
-                      ),
-                    ],
-                ),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 4,
-                      color: HColors.third
-                    ),
-                    borderRadius: HBorder.borderRadius,
+                // WTextButton(
+                //   text: 'Presets',
+                //   onTap: () {
+                    
+                //   },
+                // ),
+
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                  WForm(
+                    height: resized ? 60 : null,
+                    fontSizeTitle: fontSize,
+                    textFontSize: fontSize+2,
+                    focus: personFocus,
+                    title: 'bet_username_target'.tr, 
+                    controller: person,
+                    onChanged: (value) {
+                      canCreate.value = validateInputs();
+                      canCreate.notifyListeners();
+                    },
+                    onSubmit: (value) {
+                      champFocus.requestFocus();
+                    },
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10, 
-                      vertical: 5
+
+                  WForm(
+                    height: resized ? 60 : null,
+                    fontSizeTitle: fontSize,
+                    textFontSize: fontSize+2,
+                    focus: champFocus,
+                    title: 'create_bet_champ'.tr, 
+                    controller: champ,
+                    onChanged: (value) {
+                      canCreate.value = validateInputs();
+                      canCreate.notifyListeners();
+                    },
+                    onSubmit: (value) {
+                      descFocus.requestFocus();
+                    },
+                  ),
+
+                  CustomPopup(
+                  backgroundColor: HColors.up,
+                  content: 
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: 
+                      [
+                        GestureDetector(
+                          onTap: () {
+                            desc.text = "Gagne sa game";
+                            odd.text = "2";
+                            canCreate.value = validateInputs();
+                            canCreate.notifyListeners();
+                          },
+                          child: Text("Gagne sa game"),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            desc.text = "Perd sa game";
+                            odd.text = "2";
+                            canCreate.value = validateInputs();
+                            canCreate.notifyListeners();
+                          },
+                          child: Text("Perd sa game"),
+                        ),
+                      ],
+                  ),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 4,
+                        color: HColors.third
+                      ),
+                      borderRadius: HBorder.borderRadius,
                     ),
-                    child: 
-                      Text("Presets", style: TextStyle(fontSize: 25),),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10, 
+                        vertical: 5
+                      ),
+                      child: 
+                        Text("Presets", style: TextStyle(fontSize: fontSize),),
+                    ),
                   ),
                 ),
-              ),
 
-              WForm(
+                WForm(
+                    fontSizeTitle: fontSize,
+                    textFontSize: fontSize+2,
+                    focus: descFocus,
+                    title: "condition".tr,
+                    controller: desc,
+                    hintText: 'new_bet_hint'.tr,
+                    maxLength: 200,
+                    maxLines: null,
+                    onChanged: (value) {
+                      canCreate.value = validateInputs();
+                      canCreate.notifyListeners();
+                    },
+                    onSubmit: (value) {
+                      oddFocus.requestFocus();
+                    },
+                  ),
+                ],),
+
+                WForm(
+                  height: resized ? 70 : null,
                   fontSizeTitle: fontSize,
-                  textFontSize: fontSize+2,
-                  focus: descFocus,
-                  title: "condition".tr,
-                  controller: desc,
-                  hintText: 'new_bet_hint'.tr,
-                  maxLength: 200,
-                  maxLines: null,
+                  textFontSize: fontSize+15,
+                  focus: oddFocus,
+                  title: 'create_bet_odd'.tr,
+                  width: 200,
+                  //textFontSize: 50,
+                  maxLength: 4,
+                  hintText: '1.0',
+                  controller: odd,
+                  onlyNumbers: true,
                   onChanged: (value) {
                     canCreate.value = validateInputs();
                     canCreate.notifyListeners();
-                  },
-                  onSubmit: (value) {
-                    oddFocus.requestFocus();
+                    //print(canCreate.value);
                   },
                 ),
-              ],),
 
-              WForm(
-                fontSizeTitle: fontSize,
-                textFontSize: fontSize+15,
-                focus: oddFocus,
-                title: 'create_bet_odd'.tr,
-                width: 200,
-                //textFontSize: 50,
-                maxLength: 4,
-                hintText: '1.0',
-                controller: odd,
-                onlyNumbers: true,
-                onChanged: (value) {
-                  canCreate.value = validateInputs();
-                  canCreate.notifyListeners();
-                  //print(canCreate.value);
-                },
-              ),
+                ValueListenableBuilder(valueListenable: canCreate, builder: (context, value, child) {
+                  return WTextButton(
+                    text: 'create_the_bet'.tr,
+                    fontSize: 28,
+                    horizontal: 60,
+                    vertical: 15,
+                    onTap: value ? () {
+                      onSubmit(context);
+                    } : null,
+                    activated: value,
+                  );
+                })
+                
 
-              ValueListenableBuilder(valueListenable: canCreate, builder: (context, value, child) {
-                return WTextButton(
-                  text: 'create_the_bet'.tr,
-                  fontSize: 28,
-                  horizontal: 60,
-                  vertical: 15,
-                  onTap: value ? () {
-                    onSubmit(context);
-                  } : null,
-                  activated: value,
-                );
-              })
-              
-
-            ],
-          ),
-      ),
+              ],
+            ),
+        ),
+      )
     );
   }
   

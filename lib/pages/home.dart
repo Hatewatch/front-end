@@ -53,9 +53,11 @@ class Home extends StatelessWidget {
     }
 
     double sizeTitle = 40;
+    bool resized = false;
 
     if (MediaQuery.sizeOf(context).width < 600) {
-      sizeTitle = 30;
+      sizeTitle = 28;
+      resized = true;
     }
 
     return Scaffold(
@@ -69,6 +71,7 @@ class Home extends StatelessWidget {
           
           showToggleButton: false,
           theme: SidebarXTheme(
+            width: resized ? 50 : 70,
             iconTheme: IconThemeData(
               color: HColors.third
             ),
@@ -96,12 +99,12 @@ class Home extends StatelessWidget {
                       Icon(
                         Pixel.calendarcheck,
                         color: value.isNowDaily() ? HColors.four : HColors.third,
-                        size: 30,
+                        size: sizeTitle-10,
                       ),
                       Text(
                         value.getStringDaily(),
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: resized ? 9 : 15,
                           color: User.instance.isNowDaily() ? HColors.sec : HColors.five
                         ),
                       ),
@@ -190,7 +193,7 @@ class Home extends StatelessWidget {
 
                 IconButton(onPressed: () {
                     showTutorial(context);
-                  }, icon: Icon(Pixel.infobox, size: 30, color: HColors.four,)),
+                  }, icon: Icon(Pixel.infobox, size: sizeTitle-10, color: HColors.four,)),
 
 
                 value.isConnected() ? Padding(
@@ -207,7 +210,7 @@ class Home extends StatelessWidget {
                         ),
                       );
                     },
-                    icon: Icon(Pixel.logout, color: HColors.five, size: 30,),
+                    icon: Icon(Pixel.logout, color: HColors.five, size: sizeTitle-10,),
                   ),
                 ) : SizedBox(),
                 
@@ -224,103 +227,110 @@ class Home extends StatelessWidget {
             valueListenable: User.instance.notif,
             builder: (context, value, child) {
               return Padding(
-                padding: EdgeInsets.all(sizeTitle == 30 ? 10 : 20),
+                padding: EdgeInsets.all(resized ? 10 : 20),
                 child: Column(
                   children: [
                     // Header Row
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          spacing: 20,
-                          children: [
-                          RichText(
-                            key: keyHello,
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "${"hello".tr} ",
-                                  style: TextStyle(
-                                    color: HColors.four,
-                                    fontFamily: 'Jersey',
-                                    fontSize: sizeTitle,
+                    SizedBox(
+                      width: double.infinity,
+                      child: 
+                      Wrap(
+                        alignment: WrapAlignment.spaceBetween,
+                        runAlignment: WrapAlignment.spaceBetween,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            spacing: 20,
+                            children: [
+                            RichText(
+                              key: keyHello,
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "${"hello".tr} ",
+                                    style: TextStyle(
+                                      color: HColors.four,
+                                      fontFamily: 'Jersey',
+                                      fontSize: sizeTitle,
+                                    ),
                                   ),
-                                ),
-                                TextSpan(
-                                  text: value!.pseudo,
-                                  style: TextStyle(
-                                    color: HColors.prim,
-                                    fontFamily: 'Jersey',
-                                    fontSize: sizeTitle,
+                                  TextSpan(
+                                    text: value!.pseudo,
+                                    style: TextStyle(
+                                      color: HColors.prim,
+                                      fontFamily: 'Jersey',
+                                      fontSize: sizeTitle,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
+
+
+                            RichText(
+                              textHeightBehavior: TextHeightBehavior(
+                                applyHeightToFirstAscent: false,
+                                applyHeightToLastDescent: false,
+                              ),
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: value.balance.toString(),
+                                    style: TextStyle(
+                                      color: HColors.sec,
+                                      fontFamily: 'Jersey',
+                                      fontSize: sizeTitle,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: 'Po',
+                                    style: TextStyle(
+                                      color: HColors.third,
+                                      fontFamily: 'Jersey',
+                                      fontSize: sizeTitle-12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],),
+
+                          if (User.instance.role == "none")
+                          WTextButton(
+                            key: keyButton,
+                            text: 'signin'.tr,
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => Dialog(
+                                  backgroundColor: HColors.back,
+                                  child: 
+                                    SignIn().bounceInUp(),
+                                ),
+                              );
+                            },
                           ),
 
-
-                          RichText(
-                            textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false,
-                              applyHeightToLastDescent: false,
-                            ),
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: value.balance.toString(),
-                                  style: TextStyle(
-                                    color: HColors.sec,
-                                    fontFamily: 'Jersey',
-                                    fontSize: sizeTitle,
-                                  ),
+                          if (User.instance.role == "ADMIN")
+                          WTextButton(
+                            key: keyButton,
+                            text: 'create_bet'.tr,
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => Dialog(
+                                  backgroundColor: HColors.back,
+                                  child: User.instance.isConnected()
+                                      ? CreateProp().bounceInUp()
+                                      : SignIn().bounceInUp(),
                                 ),
-                                TextSpan(
-                                  text: 'Po',
-                                  style: TextStyle(
-                                    color: HColors.third,
-                                    fontFamily: 'Jersey',
-                                    fontSize: sizeTitle-12,
-                                  ),
-                                ),
-                              ],
-                            ),
+                              );
+                            },
                           ),
-                        ],),
-
-                        if (User.instance.role == "none")
-                        WTextButton(
-                          key: keyButton,
-                          text: 'signin'.tr,
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => Dialog(
-                                backgroundColor: HColors.back,
-                                child: 
-                                  SignIn().bounceInUp(),
-                              ),
-                            );
-                          },
-                        ),
-
-                        if (User.instance.role == "ADMIN")
-                        WTextButton(
-                          key: keyButton,
-                          text: 'create_bet'.tr,
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => Dialog(
-                                backgroundColor: HColors.back,
-                                child: User.instance.isConnected()
-                                    ? CreateProp().bounceInUp()
-                                    : SignIn().bounceInUp(),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
 
                     const SizedBox(height: 20),

@@ -19,6 +19,7 @@ class WForm extends StatelessWidget {
       this.onSubmit,
       this.focus,
       this.fontSizeTitle = 26,
+      this.height,
     }
   );
 
@@ -30,6 +31,7 @@ class WForm extends StatelessWidget {
   final int? maxLines;
   final double textFontSize;
   final bool onlyNumbers;
+  final double? height;
   final FocusNode? focus;
   final void Function(String)? onChanged;
   final void Function(String)? onSubmit;
@@ -45,6 +47,7 @@ class WForm extends StatelessWidget {
         if (title != '') Text(title, style: TextStyle(fontSize: fontSizeTitle),),
         SizedBox(
           width: width,
+          height: height,
           child: 
           TextFormField(
             focusNode: focus,

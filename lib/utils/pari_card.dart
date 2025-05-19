@@ -58,9 +58,11 @@ class PariCard extends StatelessWidget with ChangeNotifier {
   Widget build(BuildContext context) {
 
     double sizeText = 35;
+    bool resized = false;
 
     if (MediaQuery.sizeOf(context).width < 600) {
-      sizeText = 25;
+      sizeText = 30;
+      resized = true;
     }
 
     return 
@@ -85,7 +87,7 @@ class PariCard extends StatelessWidget with ChangeNotifier {
           }, 
           child: 
           SizedBox(
-            width: 520,
+            width: 550,
             child: 
               DecoratedBox(
                 decoration: BoxDecoration(
@@ -100,8 +102,12 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                         child: 
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
+                          Wrap(
+                            runSpacing: 25,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            runAlignment: WrapAlignment.center,
+                            alignment: WrapAlignment.center,
+                            // mainAxisSize: MainAxisSize.min,
                             spacing: 25,
                             
                             children: [
@@ -140,8 +146,8 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                               
                               if (prop.champ != null)
                               CachedNetworkImage(
-                                width: 75,
-                                height: 75,
+                                width: resized ? 40 : 75,
+                                height: resized ? 40 : 75,
                                 imageUrl: 'https://ddragon.leagueoflegends.com/cdn/15.10.1/img/champion/${prop.champ!}.png',
                                 errorWidget: (context, url, error) {
                                   return SizedBox();

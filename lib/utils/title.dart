@@ -13,7 +13,7 @@ class HTitle extends StatelessWidget {
     double sizeText = 35;
 
     if (MediaQuery.sizeOf(context).width < 600) {
-      sizeText = 25;
+      sizeText = 22;
     }
 
     return Row(
