@@ -113,6 +113,7 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                             children: [
                               
                               Column(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
                                   
                                   
@@ -154,8 +155,6 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                                 },
                               ),
 
-                              Flexible(
-                              child: 
                                 Column(
                                   spacing: 5,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -310,7 +309,6 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                                   ),
                                 ],),
 
-                            ),
 
                               // Flexible(
                               //   child: 
