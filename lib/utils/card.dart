@@ -13,6 +13,13 @@ class InfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double sizeText = 45;
+
+    if (MediaQuery.sizeOf(context).width < 600) {
+      sizeText = 35;
+    }
+
     return 
     SizedBox(
       // height: 100,
@@ -36,7 +43,7 @@ class InfoCard extends StatelessWidget {
                     title,
                     style: TextStyle(
                       color: HColors.four,
-                      fontSize: 20,
+                      fontSize: sizeText - 20,
                     ),
                     textHeightBehavior: TextHeightBehavior(
                       applyHeightToFirstAscent: false,
@@ -52,7 +59,7 @@ class InfoCard extends StatelessWidget {
                         value,
                         style: TextStyle(
                           color: HColors.prim,
-                          fontSize: 45
+                          fontSize: sizeText
                         ),
                         textHeightBehavior: TextHeightBehavior(
                           applyHeightToFirstAscent: false,
@@ -65,7 +72,7 @@ class InfoCard extends StatelessWidget {
                         subValue!,
                         style: TextStyle(
                           color: HColors.third,
-                          fontSize: 25,
+                          fontSize: sizeText - 15,
                         ),
                         textHeightBehavior: TextHeightBehavior(
                           applyHeightToFirstAscent: false,

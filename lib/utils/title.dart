@@ -9,6 +9,13 @@ class HTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double sizeText = 35;
+
+    if (MediaQuery.sizeOf(context).width < 600) {
+      sizeText = 25;
+    }
+
     return Row(
       children: [
       RichText(
@@ -21,7 +28,7 @@ class HTitle extends StatelessWidget {
               style: TextStyle(
                 color: HColors.four,
                 fontFamily: 'Jersey',
-                fontSize: 35
+                fontSize: sizeText
               ),
             ),
 
@@ -31,7 +38,7 @@ class HTitle extends StatelessWidget {
               style: TextStyle(
                 color: HColors.prim,
                 fontFamily: 'Jersey',
-                fontSize: 35
+                fontSize: sizeText
               ),
             ),
           ]

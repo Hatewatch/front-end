@@ -37,8 +37,9 @@ class CreatePari extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class WTextButton extends StatelessWidget {
-  const WTextButton(
+  WTextButton(
     {
       super.key, 
       this.onTap, 
@@ -56,7 +57,7 @@ class WTextButton extends StatelessWidget {
   final Function? onTap;
   final String text;
   final double fontSize; 
-  final double horizontal;
+  double horizontal;
   final double vertical;
   final Color colorBox;
   final Color colorText;
@@ -65,6 +66,13 @@ class WTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    if (MediaQuery.sizeOf(context).width < 600) {
+      horizontal = 10;
+    } else {
+      horizontal = 40;
+    }
+
     return 
     TextButton(
       style: ButtonStyle(

@@ -52,6 +52,12 @@ class Home extends StatelessWidget {
       });
     }
 
+    double sizeTitle = 40;
+
+    if (MediaQuery.sizeOf(context).width < 600) {
+      sizeTitle = 30;
+    }
+
     return Scaffold(
 
       body: Row(
@@ -238,7 +244,7 @@ class Home extends StatelessWidget {
                                   style: TextStyle(
                                     color: HColors.four,
                                     fontFamily: 'Jersey',
-                                    fontSize: 40,
+                                    fontSize: sizeTitle,
                                   ),
                                 ),
                                 TextSpan(
@@ -246,7 +252,7 @@ class Home extends StatelessWidget {
                                   style: TextStyle(
                                     color: HColors.prim,
                                     fontFamily: 'Jersey',
-                                    fontSize: 40,
+                                    fontSize: sizeTitle,
                                   ),
                                 ),
                               ],
@@ -266,7 +272,7 @@ class Home extends StatelessWidget {
                                   style: TextStyle(
                                     color: HColors.sec,
                                     fontFamily: 'Jersey',
-                                    fontSize: 40,
+                                    fontSize: sizeTitle,
                                   ),
                                 ),
                                 TextSpan(
@@ -274,7 +280,7 @@ class Home extends StatelessWidget {
                                   style: TextStyle(
                                     color: HColors.third,
                                     fontFamily: 'Jersey',
-                                    fontSize: 28,
+                                    fontSize: sizeTitle-12,
                                   ),
                                 ),
                               ],
@@ -518,15 +524,15 @@ class Home extends StatelessWidget {
                               ],
                             ),
                             const SizedBox(height: 10),
-                            Wrap(
+                            Column(
                               spacing: 10,
-                              runSpacing: 10,
+                              mainAxisSize: MainAxisSize.min,
                               children: [
 
                                 if (!value.loadedBets)
                                 CardLoading(
                                   width: 350,
-                                  height: 120,
+                                  height: 50,
                                   borderRadius: BorderRadius.all(Radius.circular(10)),
                                   margin: EdgeInsets.only(bottom: 10),
                                   cardLoadingTheme: CardLoadingTheme(colorOne: HColors.back, colorTwo: HColors.up),

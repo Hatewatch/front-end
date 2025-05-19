@@ -56,6 +56,13 @@ class PariCard extends StatelessWidget with ChangeNotifier {
 
   @override
   Widget build(BuildContext context) {
+
+    double sizeText = 35;
+
+    if (MediaQuery.sizeOf(context).width < 600) {
+      sizeText = 25;
+    }
+
     return 
     MouseRegion(
       cursor: prop.state == "CLOSED" ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
@@ -113,7 +120,7 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                                           style: TextStyle(
                                             color: HColors.third,
                                             fontFamily: 'Jersey',
-                                            fontSize: 35
+                                            fontSize: sizeText
                                           ),
                                         ),
 
@@ -122,7 +129,7 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                                           style: TextStyle(
                                             color: HColors.getColorFromX(prop.odds),
                                             fontFamily: 'Jersey',
-                                            fontSize: 35
+                                            fontSize: sizeText
                                           ),
                                         ),
                                       ]
@@ -177,7 +184,7 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                                             Text(
                                               "BETTED : ${PropHelper.getAllBetsForId(prop.id)}",
                                               style: TextStyle(
-                                                fontSize: 17
+                                                fontSize: sizeText-13
                                               ),
                                               textHeightBehavior: TextHeightBehavior(
                                                 applyHeightToFirstAscent: false,
@@ -209,7 +216,7 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                                             Text(
                                               'onGoing'.tr,
                                               style: TextStyle(
-                                                fontSize: 17
+                                                fontSize: sizeText-13
                                               ),
                                               textHeightBehavior: TextHeightBehavior(
                                                 applyHeightToFirstAscent: false,
@@ -253,7 +260,7 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                                               Text(
                                                 "ADMIN",
                                                 style: TextStyle(
-                                                  fontSize: 17
+                                                  fontSize: sizeText-13
                                                 ),
                                                 textHeightBehavior: TextHeightBehavior(
                                                   applyHeightToFirstAscent: false,
@@ -278,7 +285,7 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                                           style: TextStyle(
                                             color: HColors.sec,
                                             fontFamily: 'Jersey',
-                                            fontSize: 25,
+                                            fontSize: sizeText-10,
                                             height: 1.1,
                                           ),
                                         ),
@@ -288,7 +295,7 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                                           style: TextStyle(
                                             color: HColors.four,
                                             fontFamily: 'Jersey',
-                                            fontSize: 25,
+                                            fontSize: sizeText-10,
                                             height: 1.1,
                                           ),
                                         ),
@@ -342,7 +349,7 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                                     "Total Bets | Users",
                                     style: TextStyle(
                                       color: HColors.third,
-                                      fontSize: 20,
+                                      fontSize: sizeText-15,
                                     ),
                                     textHeightBehavior: TextHeightBehavior(
                                       applyHeightToFirstAscent: false,
@@ -359,7 +366,7 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                                         prop.total.toString(),
                                         style: TextStyle(
                                           color: HColors.prim,
-                                          fontSize: 45
+                                          fontSize: sizeText+10
                                         ),
                                         textHeightBehavior: TextHeightBehavior(
                                           applyHeightToFirstAscent: false,
@@ -383,7 +390,7 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                                       "|",
                                       style: TextStyle(
                                         color: HColors.third,
-                                        fontSize: 25,
+                                        fontSize: sizeText-10,
                                       ),
                                       textHeightBehavior: TextHeightBehavior(
                                         applyHeightToFirstAscent: false,
@@ -395,7 +402,7 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                                       prop.totalUsers.toString(),
                                       style: TextStyle(
                                         color: HColors.prim,
-                                        fontSize: 25,
+                                        fontSize: sizeText-10,
                                       ),
                                       textHeightBehavior: TextHeightBehavior(
                                         applyHeightToFirstAscent: false,
@@ -425,6 +432,13 @@ class PariCardNone extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double sizeText = 35;
+
+    if (MediaQuery.sizeOf(context).width < 600) {
+      sizeText = 30;
+    }
+
     return 
     SizedBox(
       width: 500,
@@ -452,7 +466,7 @@ class PariCardNone extends StatelessWidget {
                             style: TextStyle(
                               color: HColors.third,
                               fontFamily: 'Jersey',
-                              fontSize: 35
+                              fontSize: sizeText
                             ),
                           ),
 
@@ -461,7 +475,7 @@ class PariCardNone extends StatelessWidget {
                             style: TextStyle(
                               color: HColors.getColorFromX(1.4),
                               fontFamily: 'Jersey',
-                              fontSize: 35
+                              fontSize: sizeText
                             ),
                           ),
                         ]
@@ -501,7 +515,7 @@ class PariCardNone extends StatelessWidget {
                                     Text(
                                       "BETTED : 400",
                                       style: TextStyle(
-                                        fontSize: 17
+                                        fontSize: sizeText-13
                                       ),
                                       textHeightBehavior: TextHeightBehavior(
                                         applyHeightToFirstAscent: false,
@@ -517,7 +531,7 @@ class PariCardNone extends StatelessWidget {
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontSize: 25),
-                            minFontSize: 20, 
+                            minFontSize: sizeText-15, 
                             TextSpan(
                               children: [
                                 TextSpan(
@@ -525,7 +539,7 @@ class PariCardNone extends StatelessWidget {
                                   style: TextStyle(
                                     color: HColors.sec,
                                     fontFamily: 'Jersey',
-                                    fontSize: 25,
+                                    fontSize: sizeText-10,
                                     height: 1.1,
                                   ),
                                 ),
@@ -535,7 +549,7 @@ class PariCardNone extends StatelessWidget {
                                   style: TextStyle(
                                     color: HColors.four,
                                     fontFamily: 'Jersey',
-                                    fontSize: 25,
+                                    fontSize: sizeText-10,
                                     height: 1.1,
                                   ),
                                 ),
@@ -556,7 +570,7 @@ class PariCardNone extends StatelessWidget {
                           "Total Bets | Users",
                           style: TextStyle(
                             color: HColors.third,
-                            fontSize: 20,
+                            fontSize: sizeText-15,
                           ),
                           textHeightBehavior: TextHeightBehavior(
                             applyHeightToFirstAscent: false,
@@ -573,7 +587,7 @@ class PariCardNone extends StatelessWidget {
                               400.toString(),
                               style: TextStyle(
                                 color: HColors.prim,
-                                fontSize: 45
+                                fontSize: sizeText+10
                               ),
                               textHeightBehavior: TextHeightBehavior(
                                 applyHeightToFirstAscent: false,
@@ -585,7 +599,7 @@ class PariCardNone extends StatelessWidget {
                               "Po",
                               style: TextStyle(
                                 color: HColors.third,
-                                fontSize: 25,
+                                fontSize: sizeText-10,
                               ),
                               textHeightBehavior: TextHeightBehavior(
                                 applyHeightToFirstAscent: false,
@@ -597,7 +611,7 @@ class PariCardNone extends StatelessWidget {
                               "|",
                               style: TextStyle(
                                 color: HColors.third,
-                                fontSize: 25,
+                                fontSize: sizeText-10,
                               ),
                               textHeightBehavior: TextHeightBehavior(
                                 applyHeightToFirstAscent: false,
@@ -609,7 +623,7 @@ class PariCardNone extends StatelessWidget {
                               10.toString(),
                               style: TextStyle(
                                 color: HColors.prim,
-                                fontSize: 25,
+                                fontSize: sizeText-10,
                               ),
                               textHeightBehavior: TextHeightBehavior(
                                 applyHeightToFirstAscent: false,
