@@ -15,6 +15,7 @@ class Prop {
     required this.total,
     required this.totalUsers,
     required this.champ,
+    required this.epoch,
   });
 
   factory Prop.fromJson(Map<String, dynamic> json) {
@@ -29,6 +30,7 @@ class Prop {
       state: json['prop_state'],
       totalUsers: json['prop_nbPeople'],
       champ: json['prop_champion'],
+      epoch: json.containsKey('prop_matchstart') ? json['prop_matchstart'] : 0,
     );
   }
 
@@ -40,6 +42,7 @@ class Prop {
   double oddsWin;
   double oddsLose;
   double total;
+  int epoch;
   DateTime timeCreation;
   String? champ;
 

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:alert_info/alert_info.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -20,6 +22,8 @@ class PariCard extends StatelessWidget with ChangeNotifier {
   final Prop prop;
 
   final ValueNotifier<bool> inWidget = ValueNotifier(false);
+  final ValueNotifier<String> timerValue = ValueNotifier("00:00");
+  bool firstFrame = true;
 
   void onTap(BuildContext context) {
 
@@ -54,6 +58,34 @@ class PariCard extends StatelessWidget with ChangeNotifier {
     }
   }
 
+  void startMatchTimer(int startEpochMillis) {
+
+    int now = DateTime.now().millisecondsSinceEpoch;
+
+    int elapsedMillis = now - startEpochMillis;
+    Duration elapsed = Duration(milliseconds: elapsedMillis);
+    timerValue.value = formatDuration(elapsed);
+    timerValue.notifyListeners();
+
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      int now = DateTime.now().millisecondsSinceEpoch;
+
+      int elapsedMillis = now - startEpochMillis;
+      Duration elapsed = Duration(milliseconds: elapsedMillis);
+
+      // print(formatDuration(elapsed)); // e.g. 00:01, 00:02, etc.
+      timerValue.value = formatDuration(elapsed);
+      timerValue.notifyListeners();
+    });
+  }
+  
+  String formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$minutes:$seconds";
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -63,6 +95,12 @@ class PariCard extends StatelessWidget with ChangeNotifier {
     if (MediaQuery.sizeOf(context).width < 600) {
       sizeText = 30;
       resized = true;
+    }
+
+
+    if (firstFrame) {
+      startMatchTimer(prop.epoch);
+      firstFrame = false;
     }
 
     return 
@@ -398,6 +436,19 @@ class PariCard extends StatelessWidget with ChangeNotifier {
                                 mainAxisSize: MainAxisSize.min,
                                 spacing: 0,
                                 children: [
+                                  ValueListenableBuilder(valueListenable: timerValue, builder: (context, value, child) {
+                                    return Text(
+                                      value,
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(
+                                        color: HColors.third,
+                                        fontSize: sizeText-5,
+                                      ),
+                                    );
+                                  }),
+                                  
+                                  SizedBox(height: 5,),
+
                                   Text(
                                     "Total Bets | Users",
                                     style: TextStyle(
