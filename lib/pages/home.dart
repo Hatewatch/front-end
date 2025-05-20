@@ -184,7 +184,7 @@ class Home extends StatelessWidget {
               }
             ),
 
-            if (User.instance.role == "ADMIN")
+            if (User.instance.isConnected())
             SidebarXItem(
               icon: Pixel.keyboard, label: 'Search',
               onTap: () {
