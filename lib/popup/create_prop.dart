@@ -19,19 +19,19 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
   final TextEditingController person = TextEditingController();
   final TextEditingController champ = TextEditingController();
   final TextEditingController desc = TextEditingController();
-  final TextEditingController odd = TextEditingController();
+  // final TextEditingController odd = TextEditingController();
 
   final FocusNode personFocus = FocusNode();
   final FocusNode champFocus = FocusNode();
   final FocusNode descFocus = FocusNode();
-  final FocusNode oddFocus = FocusNode();
+  // final FocusNode oddFocus = FocusNode();
 
   bool firstFrame = true;
 
   final ValueNotifier<bool> canCreate = ValueNotifier(false);
 
   bool validateInputs() {
-    return person.text.isNotEmpty && desc.text.isNotEmpty && odd.text.isNotEmpty && champ.text.isNotEmpty;
+    return person.text.isNotEmpty && desc.text.isNotEmpty && champ.text.isNotEmpty;
   }
 
   Future onSubmit(BuildContext context) async {
@@ -41,7 +41,7 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
       {
         'prop_player' : person.text.toUpperCase(),
         'prop_title' : desc.text,
-        'prop_odds' : double.parse(odd.text),
+        //'prop_odds' : double.parse(odd.text),
         'prop_champion' : champ.text,
       }
     );
@@ -172,7 +172,7 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
                         GestureDetector(
                           onTap: () {
                             desc.text = "Gagne sa game";
-                            odd.text = "2";
+                            //odd.text = "2";
                             canCreate.value = validateInputs();
                             canCreate.notifyListeners();
                           },
@@ -181,7 +181,7 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
                         GestureDetector(
                           onTap: () {
                             desc.text = "Perd sa game";
-                            odd.text = "2";
+                            //odd.text = "2";
                             canCreate.value = validateInputs();
                             canCreate.notifyListeners();
                           },
@@ -221,30 +221,30 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
                       canCreate.value = validateInputs();
                       canCreate.notifyListeners();
                     },
-                    onSubmit: (value) {
-                      oddFocus.requestFocus();
-                    },
+                    // onSubmit: (value) {
+                    //   oddFocus.requestFocus();
+                    // },
                   ),
                 ],),
 
-                WForm(
-                  height: resized ? 70 : null,
-                  fontSizeTitle: fontSize,
-                  textFontSize: fontSize+15,
-                  focus: oddFocus,
-                  title: 'create_bet_odd'.tr,
-                  width: 200,
-                  //textFontSize: 50,
-                  maxLength: 4,
-                  hintText: '1.0',
-                  controller: odd,
-                  onlyNumbers: true,
-                  onChanged: (value) {
-                    canCreate.value = validateInputs();
-                    canCreate.notifyListeners();
-                    //print(canCreate.value);
-                  },
-                ),
+                // WForm(
+                //   height: resized ? 70 : null,
+                //   fontSizeTitle: fontSize,
+                //   textFontSize: fontSize+15,
+                //   focus: oddFocus,
+                //   title: 'create_bet_odd'.tr,
+                //   width: 200,
+                //   //textFontSize: 50,
+                //   maxLength: 4,
+                //   hintText: '1.0',
+                //   controller: odd,
+                //   onlyNumbers: true,
+                //   onChanged: (value) {
+                //     canCreate.value = validateInputs();
+                //     canCreate.notifyListeners();
+                //     //print(canCreate.value);
+                //   },
+                // ),
 
                 ValueListenableBuilder(valueListenable: canCreate, builder: (context, value, child) {
                   return WTextButton(
