@@ -6,7 +6,8 @@ class Prop {
 
   Prop({
     required this.id,
-    required this.odds,
+    required this.oddsWin,
+    required this.oddsLose,
     required this.player,
     required this.title,
     required this.timeCreation,
@@ -19,7 +20,8 @@ class Prop {
   factory Prop.fromJson(Map<String, dynamic> json) {
     return Prop(
       id: json['prop_id'] as int,
-      odds: double.parse(json['prop_odds']),
+      oddsWin: double.parse(json['prop_odds_win']),
+      oddsLose: double.parse(json['prop_odds_lose']),
       player: json['prop_player'] as String,
       title: json['prop_title'] as String,
       timeCreation: DateTime.parse(json['prop_creation']),
@@ -35,7 +37,8 @@ class Prop {
   String player;
   String title;
   double totalUsers;
-  double odds;
+  double oddsWin;
+  double oddsLose;
   double total;
   DateTime timeCreation;
   String? champ;

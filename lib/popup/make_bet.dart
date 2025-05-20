@@ -1,4 +1,5 @@
 import 'package:alert_info/alert_info.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:hate_watch/api/api.dart';
 import 'package:hate_watch/class/prop.dart';
@@ -50,6 +51,7 @@ class MakeBet extends StatelessWidget with ChangeNotifier {
       'api/bets/bet', 
       {
         'proposalId' : bet.id,
+        'betSide' : valid.value ? 'WIN' : 'LOSE',
         'betAmount' : double.parse(add.text),
       }
     );
@@ -133,7 +135,7 @@ class MakeBet extends StatelessWidget with ChangeNotifier {
                     },
                   ),
 
-                  ValueListenableBuilder(valueListenable: canLoad, builder: (context, value, child) {
+                  ValueListenableBuilder(valueListenable: valid, builder: (context, value, child) {
                     return RichText(
                       text:
                         TextSpan(children: [
@@ -146,7 +148,7 @@ class MakeBet extends StatelessWidget with ChangeNotifier {
                             ),
                           ),
                           TextSpan(
-                            text: bet.odds.toString(),
+                            text: value ? bet.oddsWin.toString() : bet.oddsLose.toString(),
                             style: TextStyle(
                               color: HColors.five,
                               fontFamily: 'Jersey',
@@ -162,7 +164,7 @@ class MakeBet extends StatelessWidget with ChangeNotifier {
                             )
                           ),
                           TextSpan(
-                            text: add.text == "" ? "0" : formatSmartClean(bet.odds * double.parse(add.text)),
+                            text: add.text == "" ? "0" : formatSmartClean((value ? bet.oddsWin : bet.oddsLose) * double.parse(add.text)),
                             style: TextStyle(
                               color: HColors.prim,
                               fontFamily: 'Jersey',
@@ -184,40 +186,40 @@ class MakeBet extends StatelessWidget with ChangeNotifier {
               ],),
 
 
-              // ValueListenableBuilder(valueListenable: valid, builder: (context, value, child) {
-              //   return Row(
-              //     spacing: 20,
-              //     mainAxisSize: MainAxisSize.min,
-              //     children: [
-              //       WTextButton(
-              //         key: UniqueKey(),
-              //         text: "Oui",
-              //         fontSize: 28,
-              //         horizontal: 30,
-              //         vertical: 15,
-              //         colorBox: HColors.sec,
-              //         filled: value,
-              //         colorText: value ? HColors.back : HColors.four,
-              //         onTap: () {
-              //           setValid(true);
-              //         }
-              //       ).applyIf(value, (child) => child.roulette(spins: 1)),
+              ValueListenableBuilder(valueListenable: valid, builder: (context, value, child) {
+                return Row(
+                  spacing: 20,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    WTextButton(
+                      key: UniqueKey(),
+                      text: "Oui",
+                      fontSize: 28,
+                      horizontal: 30,
+                      vertical: 15,
+                      colorBox: HColors.sec,
+                      filled: value,
+                      colorText: value ? HColors.back : HColors.four,
+                      onTap: () {
+                        setValid(true);
+                      }
+                    ).applyIf(value, (child) => child.roulette(spins: 1)),
 
-              //       WTextButton(
-              //         key: UniqueKey(),
-              //         text: "Non",
-              //         fontSize: 28,
-              //         horizontal: 30,
-              //         vertical: 15,
-              //         colorBox: HColors.five,
-              //         filled: !value,
-              //         onTap: () {
-              //           setValid(false);
-              //         }
-              //       ).applyIf(!value, (child) => child.roulette(spins: 1)),
-              //     ],
-              //   );
-              // }),
+                    WTextButton(
+                      key: UniqueKey(),
+                      text: "Non",
+                      fontSize: 28,
+                      horizontal: 30,
+                      vertical: 15,
+                      colorBox: HColors.five,
+                      filled: !value,
+                      onTap: () {
+                        setValid(false);
+                      }
+                    ).applyIf(!value, (child) => child.roulette(spins: 1)),
+                  ],
+                );
+              }),
               
               ValueListenableBuilder(valueListenable: canLoad, builder: (context, value, child) {
                 return 
