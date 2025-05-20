@@ -135,53 +135,55 @@ class MakeBet extends StatelessWidget with ChangeNotifier {
                     },
                   ),
 
-                  ValueListenableBuilder(valueListenable: valid, builder: (context, value, child) {
-                    return RichText(
-                      text:
-                        TextSpan(children: [
-                          TextSpan(
-                            text: 'x',
-                            style: TextStyle(
-                              color: HColors.third,
-                              fontFamily: 'Jersey',
-                              fontSize: 40,
+                  ValueListenableBuilder(valueListenable: canLoad, builder: (context, valueLoad, childLoad) {
+                    return ValueListenableBuilder(valueListenable: valid, builder: (context, value, child) {
+                      return RichText(
+                        text:
+                          TextSpan(children: [
+                            TextSpan(
+                              text: 'x',
+                              style: TextStyle(
+                                color: HColors.third,
+                                fontFamily: 'Jersey',
+                                fontSize: 40,
+                              ),
                             ),
-                          ),
-                          TextSpan(
-                            text: value ? bet.oddsWin.toString() : bet.oddsLose.toString(),
-                            style: TextStyle(
-                              color: HColors.five,
-                              fontFamily: 'Jersey',
-                              fontSize: 50,
-                            )
-                          ),
-                          TextSpan(
-                            text: ' = ',
-                            style: TextStyle(
-                              color: HColors.third,
-                              fontFamily: 'Jersey',
-                              fontSize: 50,
-                            )
-                          ),
-                          TextSpan(
-                            text: add.text == "" ? "0" : formatSmartClean((value ? bet.oddsWin : bet.oddsLose) * double.parse(add.text)),
-                            style: TextStyle(
-                              color: HColors.prim,
-                              fontFamily: 'Jersey',
-                              fontSize: 50,
-                            )
-                          ),
-                          TextSpan(
-                            text: 'Po',
-                            style: TextStyle(
-                              color: HColors.third,
-                              fontFamily: 'Jersey',
-                              fontSize: 40,
-                            )
-                          ),
-                        ]
-                      )
-                    );
+                            TextSpan(
+                              text: value ? bet.oddsWin.toString() : bet.oddsLose.toString(),
+                              style: TextStyle(
+                                color: HColors.five,
+                                fontFamily: 'Jersey',
+                                fontSize: 50,
+                              )
+                            ),
+                            TextSpan(
+                              text: ' = ',
+                              style: TextStyle(
+                                color: HColors.third,
+                                fontFamily: 'Jersey',
+                                fontSize: 50,
+                              )
+                            ),
+                            TextSpan(
+                              text: add.text == "" ? "0" : formatSmartClean((value ? bet.oddsWin : bet.oddsLose) * double.parse(add.text)),
+                              style: TextStyle(
+                                color: HColors.prim,
+                                fontFamily: 'Jersey',
+                                fontSize: 50,
+                              )
+                            ),
+                            TextSpan(
+                              text: 'Po',
+                              style: TextStyle(
+                                color: HColors.third,
+                                fontFamily: 'Jersey',
+                                fontSize: 40,
+                              )
+                            ),
+                          ]
+                        )
+                      );
+                    });
                   })
               ],),
 
