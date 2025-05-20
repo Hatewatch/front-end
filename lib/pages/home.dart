@@ -8,6 +8,7 @@ import 'package:hate_watch/class/tutorial.dart';
 import 'package:hate_watch/class/user.dart';
 import 'package:hate_watch/popup/code_claim.dart';
 import 'package:hate_watch/popup/create_prop.dart';
+import 'package:hate_watch/popup/create_riot_account_link.dart';
 import 'package:hate_watch/popup/disconnect.dart';
 import 'package:hate_watch/popup/sign_in.dart';
 import 'package:hate_watch/utils/bet_card.dart';
@@ -182,6 +183,22 @@ class Home extends StatelessWidget {
                 );
               }
             ),
+
+            if (User.instance.role == "ADMIN")
+            SidebarXItem(
+              icon: Pixel.keyboard, label: 'Search',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => Dialog(
+                    backgroundColor: HColors.back,
+                    child: 
+                      CreateRiotAccountLink().bounceInUp(),
+                  ),
+                );
+              }
+            ),
+            
           ],
           footerBuilder: (context, extended) {
             return 

@@ -120,6 +120,14 @@ Map<String, String> fr = {
   'create_code_error' : "Une erreur s'est produite pendant la création d'un code",
   'create_code_already' : "T'as déjà créé un code comme ça chef",
 
+  // CREATE RIOT ACCOUNT LINK
+  'create_riot' : "Ajouter un riot account",
+  'create_riot_hint' : "Tu veux link un compte pour lancer automatiquement des paris ? C'est l'endroit parfait tkt",
+  'create_riot_field' : "Compte riot games",
+  'create_riot_not_valid' : "Il faut rajouter le # chef, réssaye",
+  'create_riot_success' : "Riot account créé avec succès",
+  'create_riot_error' : "Une erreur s'est produite pendant la création du riot account",
+
   'bet_betted_on' : 'a misé sur :',
 
 };
