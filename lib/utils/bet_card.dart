@@ -62,7 +62,6 @@ class BetCard extends StatelessWidget {
       fontSize = 15;
     }
     
-
     return  
       Container(
         decoration: BoxDecoration(
@@ -197,7 +196,7 @@ class BetCard extends StatelessWidget {
                         children: [
                           
                           Text(
-                            bet.result != "LOSE" ? formatSmartClean((bet.amount * bet.propOdds * getMulti(bet))) : formatSmartClean(-bet.amount),
+                            bet.result != "LOSE" ? formatSmartClean((bet.amount * (bet.betOdds != 0 ? bet.betOdds : bet.propOdds) * getMulti(bet))) : formatSmartClean(-bet.amount),
                             style: TextStyle(
                               color: HColors.prim,
                               fontSize: fontSize+25
@@ -257,9 +256,9 @@ class BetCard extends StatelessWidget {
                             ),
 
                             TextSpan(
-                              text: bet.propOdds.toString(),
+                              text: bet.betOdds != 0 ? bet.betOdds.toString() : bet.propOdds.toString(),
                               style: TextStyle(
-                                color: HColors.getColorFromX(bet.propOdds),
+                                color: HColors.getColorFromX(bet.betOdds != 0 ? bet.betOdds : bet.propOdds),
                                 fontFamily: 'Jersey',
                                 fontSize: fontSize+5
                               ),
@@ -317,6 +316,17 @@ class BetCard extends StatelessWidget {
                           minFontSize: 20, 
                           TextSpan(
                             children: [
+                              
+                              TextSpan(
+                                text: "${bet.betSide}  ",
+                                style: TextStyle(
+                                  color: HColors.four.withAlpha(150),
+                                  fontFamily: 'Jersey',
+                                  fontSize: fontSize+5,
+                                  height: 1.1,
+                                ),
+                              ),
+                              
                               TextSpan(
                                 text: bet.propPlayer,
                                 style: TextStyle(
@@ -336,6 +346,8 @@ class BetCard extends StatelessWidget {
                                   height: 1.1,
                                 ),
                               ),
+
+                              
                             ]
                           )
                         ),
@@ -348,6 +360,17 @@ class BetCard extends StatelessWidget {
                           minFontSize: 20, 
                           TextSpan(
                             children: [
+
+                              TextSpan(
+                                text: "${bet.betSide}  ",
+                                style: TextStyle(
+                                  color: HColors.four,
+                                  fontFamily: 'Jersey',
+                                  fontSize: fontSize+5,
+                                  height: 1.1,
+                                ),
+                              ),
+
                               TextSpan(
                                 text: bet.propPlayer,
                                 style: TextStyle(

@@ -10,6 +10,8 @@ class Bet {
     required this.amount,
     required this.propId,
     required this.betPlayer,
+    required this.betOdds,
+    required this.betSide,
   });
 
   factory Bet.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,8 @@ class Bet {
       amount : double.parse(json['bet_amount']),
       propId: json['prop_id'],
       betPlayer: json.containsKey('user_name') ? json['user_name'] : null,
+      betOdds: double.parse(json['bet_odd']),
+      betSide: json['bet_side'],
     );
   }
 
@@ -46,6 +50,8 @@ class Bet {
   String? state;
   double amount;
   String? betPlayer;
+  double betOdds;
+  String betSide;
 
   int propId;
   String propTitle;
