@@ -4,6 +4,7 @@ import 'package:alert_info/alert_info.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:hate_watch/api/api.dart';
 import 'package:hate_watch/class/prop.dart';
 import 'package:hate_watch/class/user.dart';
 import 'package:hate_watch/popup/make_bet.dart';
@@ -24,6 +25,7 @@ class PariCard extends StatelessWidget with ChangeNotifier {
   final ValueNotifier<bool> inWidget = ValueNotifier(false);
   final ValueNotifier<String> timerValue = ValueNotifier("00:00");
   bool firstFrame = true;
+  bool request = false;
 
   void onTap(BuildContext context) {
 
@@ -67,7 +69,7 @@ class PariCard extends StatelessWidget with ChangeNotifier {
     timerValue.value = formatDuration(elapsed);
     timerValue.notifyListeners();
 
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    Timer.periodic(Duration(seconds: 1), (timer) async {
       int now = DateTime.now().millisecondsSinceEpoch;
 
       int elapsedMillis = now - startEpochMillis;
@@ -76,6 +78,17 @@ class PariCard extends StatelessWidget with ChangeNotifier {
       // print(formatDuration(elapsed)); // e.g. 00:01, 00:02, etc.
       timerValue.value = formatDuration(elapsed);
       timerValue.notifyListeners();
+
+      if (int.parse(formatDuration(elapsed).split(":")[0]) >= 5 && prop.state == "OPEN" && request)
+      {
+        request = false;
+        await postCallApiBody('api/proposals/close', 
+          {
+            'proposalId' : prop.id,
+          }
+        );
+        request = true;
+      }
     });
   }
   
