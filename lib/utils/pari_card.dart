@@ -25,7 +25,7 @@ class PariCard extends StatelessWidget with ChangeNotifier {
   final ValueNotifier<bool> inWidget = ValueNotifier(false);
   final ValueNotifier<String> timerValue = ValueNotifier("00:00");
   bool firstFrame = true;
-  bool request = false;
+  bool request = true;
 
   void onTap(BuildContext context) {
 
@@ -79,15 +79,21 @@ class PariCard extends StatelessWidget with ChangeNotifier {
       timerValue.value = formatDuration(elapsed);
       timerValue.notifyListeners();
 
-      if (int.parse(formatDuration(elapsed).split(":")[0]) >= 5 && prop.state == "OPEN" && request)
+      if (int.parse(formatDuration(elapsed).split(":")[0]) >= 3 && prop.state == "OPEN" && request)
       {
         request = false;
-        await postCallApiBody('api/proposals/close', 
-          {
-            'proposalId' : prop.id,
-          }
-        );
-        request = true;
+        try {
+          await postCallApiBody('api/proposals/close', 
+            {
+              'proposalId' : prop.id,
+            }
+          );
+        // ignore: empty_catches
+        } catch (e) {
+          
+        }
+        
+        request = false;
       }
     });
   }

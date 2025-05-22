@@ -118,7 +118,7 @@ class User with ChangeNotifier {
     loadedBets = true;
     notify();
 
-    print(rep);
+    // print(rep);
     // print(bets);
   }
 
