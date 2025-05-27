@@ -1,5 +1,6 @@
 import 'package:alert_info/alert_info.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:hate_watch/class/app.dart';
@@ -310,6 +311,28 @@ class Home extends StatelessWidget {
                                     ),
                                   ),
                                 ],
+                              ),
+                            ),
+                          ],),
+
+                          if (value.icon != 0 && value.level != 0)
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            spacing: 10,
+                            children: [
+                            Text(
+                              "Level ${value.level}",
+                              style: TextStyle(
+                                fontSize: sizeTitle - 5
+                              ),
+                            ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(1000),
+                              child: 
+                              CachedNetworkImage(
+                                height: 60,
+                                width: 60,
+                                imageUrl: "https://ddragon.leagueoflegends.com/cdn/15.10.1/img/profileicon/${value.icon}.png"
                               ),
                             ),
                           ],),

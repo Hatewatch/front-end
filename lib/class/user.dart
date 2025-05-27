@@ -24,6 +24,8 @@ class User with ChangeNotifier {
   double? lastBetGainOrLoss;
   DateTime creation = DateTime.now();
   String role = "none";
+  int icon = 0;
+  int level = 0;
 
   DateTime? dateDaily;
 
@@ -75,6 +77,8 @@ class User with ChangeNotifier {
     totalWins = 0;
     lastBetGainOrLoss = null;
     timeNextDaily.value = [0,0];
+    icon = 0;
+    level = 0;
     dateDaily = null;
     betsUser.clear();
 
@@ -84,11 +88,11 @@ class User with ChangeNotifier {
   }
 
   Future getLeaderboard() async {
-    var rep = await getCallHw("api/users/leaderboard");
+    var rep = await getCallHw("api/user/leaderboard");
 
     leaderboard.clear();
 
-    // print(rep);
+    //  print(rep);
 
     if (rep is List) {
       for (int i = 0; i < rep.length; i++) {
@@ -101,7 +105,7 @@ class User with ChangeNotifier {
   }
 
   Future getAllProps() async {
-    var rep = await getCallHw("api/proposals/getAll");
+    var rep = await getCallHw("api/proposal/getAll");
 
     props.clear();
 
@@ -123,9 +127,9 @@ class User with ChangeNotifier {
   }
 
   Future getAllBetsWeb() async {
-    var rep = await getCallHw("api/bets/last");
+    var rep = await getCallHw("api/bet/last");
     
-    // print(rep);
+    //  print(rep);
 
     betsAllWeb.clear();
 
@@ -142,11 +146,11 @@ class User with ChangeNotifier {
   Future getBetsUser() async {
     if (token.isEmpty) return;
 
-    var rep = await getCallHw("api/users/getBets");
+    var rep = await getCallHw("api/user/getBets");
 
     betsUser.clear();
 
-    // print(rep);
+    //  print(rep);
 
     if (rep is List) {
       for (int i = 0; i < rep.length; i++) {
@@ -205,19 +209,21 @@ class User with ChangeNotifier {
   Future getInfosUser() async {
     if (token.isEmpty) return;
     
-    var rep = await getCallHw("api/users/profile");
+    var rep = await getCallHw("api/user/profile", testPrints: false);
 
-    // print(rep);
+    print('USER : $rep');
 
     if (rep is Map && rep.containsKey('username')) {
-      id = rep['id'];
+      id = 1;
       balance = double.parse(rep['balance']);
       pseudo = rep['username'];
       role = rep['role'];
       totalBets = rep['totalBets'];
-      totalWins = int.parse(rep['totalWins']);
-      creation = DateTime.parse(rep['creation']);
-      dateDaily = rep['daily_time'] == null ? DateTime.now().subtract(Duration(days: 2)) : DateTime.parse(rep['daily_time']);
+      totalWins = rep['totalWins'];
+      icon = rep['icon'] ?? 0;
+      level = rep['level'] ?? 0;
+      //creation = DateTime.parse(rep['creation']);
+      dateDaily = rep['daily'] == null ? DateTime.now().subtract(Duration(days: 2)) : DateTime.parse(rep['daily']);
       if (rep['lastBetGainOrLoss'] != 'No Bet') lastBetGainOrLoss = double.parse(rep['lastBetGainOrLoss']);
     }
 
@@ -229,7 +235,7 @@ class User with ChangeNotifier {
   }
 
   Future<dynamic> claimDaily() async {
-    var rep = await postCallApiBody("api/users/dailyReward", {});
+    var rep = await postCallApiBody("api/user/dailyReward", {});
 
     // print(rep);
 
@@ -242,7 +248,7 @@ class User with ChangeNotifier {
 
     if (dateDaily == null) return "";
 
-    DateTime dateDaily2 = dateDaily!.add(Duration(days: 1));
+    DateTime dateDaily2 = dateDaily!.add(Duration(days: 1, minutes: 1));
     DateTime now = DateTime.now();
 
     Duration diff = dateDaily2.difference(now);

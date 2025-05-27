@@ -58,12 +58,26 @@ class CreateRiotAccountLink extends StatelessWidget with ChangeNotifier {
         }
       );
 
-      // print(rep);
+      //print(rep);
 
       if (rep is Map && rep.containsKey("message")) {
         
         switch(rep["message"]) {
-          case 'Riot data created successfully':
+          case 'Thank you for linking your account':
+            AlertInfo.show(
+              // ignore: use_build_context_synchronously
+              context: context,
+              text: 'create_riot_success'.tr,
+              
+              typeInfo: TypeInfo.success,
+              position: MessagePosition.top,
+              action: null,
+            );
+            User.instance.getInfosUser();
+            // ignore: use_build_context_synchronously
+            Navigator.maybePop(context);
+            break;
+          case 'Account updated successfully':
             AlertInfo.show(
               // ignore: use_build_context_synchronously
               context: context,
