@@ -27,4 +27,36 @@ class HColors {
 
     return HColors.third; 
   }
+
+  static Color getColorFromWinrate(double value) {
+    if (value >= 60) return HColors.five;
+    if (value >= 55) return HColors.sec;
+    if (value >= 50) return HColors.prim;
+    if (value >= 40) return HColors.eleven;
+    if (value >= 30) return HColors.twelve;
+
+    return HColors.third; 
+  }
+
+  static Color getColorFromCs(double value) {
+    if (value >= 10) return HColors.five;
+    if (value >= 9) return HColors.eight;
+    if (value >= 8) return HColors.sec;
+    if (value >= 7) return HColors.prim;
+    if (value >= 6) return HColors.eleven;
+    if (value >= 5) return HColors.twelve;
+
+    return HColors.third; 
+  }
+
+  static Color getColorFromKda(double value) {
+    if (value >= 6) return HColors.five;
+    if (value >= 5) return HColors.eight;
+    if (value >= 4) return HColors.sec;
+    if (value >= 2) return HColors.prim;
+    if (value >= 1) return HColors.eleven;
+    if (value >= 0.5) return HColors.twelve;
+
+    return HColors.third; 
+  }
 }

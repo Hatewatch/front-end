@@ -3,6 +3,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hate_watch/class/app.dart';
 import 'package:hate_watch/class/bet.dart';
 import 'package:hate_watch/class/tutorial.dart';
@@ -16,6 +17,7 @@ import 'package:hate_watch/utils/bet_card.dart';
 import 'package:hate_watch/utils/buttons.dart';
 import 'package:hate_watch/utils/card.dart';
 import 'package:hate_watch/utils/double_helper.dart';
+import 'package:hate_watch/utils/game_card.dart';
 import 'package:hate_watch/utils/hcolors.dart';
 import 'package:hate_watch/utils/leaderboard_card.dart';
 import 'package:hate_watch/utils/localization.dart';
@@ -315,17 +317,79 @@ class Home extends StatelessWidget {
                             ),
                           ],),
 
-                          if (value.icon != 0 && value.level != 0)
+                          if (value.icon != 0 && value.level != 0 && value.isConnected())
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             spacing: 10,
                             children: [
-                            Text(
-                              "Level ${value.level}",
-                              style: TextStyle(
-                                fontSize: sizeTitle - 5
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                spacing: 10,
+                                children: [
+                                  Text(
+                                    value.nameLol,
+                                    style: 
+                                      TextStyle(
+                                        color: HColors.four,
+                                        fontSize: sizeTitle-10,
+                                      ),
+                                  ),
+                                  SvgPicture.asset(
+                                    "assets/ranks/${value.rank}.svg",
+                                    width: 20,
+                                    height: 20,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return SvgPicture.asset("assets/ranks/unranked.svg");
+                                    },
+                                  ),
+                                  Text(
+                                    value.div, 
+                                    style: 
+                                      TextStyle(
+                                        color: HColors.four,
+                                        fontSize: sizeTitle,
+                                      ),
+                                  ),
+                                  RichText(
+                                    textHeightBehavior: TextHeightBehavior(
+                                      applyHeightToFirstAscent: false,
+                                      applyHeightToLastDescent: false,
+                                    ),
+                                    text: TextSpan(
+                                      
+                                      children: [
+                                        TextSpan(
+                                          text: value.lp.toString(),
+                                          style: TextStyle(
+                                            fontFamily: 'Jersey',
+                                            color: HColors.sec,
+                                            fontSize: sizeTitle,
+                                            
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: " LP",
+                                          style: TextStyle(
+                                            fontFamily: 'Jersey',
+                                            fontSize: sizeTitle-20,
+                                            color: HColors.third
+                                          )
+                                        ),
+                                      ]
+                                    )
+                                  ),
+                              ],),
+                              Text(
+                                "Level ${value.level}",
+                                style: TextStyle(
+                                  fontSize: sizeTitle - 15
+                                ),
                               ),
-                            ),
+                            ]),
+                            
                             ClipRRect(
                               borderRadius: BorderRadius.circular(1000),
                               child: 
@@ -474,7 +538,7 @@ class Home extends StatelessWidget {
                               spacing: 10,
                               runSpacing: 10,
                               children: [
-                                if (value.props.isEmpty)
+                                if (value.games.isEmpty)
                                 PariCardNone(key: keyPari),
 
                                 if (!value.loadedBets)
@@ -486,12 +550,20 @@ class Home extends StatelessWidget {
                                   cardLoadingTheme: CardLoadingTheme(colorOne: HColors.back, colorTwo: HColors.up),
                                 ),
 
-                                ...List.generate(value.props.length, (i) {
+                                // ...List.generate(value.props.length, (i) {
+                                //   if (i == 0){
+                                //     return PariCard(key: keyPari, prop: value.props[i],).fadeIn();
+                                //   }
+
+                                //   return PariCard(prop: value.props[i],).fadeIn();
+                                // })
+                                
+                                ...List.generate(value.games.length, (i) {
                                   if (i == 0){
-                                    return PariCard(key: keyPari, prop: value.props[i],).fadeIn();
+                                    return GameCard(key: keyPari, game: value.games[i],).fadeIn();
                                   }
 
-                                  return PariCard(prop: value.props[i],).fadeIn();
+                                  return GameCard(game: value.games[i],).fadeIn();
                                 })
 
                                 // for (Bet bet in value.bets)

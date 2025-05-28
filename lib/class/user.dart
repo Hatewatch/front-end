@@ -6,6 +6,7 @@ import 'package:hate_watch/api/api.dart';
 import 'package:hate_watch/api/data.dart';
 import 'package:hate_watch/api/leaderboard.dart';
 import 'package:hate_watch/class/bet.dart';
+import 'package:hate_watch/class/game.dart';
 import 'package:hate_watch/class/prop.dart';
 import 'package:hate_watch/utils/localization.dart';
 
@@ -26,6 +27,11 @@ class User with ChangeNotifier {
   String role = "none";
   int icon = 0;
   int level = 0;
+  String rank = "";
+  String nameLol = "";
+  String div = '';
+  int lp = 0;
+
 
   DateTime? dateDaily;
 
@@ -36,6 +42,7 @@ class User with ChangeNotifier {
   List<Bet> betsUser = [];
   List<Bet> betsAllWeb = [];
   List<Leaderboard> leaderboard = [];
+  List<Game> games = [];
 
   Timer? timer;
   Timer? timerReloadAll;
@@ -49,6 +56,7 @@ class User with ChangeNotifier {
     getAllProps();
     getAllBetsWeb();
     getLeaderboard();
+    getGames();
     initUser();
 
     timer = Timer.periodic(
@@ -80,6 +88,10 @@ class User with ChangeNotifier {
     icon = 0;
     level = 0;
     dateDaily = null;
+    nameLol = '';
+    rank = '';
+    div = '';
+    lp = 0;
     betsUser.clear();
 
     setToken("");
@@ -168,6 +180,34 @@ class User with ChangeNotifier {
     // print(bets);
   }
 
+  Future getGames() async {
+    var rep = await getCallHw("api/game/ongoing");
+
+    games.clear();
+
+    // print(rep);
+
+    if (rep is List) {
+      for (var i in rep) {
+        games.add(
+          Game.fromJson(i)
+        );    
+      }
+    }
+
+    games = games.reversed.toList();
+    notify();
+
+  }
+
+  Future getInfoGame(int gameId) async {
+    var rep = await postCallApiBody("api/betoption/game/", {"gameId" : gameId});
+
+    return rep;
+  }
+
+
+
   Future setToken(String newToken) async { 
     token = newToken; 
     saveData('user', jsonEncode(token));
@@ -225,6 +265,10 @@ class User with ChangeNotifier {
       //creation = DateTime.parse(rep['creation']);
       dateDaily = rep['daily'] == null ? DateTime.now().subtract(Duration(days: 2)) : DateTime.parse(rep['daily']);
       if (rep['lastBetGainOrLoss'] != 'No Bet') lastBetGainOrLoss = double.parse(rep['lastBetGainOrLoss']);
+      rank = rep['elo'];
+      nameLol = rep['tag'];
+      lp = rep['lp'];
+      div = rep['div'];
     }
 
     getTimeBeforeNextDaily();
