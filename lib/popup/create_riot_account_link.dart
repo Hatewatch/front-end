@@ -147,6 +147,7 @@ class CreateRiotAccountLink extends StatelessWidget with ChangeNotifier {
                   hintText: 'Jon#EUW',
                   controller: nameCont,
                   focus: focusCode,
+                  maxLength: 35,
                   onSubmit: (value) {
                     onSubmit(context);
                   },
