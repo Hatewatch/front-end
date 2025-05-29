@@ -15,18 +15,22 @@ class Bet {
   });
 
   factory Bet.fromJson(Map<String, dynamic> json) {
+    // print(json);
     return Bet(
       id: json['bet_id'] != null ? json['bet_id'] as int : null,
-      propPlayer: json['prop_player'] as String,
-      propOdds: double.parse(json['prop_odds']),
-      propTitle: json['prop_title'] as String,
-      result: json['bet_result'] == null ? "" : json['bet_result'] as String,
+      propPlayer: json['players_in_game'] as String,
+      propOdds: double.parse(json['bet_odd']),
+      propTitle: json['bo_title'] as String,
+      result: "WIN",
+      //result: json['bet_result'] == null ? "" : json['bet_result'] as String,
       state: json.containsKey('bet_state') ? json['bet_state'] as String : null,
       amount : double.parse(json['bet_amount']),
-      propId: json['prop_id'],
-      betPlayer: json.containsKey('user_name') ? json['user_name'] : null,
-      betOdds: double.parse(json['bet_odd']),
-      betSide: json['bet_side'],
+      //propId: json['prop_id'],
+      propId: 0,
+      betPlayer: json.containsKey('bettor_name') ? json['bettor_name'] : null,
+      //betOdds: double.parse(json['bet_odd']),
+      betOdds: 0.0,
+      betSide: json['bet_side'] == 1 ? "WIN" : "LOSE",
     );
   }
 

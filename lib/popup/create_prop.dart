@@ -76,7 +76,7 @@ class CreateProp extends StatelessWidget with ChangeNotifier {
       }
     }
 
-    User.instance.getAllProps();
+    User.instance.getGames();
     Navigator.maybePop(context);
   }
 

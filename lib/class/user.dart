@@ -53,7 +53,7 @@ class User with ChangeNotifier {
     notif.value = User.instance;
     notif.notifyListeners();
     
-    getAllProps();
+    //getAllProps();
     getAllBetsWeb();
     getLeaderboard();
     getGames();
@@ -162,7 +162,7 @@ class User with ChangeNotifier {
 
     betsUser.clear();
 
-    //  print(rep);
+    print(rep);
 
     if (rep is List) {
       for (int i = 0; i < rep.length; i++) {
@@ -185,6 +185,7 @@ class User with ChangeNotifier {
 
     games.clear();
 
+    loadedBets = true;
     // print(rep);
 
     if (rep is List) {
@@ -243,7 +244,7 @@ class User with ChangeNotifier {
     await getBetsUser();
     await getLeaderboard();
     await getAllBetsWeb();
-    await getAllProps();
+    await getGames();
   }
 
   Future getInfosUser() async {
@@ -251,7 +252,7 @@ class User with ChangeNotifier {
     
     var rep = await getCallHw("api/user/profile", testPrints: false);
 
-    print('USER : $rep');
+    //print('USER : $rep');
 
     if (rep is Map && rep.containsKey('username')) {
       id = 1;

@@ -518,7 +518,7 @@ class Home extends StatelessWidget {
                                 HTitle(start: '${'all_bets'.tr.split(" ")[0]} ', end: 'all_bets'.tr.split(" ")[1]),
                                 IconButton(
                                   onPressed: () async {
-                                    await value.getAllProps();
+                                    await value.getGames();
                                     AlertInfo.show(
                                       // ignore: use_build_context_synchronously
                                       context: context,

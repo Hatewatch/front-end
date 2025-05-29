@@ -58,7 +58,7 @@ class EditProp extends StatelessWidget with ChangeNotifier {
       }
     }
     
-    User.instance.getAllProps();
+    User.instance.getGames();
     User.instance.getBetsUser();
     Navigator.maybePop(context);
   }
@@ -102,7 +102,7 @@ class EditProp extends StatelessWidget with ChangeNotifier {
 
     // print(rep);
     User.instance.getInfosUser();
-    User.instance.getAllProps();
+    User.instance.getGames();
     User.instance.getBetsUser();
     Navigator.maybePop(context);
   }
@@ -145,7 +145,7 @@ class EditProp extends StatelessWidget with ChangeNotifier {
 
     print(rep);
     User.instance.getInfosUser();
-    User.instance.getAllProps();
+    User.instance.getGames();
     User.instance.getBetsUser();
     Navigator.maybePop(context);
   }
