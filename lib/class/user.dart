@@ -139,9 +139,9 @@ class User with ChangeNotifier {
   }
 
   Future getAllBetsWeb() async {
-    var rep = await getCallHw("api/bet/last");
+    var rep = await getCallHw("api/user/last3bets");
     
-    //  print(rep);
+    // print(rep);
 
     betsAllWeb.clear();
 
@@ -158,11 +158,11 @@ class User with ChangeNotifier {
   Future getBetsUser() async {
     if (token.isEmpty) return;
 
-    var rep = await getCallHw("api/user/getBets");
+    var rep = await getCallHw("api/bet/getBets", testPrints: false);
 
     betsUser.clear();
 
-    print(rep);
+    // print(rep);
 
     if (rep is List) {
       for (int i = 0; i < rep.length; i++) {
@@ -252,7 +252,7 @@ class User with ChangeNotifier {
     
     var rep = await getCallHw("api/user/profile", testPrints: false);
 
-    //print('USER : $rep');
+    // print('USER : $rep');
 
     if (rep is Map && rep.containsKey('username')) {
       id = 1;
@@ -266,10 +266,10 @@ class User with ChangeNotifier {
       //creation = DateTime.parse(rep['creation']);
       dateDaily = rep['daily'] == null ? DateTime.now().subtract(Duration(days: 2)) : DateTime.parse(rep['daily']);
       if (rep['lastBetGainOrLoss'] != 'No Bet') lastBetGainOrLoss = double.parse(rep['lastBetGainOrLoss']);
-      rank = rep['elo'];
-      nameLol = rep['tag'];
-      lp = rep['lp'];
-      div = rep['div'];
+      rank = rep['elo'] ?? 0;
+      nameLol = rep['tag'] ?? rep['tag'];
+      lp = rep['lp'] ?? rep['lp'];
+      div = rep['div'] ?? rep['div'];
     }
 
     getTimeBeforeNextDaily();

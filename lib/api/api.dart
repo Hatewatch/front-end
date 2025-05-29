@@ -51,7 +51,7 @@ Future<dynamic> getCallApi(String phpPage, String action, List<String> listArgs,
       return responseBody;
     }
   } else {
-    if (testPrints) print("END GET CALL API Error : ${response.reasonPhrase}");
+    if (testPrints) print("END GET CALL API Error : ${response.reasonPhrase} : ${response.statusCode}");
     return null;
   }
 }

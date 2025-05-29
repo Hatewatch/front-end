@@ -10,6 +10,7 @@ import 'package:hate_watch/class/user.dart';
 import 'package:hate_watch/popup/make_bet_game.dart';
 import 'package:hate_watch/popup/prop_edit.dart';
 import 'package:hate_watch/popup/sign_in.dart';
+import 'package:hate_watch/utils/animations.dart';
 import 'package:hate_watch/utils/hcolors.dart';
 import 'package:hate_watch/utils/hradius.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -30,9 +31,9 @@ class GameCard extends StatelessWidget with ChangeNotifier {
   void onTap(BuildContext context) async {
 
     var rep;
-    if (game.state == "OPEN") rep = await User.instance.getInfoGame(game.id);
+    if (game.state == "ONGOING") rep = await User.instance.getInfoGame(game.id);
 
-    game.state == "OPEN" ?
+    game.state == "ONGOING" ?
     showDialog(
       context: context,
       builder: (context) => Dialog(
@@ -82,22 +83,7 @@ class GameCard extends StatelessWidget with ChangeNotifier {
       timerValue.value = formatDuration(elapsed);
       timerValue.notifyListeners();
 
-      if (int.parse(formatDuration(elapsed).split(":")[0]) >= 3 && game.state == "OPEN" && request)
-      {
-        request = false;
-        try {
-          await postCallApiBody('api/proposals/close', 
-            {
-              'proposalId' : game.id,
-            }
-          );
-        // ignore: empty_catches
-        } catch (e) {
-          
-        }
-        
-        request = false;
-      }
+      
     });
   }
 
@@ -261,7 +247,7 @@ class GameCard extends StatelessWidget with ChangeNotifier {
                                         decoration: BoxDecoration(
                                           borderRadius: HBorder.borderRadius,
                                           border: Border.all(
-                                            color: HColors.seven,
+                                            color: HColors.five,
                                             width: 2,
                                           ),
                                         ),
@@ -270,12 +256,13 @@ class GameCard extends StatelessWidget with ChangeNotifier {
                                           spacing: 5,
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            Icon(
-                                              Pixel.hourglass,
-                                              color: HColors.seven,
-                                            ),
+                                            LittleAnimCircle(foregroundColor: Colors.redAccent, backgroundColor: HColors.six, size: 15,),
+                                            // Icon(
+                                            //   Pixel.hourglass,
+                                            //   color: HColors.seven,
+                                            // ),
                                             Text(
-                                              'onGoing'.tr,
+                                              'live'.tr,
                                               style: TextStyle(
                                                 fontSize: sizeText-13
                                               ),

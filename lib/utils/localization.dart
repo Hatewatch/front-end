@@ -73,6 +73,7 @@ Map<String, String> fr = {
   'make_bet_success' : "Ta mise sur le pari a été éxécuté !",
   'make_bet_closed' : "Ce pari est fermé (malheureusement)",
   'make_bet_not_enough' : "T'as pas assez de po chef (essaye pas de douiller le système)",
+  'make_bet_not_open_option' : "Alors alors, c'est fermé chef cette option",
 
   'done_bets' : "Paris faits",
 
@@ -129,6 +130,9 @@ Map<String, String> fr = {
   'create_riot_error' : "Une erreur s'est produite pendant la création du riot account",
 
   'bet_betted_on' : 'a misé sur :',
+
+  'live' : 'Live',
+  
 
 };
 

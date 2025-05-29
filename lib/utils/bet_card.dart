@@ -20,8 +20,10 @@ class BetCard extends StatelessWidget {
         return HColors.seven;
       case 'ONGOING':
         return HColors.seven;
-      case 'FINISHED':
-        return bet.result == "WIN" ? HColors.sec : HColors.five;
+      case 'WON':
+        return HColors.sec;
+      case 'LOST':
+        return HColors.five;
       default:
         return HColors.third;
     }
@@ -36,8 +38,10 @@ class BetCard extends StatelessWidget {
         return 'ongoing'.tr;
       case 'ONGOING':
         return 'ongoing'.tr;
-      case 'FINISHED':
-        return bet.result == "WIN" ? 'win_bet'.tr : 'lose_bet'.tr;
+      case 'WON':
+        return 'win_bet'.tr;
+      case 'LOST':
+        return 'lose_bet'.tr;
       default:
         return 'placed_bet'.tr;
     }
@@ -45,8 +49,10 @@ class BetCard extends StatelessWidget {
 
   int getMulti(Bet bet) {
     switch(bet.state) {
-      case 'FINISHED':
-        return bet.result == "WIN" ? 1 : -1;
+      case 'WON':
+        return 1;
+      case 'LOST':
+        return -1;
     }
 
     return 1;

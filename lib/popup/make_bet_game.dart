@@ -41,6 +41,18 @@ class MakeBetGame extends StatelessWidget with ChangeNotifier {
   Future onSubmit(BuildContext context) async {
     //print("Submit");
 
+    if (dataOptions[selected.value]['state'] == "CLOSED") {
+      AlertInfo.show(
+        // ignore: use_build_context_synchronously
+        context: context,
+        text: "L'option que t'as sélectionné est close (bouffon)",
+        typeInfo: TypeInfo.error,
+        position: MessagePosition.top,
+        action: null,
+      );
+      return;
+    }
+
     if (User.instance.balance < double.parse(add.text)) {
       AlertInfo.show(
         // ignore: use_build_context_synchronously
@@ -80,6 +92,21 @@ class MakeBetGame extends StatelessWidget with ChangeNotifier {
       User.instance.getAllInfosUser();
     }
 
+    if (rep is Map && rep.containsKey('message')) {
+      switch(rep['message']) {
+        case 'Betting option is not open for betting':
+          AlertInfo.show(
+            // ignore: use_build_context_synchronously
+            context: context,
+            text: 'make_bet_not_open_option'.tr,
+            typeInfo: TypeInfo.error,
+            position: MessagePosition.top,
+            action: null,
+          );
+          return;
+      }
+    }
+
     if (rep is Map && rep.containsKey('error')){
       AlertInfo.show(
         // ignore: use_build_context_synchronously
@@ -100,9 +127,44 @@ class MakeBetGame extends StatelessWidget with ChangeNotifier {
     valid.notifyListeners();
   }
 
+  String formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$minutes:$seconds";
+  }
+
+  void init() async {
+    int now = DateTime.now().millisecondsSinceEpoch;
+
+    int elapsedMillis = now - game.start;
+    Duration elapsed = Duration(milliseconds: elapsedMillis);
+
+    if (int.parse(formatDuration(elapsed).split(":")[0]) >= 3 && dataOptions[0]["bo_state"] == "OPEN")
+    {
+      try {
+        var rep = await postCallApiBody('api/betoption/close', 
+          {
+            'betOptionId' : dataOptions[0]['bo_id'],
+          }
+        );
+        print(rep);
+      // ignore: empty_catches
+      } catch (e) {
+        
+      }
+      
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
+
+    if (firstFrame) {
+      init();
+      firstFrame = false;
+    }
 
     return SizedBox(
       width: MediaQuery.sizeOf(context).width * 0.7,
@@ -134,6 +196,16 @@ class MakeBetGame extends StatelessWidget with ChangeNotifier {
                       for (int i = 0; i < dataOptions.length; i++)
                       GestureDetector(
                         onTap: () {
+                          if (dataOptions[i]['bo_state'] == 'CLOSED') {
+                            AlertInfo.show(
+                              context: context,
+                              text: "Cette option est closed !",
+                              typeInfo: TypeInfo.error,
+                              position: MessagePosition.top,
+                              action: null,
+                            );
+                            return;
+                          }
                           // print('hello');
                           selected.value = i;
                           selected.notifyListeners();
@@ -146,7 +218,7 @@ class MakeBetGame extends StatelessWidget with ChangeNotifier {
                             ClipRRect(
                               borderRadius: HBorder.borderRadius,
                               child: ColoredBox(
-                                color: i == value ? HColors.prim : HColors.third,
+                                color: i == value ? dataOptions[i]['bo_state'] == 'CLOSED' ? HColors.seven : HColors.prim : HColors.third,
                                 child: SizedBox(width: 10, height: 30,)
                                 ),
                             ),
@@ -158,7 +230,7 @@ class MakeBetGame extends StatelessWidget with ChangeNotifier {
                                   text: "${game.users.first.name} ",
                                    style: TextStyle(
                                     fontFamily: 'Jersey',
-                                    color: HColors.prim,
+                                    color: dataOptions[i]['bo_state'] == 'CLOSED' ? HColors.seven : HColors.prim,
                                     fontSize: 30
                                   )
                                 ),
@@ -166,7 +238,7 @@ class MakeBetGame extends StatelessWidget with ChangeNotifier {
                                   text: dataOptions[i]['bo_title'],
                                   style: TextStyle(
                                     fontFamily: 'Jersey',
-                                    color: HColors.four,
+                                    color: dataOptions[i]['bo_state'] == 'CLOSED' ? HColors.third : HColors.four,
                                     fontSize: 30
                                   )
                                 ),
@@ -382,14 +454,14 @@ class MakeBetGame extends StatelessWidget with ChangeNotifier {
                                 fontSize: 50,
                               )
                             ),
-                            // TextSpan(
-                            //   text: add.text == "" ? "0" : formatSmartClean((value ? bet.oddsWin : bet.oddsLose) * double.parse(add.text)),
-                            //   style: TextStyle(
-                            //     color: HColors.prim,
-                            //     fontFamily: 'Jersey',
-                            //     fontSize: 50,
-                            //   )
-                            // ),
+                            TextSpan(
+                              text: add.text == "" ? "0" : formatSmartClean((value ? dataOptions[selected.value]['odd_win'] : dataOptions[selected.value]['odd_lose']) * double.parse(add.text)),
+                              style: TextStyle(
+                                color: HColors.prim,
+                                fontFamily: 'Jersey',
+                                fontSize: 50,
+                              )
+                            ),
                             TextSpan(
                               text: 'Po',
                               style: TextStyle(
