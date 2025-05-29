@@ -267,9 +267,9 @@ class User with ChangeNotifier {
       dateDaily = rep['daily'] == null ? DateTime.now().subtract(Duration(days: 2)) : DateTime.parse(rep['daily']);
       if (rep['lastBetGainOrLoss'] != 'No Bet') lastBetGainOrLoss = double.parse(rep['lastBetGainOrLoss']);
       rank = rep['elo'] ?? 0;
-      nameLol = rep['tag'] ?? rep['tag'];
-      lp = rep['lp'] ?? rep['lp'];
-      div = rep['div'] ?? rep['div'];
+      nameLol = rep['tag'] ?? "";
+      lp = rep['lp'] ?? 0;
+      div = rep['div'] ?? "";
     }
 
     getTimeBeforeNextDaily();
