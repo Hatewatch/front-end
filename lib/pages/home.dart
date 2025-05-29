@@ -338,7 +338,7 @@ class Home extends StatelessWidget {
                                       ),
                                   ),
                                   SvgPicture.asset(
-                                    "assets/ranks/${value.rank}.svg",
+                                    "assets/ranks/${value.rank.toLowerCase()}.svg",
                                     width: 20,
                                     height: 20,
                                     errorBuilder: (context, error, stackTrace) {

@@ -307,7 +307,7 @@ class GameCard extends StatelessWidget with ChangeNotifier {
                                     ),
                                     //Expanded(child: SizedBox()),
                                     SvgPicture.asset(
-                                      "assets/ranks/${game.users.first.elo}.svg",
+                                      "assets/ranks/${game.users.first.elo.toLowerCase()}.svg",
                                       width: 20,
                                       height: 20,
                                       errorBuilder: (context, error, stackTrace) {
