@@ -346,6 +346,7 @@ class Home extends StatelessWidget {
                                       return SvgPicture.asset("assets/ranks/unranked.svg");
                                     },
                                   ),
+                                  if (value.div != '')
                                   Text(
                                     value.div, 
                                     style: 
@@ -354,6 +355,7 @@ class Home extends StatelessWidget {
                                         fontSize: sizeTitle,
                                       ),
                                   ),
+                                  if (value.div != '')
                                   RichText(
                                     textHeightBehavior: TextHeightBehavior(
                                       applyHeightToFirstAscent: false,
