@@ -266,7 +266,7 @@ class User with ChangeNotifier {
       //creation = DateTime.parse(rep['creation']);
       dateDaily = rep['daily'] == null ? DateTime.now().subtract(Duration(days: 2)) : DateTime.parse(rep['daily']);
       if (rep['lastBetGainOrLoss'] != 'No Bet') lastBetGainOrLoss = double.parse(rep['lastBetGainOrLoss']);
-      rank = rep['elo'] ?? 0;
+      rank = rep['elo'] ?? "";
       nameLol = rep['tag'] ?? "";
       lp = rep['lp'] ?? 0;
       div = rep['div'] ?? "";
