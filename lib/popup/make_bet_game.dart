@@ -186,7 +186,7 @@ class MakeBetGame extends StatelessWidget with ChangeNotifier {
               ),
 
               ValueListenableBuilder(valueListenable: selected, builder: (context, value, child) {
-                print(dataOptions);
+                //print(dataOptions);
                 return CustomPopup(
                   backgroundColor: HColors.up,
                   arrowColor: HColors.up,
@@ -369,28 +369,51 @@ class MakeBetGame extends StatelessWidget with ChangeNotifier {
                       ),
                     ],
                   ), 
-                  child: 
-                    ClipRRect(
+                  child:
+                  Container(
+                    decoration: BoxDecoration(
+                      color: HColors.up,
                       borderRadius: HBorder.borderRadius,
-                      child: 
-                      ColoredBox(
-                        color: HColors.up,
-                        child: 
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 15, 
-                              vertical: 5
-                            ),
-                            child: 
-                              Text(
-                                dataOptions[value]['bo_title'],
-                                style: TextStyle(
-                                  fontSize: 30
-                                ),
-                              ),
-                          )
+                      border: Border.all(
+                        width: 3,
+                        color: dataOptions[selected.value]['bo_state'] == 'CLOSED' ? HColors.seven : HColors.sec
                       )
-                    )
+                    ),
+                    child:  
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 15, 
+                        vertical: 5
+                      ),
+                      child:
+                        RichText(text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: game.users.first.name,
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontFamily: 'Jersey',
+                                color: dataOptions[selected.value]['bo_state'] == 'CLOSED' ? HColors.seven : HColors.sec
+                              )
+                            ),
+                            TextSpan(
+                              text: " ${dataOptions[value]['bo_title']}",
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontFamily: 'Jersey',
+                                color: dataOptions[selected.value]['bo_state'] == 'CLOSED' ? HColors.third : HColors.four
+                              )
+                            ),
+                          ]
+                        )) 
+                        // Text(
+                        //   "${game.users.first.name} ${dataOptions[value]['bo_title']}",
+                        //   style: TextStyle(
+                        //     fontSize: 30
+                        //   ),
+                        // ),
+                    ),
+                  )
                 );
                 // return GestureDetector(
                 //   child: SizedBox(

@@ -47,7 +47,7 @@ class SignUp extends StatelessWidget with ChangeNotifier {
         }
       );
 
-      print(rep);
+      // print(rep);
 
       if (rep is Map && rep.containsKey("token")) {
         

@@ -15,6 +15,7 @@ import 'package:hate_watch/utils/hcolors.dart';
 import 'package:hate_watch/utils/hradius.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hate_watch/utils/localization.dart';
+import 'package:hate_watch/utils/roman.dart';
 import 'package:pixelarticons/pixel.dart';
 
 // ignore: must_be_immutable
@@ -58,7 +59,7 @@ class GameCard extends StatelessWidget with ChangeNotifier {
   Color getColorForStatus(Game game) {
     switch(game.state) {
       case 'ONGOING':
-        return HColors.seven;
+        return HColors.prim;
       default:
         return HColors.third;
     }
@@ -306,7 +307,7 @@ class GameCard extends StatelessWidget with ChangeNotifier {
                                       style: textInfoStyle,
                                     ),
                                     Text(
-                                      game.users.first.div.length.toString(),
+                                      romanToInt(game.users.first.div).toString(),
                                       style: textInfoStyle,
                                     ),
                                     SizedBox(),
