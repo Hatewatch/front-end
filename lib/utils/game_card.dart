@@ -30,9 +30,9 @@ class GameCard extends StatelessWidget with ChangeNotifier {
   void onTap(BuildContext context) async {
 
     var rep;
-    if (game.state != "OPEN") rep = await User.instance.getInfoGame(game.id);
+    if (game.state == "OPEN") rep = await User.instance.getInfoGame(game.id);
 
-    game.state != "OPEN" ?
+    game.state == "OPEN" ?
     showDialog(
       context: context,
       builder: (context) => Dialog(
