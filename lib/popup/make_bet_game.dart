@@ -140,7 +140,7 @@ class MakeBetGame extends StatelessWidget with ChangeNotifier {
     int elapsedMillis = now - game.start;
     Duration elapsed = Duration(milliseconds: elapsedMillis);
 
-    if (int.parse(formatDuration(elapsed).split(":")[0]) >= 3 && dataOptions[0]["bo_state"] == "OPEN")
+    if (int.parse(formatDuration(elapsed).split(":")[0]) >= 4 && dataOptions[0]["bo_state"] == "OPEN")
     {
       try {
         var rep = await postCallApiBody('api/betoption/close', 
