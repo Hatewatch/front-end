@@ -229,7 +229,7 @@ class BetCard extends StatelessWidget {
 
                       SizedBox(height: 2,),
 
-                      if (bet.result != "LOSE")
+                      if (bet.state != "LOST")
                       RichText(
                       text: 
                         TextSpan(
