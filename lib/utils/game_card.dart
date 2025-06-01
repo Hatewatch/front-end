@@ -17,6 +17,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hate_watch/utils/localization.dart';
 import 'package:hate_watch/utils/roman.dart';
 import 'package:pixelarticons/pixel.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // ignore: must_be_immutable
 class GameCard extends StatelessWidget with ChangeNotifier {
@@ -141,8 +142,6 @@ class GameCard extends StatelessWidget with ChangeNotifier {
     double sizeText = 35;
     bool resized = false;
 
-    // print(game.users[0].champ);
-
     if (MediaQuery.sizeOf(context).width < 600) {
       sizeText = 30;
       resized = true;
@@ -175,8 +174,6 @@ class GameCard extends StatelessWidget with ChangeNotifier {
       ValueListenableBuilder(valueListenable: inWidget, builder: (context, value, child) {
       
         return GestureDetector(
-          
-          // TODO : HOVER POINTER
           onTap: () {
             onTap(context);
           }, 
@@ -221,13 +218,24 @@ class GameCard extends StatelessWidget with ChangeNotifier {
                                           return SizedBox();
                                         },
                                       ),
-                                      Text(
-                                        user.nameLol,
-                                        style: TextStyle(
-                                          fontSize: sizeText/2,
-                                          color: HColors.third
-                                        ),
-                                        ),
+                                      MouseRegion(
+                                        cursor: SystemMouseCursors.click,
+                                        child: 
+                                          GestureDetector(
+                                            onTap: () {
+                                              var uri = Uri.parse('https://op.gg/da/lol/summoners/euw/${user.nameLol.split("#")[0]}-${user.nameLol.split("#")[1]}');
+                                              launchUrl(uri);
+                                            },
+                                            child: 
+                                              Text(
+                                                user.nameLol,
+                                                style: TextStyle(
+                                                  fontSize: sizeText/2,
+                                                  color: HColors.third
+                                                ),
+                                              ),
+                                          )
+                                      )
                                     ],)
                                   ],),
 

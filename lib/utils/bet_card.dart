@@ -202,7 +202,7 @@ class BetCard extends StatelessWidget {
                         children: [
                           
                           Text(
-                            bet.result != "LOSE" ? formatSmartClean((bet.amount * (bet.betOdds != 0 ? bet.betOdds : bet.propOdds) * getMulti(bet))) : formatSmartClean(-bet.amount),
+                            bet.state != "LOST" ? formatSmartClean((bet.amount * (bet.betOdds != 0 ? bet.betOdds : bet.propOdds) * getMulti(bet))) : formatSmartClean(-bet.amount),
                             style: TextStyle(
                               color: HColors.prim,
                               fontSize: fontSize+25
