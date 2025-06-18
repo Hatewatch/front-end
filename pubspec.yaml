@@ -68,6 +68,8 @@ flutter:
     - "assets/ranks/master.svg"
     - "assets/ranks/grandmaster.svg"
     - "assets/ranks/challenger.svg"
+    - "assets/dpm.png"
+    - "assets/opgg.jpeg"
 
   fonts:
     - family : Jersey

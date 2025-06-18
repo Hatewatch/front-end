@@ -196,6 +196,12 @@ class User with ChangeNotifier {
       }
     }
 
+    // games.add(
+    //   Game(id: 0, state: "ONGOING", start: 0, result: 0, users: [
+    //     UserGame(name: "Cookie", team: 0, champ: "Yorick", nameLol: "CookiezIkse#EUW", iconLol: 100, winrate: 50, level: 142, kda: 5.2, csm: 8, elo: "IRON", div: div, lp: lp)
+    //   ])
+    // );
+
     games = games.reversed.toList();
     notify();
 

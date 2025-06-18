@@ -3,6 +3,7 @@ import 'package:alert_info/alert_info.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_popup/flutter_popup.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hate_watch/api/api.dart';
 import 'package:hate_watch/class/game.dart';
@@ -218,23 +219,61 @@ class GameCard extends StatelessWidget with ChangeNotifier {
                                           return SizedBox();
                                         },
                                       ),
-                                      MouseRegion(
-                                        cursor: SystemMouseCursors.click,
-                                        child: 
-                                          GestureDetector(
-                                            onTap: () {
-                                              var uri = Uri.parse('https://op.gg/da/lol/summoners/euw/${user.nameLol.split("#")[0]}-${user.nameLol.split("#")[1]}');
-                                              launchUrl(uri);
-                                            },
+                                      
+                                      CustomPopup(
+                                        backgroundColor: HColors.up,
+                                        arrowColor: HColors.up,
+                                        content: 
+                                          Padding(
+                                            padding: EdgeInsets.all(10),
                                             child: 
-                                              Text(
-                                                user.nameLol,
-                                                style: TextStyle(
-                                                  fontSize: sizeText/2,
-                                                  color: HColors.third
-                                                ),
-                                              ),
-                                          )
+                                              Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                spacing: 20,
+                                                children: 
+                                                [
+                                                  MouseRegion(
+                                                    cursor: SystemMouseCursors.click,
+                                                    child:
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          var uri = Uri.parse("https://dpm.lol/${user.nameLol.split("#")[0]}-${user.nameLol.split("#")[1]}");
+                                                          launchUrl(uri);
+                                                        },
+                                                        child: 
+                                                        Image.asset(
+                                                          "assets/dpm.png",
+                                                          height: 40,
+                                                          width: 40,
+                                                          ),
+                                                      ),
+                                                  ),
+                                                  MouseRegion(
+                                                    cursor: SystemMouseCursors.click,
+                                                    child:
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          var uri = Uri.parse('https://op.gg/da/lol/summoners/euw/${user.nameLol.split("#")[0]}-${user.nameLol.split("#")[1]}');
+                                                          launchUrl(uri);
+                                                        },
+                                                        child: 
+                                                        Image.asset(
+                                                          "assets/opgg.jpeg",
+                                                          height: 40,
+                                                          width: 40,
+                                                          ),
+                                                      )
+                                                  )
+                                                ],
+                                              ), 
+                                          ),
+                                        child: Text(
+                                          user.nameLol,
+                                          style: TextStyle(
+                                            fontSize: sizeText/2,
+                                            color: HColors.third
+                                          ),
+                                        ),
                                       )
                                     ],)
                                   ],),
